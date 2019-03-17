@@ -113,5 +113,11 @@
     <Folder Include="Startup\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Warehouse.Model\Warehouse.Model.csproj">
+      <Project>{323a73ce-9dc5-47b2-9e19-ba45d191da29}</Project>
+      <Name>Warehouse.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

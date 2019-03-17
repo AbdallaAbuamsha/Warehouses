@@ -16,8 +16,10 @@ namespace Warehouses.UI
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            //MainWindow mainWindow = new MainWindow();
+            //mainWindow.Show();
+            LoginWindow login = new LoginWindow();
+            login.Show();
         }
     }
 }

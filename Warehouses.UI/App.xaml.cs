@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Warehouses.UI.Views;
 
 namespace Warehouses.UI
 {
@@ -13,5 +14,9 @@ namespace Warehouses.UI
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+        }
     }
 }

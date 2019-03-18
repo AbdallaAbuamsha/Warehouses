@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Warehouses.UI.ViewModels.Popups
+namespace Warehouses.UI.Views.Popups
 {
     /// <summary>
     /// Interaction logic for AddOrganization.xaml

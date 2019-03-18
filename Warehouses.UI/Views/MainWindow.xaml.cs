@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Warehouses.UI.ViewModels;
 
 namespace Warehouses.UI.Views
 {
@@ -19,9 +20,20 @@ namespace Warehouses.UI.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private MainWindowViewModel _mainWindowViewModel;
+        public MainWindow(MainWindowViewModel mainWindowViewModel)
         {
+            _mainWindowViewModel = mainWindowViewModel;
+            this.DataContext = mainWindowViewModel;
+
             InitializeComponent();
+
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

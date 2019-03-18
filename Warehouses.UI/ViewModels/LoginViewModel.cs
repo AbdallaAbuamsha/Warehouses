@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Input;
 using Prism.Commands;
 using Warehouses.UI.Views;
+using Warehouses.UI.Startup;
+using Autofac;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -23,8 +25,9 @@ namespace Warehouses.UI.ViewModels
 
         private void OnLoginExecute()
         {
-            MessageBox.Show(Username + " " + Password + " " + RememberMe.ToString());
-            MainWindow mainWindow = new MainWindow();
+            var bootstrapper = new Bootstrapper();
+            var container = bootstrapper.Bootstrap();
+            MainWindow mainWindow = container.Resolve<MainWindow>();
             mainWindow.Show();
         }
 

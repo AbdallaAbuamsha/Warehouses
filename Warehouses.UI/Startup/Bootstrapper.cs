@@ -14,6 +14,11 @@ namespace Warehouses.UI.Startup
         public IContainer Bootstrap()
         {
             var builder = new ContainerBuilder();
+
+            builder.RegisterType<MainWindow>().AsSelf();
+            builder.RegisterType<MainWindowViewModel>().AsSelf();
+            builder.RegisterType<MainMenuViewModel>().As<IMainMenuViewModel>();
+
             builder.RegisterType<LoginWindow>().AsSelf();
             builder.RegisterType<LoginViewModel>().AsSelf();
 

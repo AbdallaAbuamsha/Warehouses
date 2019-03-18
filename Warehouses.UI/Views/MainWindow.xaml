@@ -13,81 +13,14 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        xmlns:ff="clr-namespace:Warehouses.UI.MyControls"
+        xmlns:views="clr-namespace:Warehouses.UI.Views.UserControls"
         Title="LoginWindow" Height="642.722" Width="1092.89" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Menu IsMainMenu="True">
-            <!-- New -->
-            <MenuItem Header="_New">
-                <!-- Input Receipt -->
-                <MenuItem Header="Input Receipt" InputGestureText="Ctrl+I">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="Inboxes" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <!-- Output Receipt -->
-                <MenuItem Header="Output Receipt" InputGestureText="Ctrl+O">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="Receipt" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <!-- Transaction Receipt -->
-                <MenuItem Header="Transaction Receipt" InputGestureText="Ctrl+T">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="ExitToApp" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <Separator />
-                <!-- Organization -->
-                <MenuItem Header="Organization" InputGestureText="Ctrl+G">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="Globe" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <!-- Warehouse -->
-                <MenuItem Header="Warehouse" InputGestureText="Ctrl+W">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="House" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <!-- Branches -->
-                <MenuItem Header="Branches" InputGestureText="Ctrl+B">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="SourceBranch" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-            
-            <!-- Edit -->
-            <MenuItem Header="_Edit">
-                <MenuItem Header="_Cut" Command="Cut">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="ContentCut" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="_Copy" Command="Copy">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="ContentCopy" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="_Paste" Command="Paste">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="ContentPaste" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-            
-            <!-- Settings -->
-            <MenuItem Header="_Settings" />
-            
-            <!-- Logout -->
-            <MenuItem Header="_Logout" />
-        </Menu>
-
+        <views:MainMenu DataContext="{Binding MainMenuViewModel}"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
 

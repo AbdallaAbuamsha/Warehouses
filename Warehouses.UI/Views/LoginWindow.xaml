@@ -70,9 +70,9 @@
             <!--First Name-->
             <TextBox
                 Grid.Row="2"
-                x:Name="FirstName"
+                x:Name="Username"
                 materialDesign:HintAssist.Hint="First Name"
-                Text="{Binding FirstName}"
+                Text="{Binding Username}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 

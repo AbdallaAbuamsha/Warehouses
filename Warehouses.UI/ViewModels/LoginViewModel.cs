@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Prism.Commands;
+using Warehouses.UI.Views;
 
 namespace Warehouses.UI.ViewModels
 {
     public class LoginViewModel
     {
-        private String _firstName;
+        private String _username;
         private String _password;
         private bool _rememberMe;
 
@@ -22,7 +23,9 @@ namespace Warehouses.UI.ViewModels
 
         private void OnLoginExecute()
         {
-            MessageBox.Show(FirstName + " " + Password + " " + RememberMe.ToString());
+            MessageBox.Show(Username + " " + Password + " " + RememberMe.ToString());
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
         }
 
         private bool OnCanLoginExcecute()
@@ -30,12 +33,11 @@ namespace Warehouses.UI.ViewModels
             return true;
         }
 
-        public String FirstName
+        public String Username
         {
-            get { return _firstName; }
-            set { _firstName = value; }
+            get { return _username; }
+            set { _username = value; }
         }
-
 
         public String Password
         {

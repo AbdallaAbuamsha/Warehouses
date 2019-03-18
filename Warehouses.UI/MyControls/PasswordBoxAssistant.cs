@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace Warehouses.UI.MyControls
 {
-    class PasswordBoxAssistant
+    public class PasswordBoxAssistant
     {
         public static readonly DependencyProperty BoundPassword =
                   DependencyProperty.RegisterAttached("BoundPassword", typeof(string), typeof(PasswordBoxAssistant), new PropertyMetadata(string.Empty, OnBoundPasswordChanged));

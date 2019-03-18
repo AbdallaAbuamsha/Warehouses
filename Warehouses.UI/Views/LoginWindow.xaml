@@ -13,6 +13,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="LightGray"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:ff="clr-namespace:Warehouses.UI.MyControls"
         Title="LoginWindow" Height="642.722" Width="1092.89" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
     <Grid Margin="25">
@@ -36,15 +37,16 @@
             <materialDesign:Card Background="#ecf0f1" materialDesign:ShadowAssist.ShadowDepth="Depth3" UniformCornerRadius="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0.2" Grid.RowSpan="2" />
 
             <Image Source="pack://application:,,,/Resources/Images/iconmap.png"/>
-            <materialDesign:PackIcon Visibility="Collapsed"
-                Kind="HouseMapMarker"
-                Foreground="White"
-                Width="64"
-                Height="64"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Padding="0"
-                Margin="0"/>
+            <TextBlock
+                Grid.Row="1"
+                Text="Manage you organizations, warehouses, material from anyware wherever you are"
+                TextWrapping="Wrap"
+                TextAlignment="Center"               
+                LineHeight="34"
+                Margin="20"
+                Style="{DynamicResource MaterialDesignTitleTextBlock}"
+                VerticalAlignment="Top"
+                />
         </Grid>
         <!--Right Side-->
         <Grid Grid.Row="1" Grid.Column="2" Background="White" Margin="0 5">
@@ -69,14 +71,16 @@
             <TextBox
                 Grid.Row="2"
                 x:Name="FirstName"
-                materialDesign:HintAssist.Hint="First Name"                
+                materialDesign:HintAssist.Hint="First Name"
+                Text="{Binding FirstName}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 
             <!--Password-->
             <PasswordBox
                 Grid.Row="3"
-                materialDesign:HintAssist.Hint="Password"                
+                materialDesign:HintAssist.Hint="Password"
+                ff:PasswordBoxAssistant.BindPassword="true"  ff:PasswordBoxAssistant.BoundPassword="{Binding Path=Password}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" />
 
@@ -85,11 +89,13 @@
             <CheckBox
                 Grid.Row="4"
                 Content="Remember Me"
+                IsChecked="{Binding Path=RememberMe}"
                 Margin="10 18 10 10"/>
 
             <!--Login-->
             <Button
                 Grid.Row="5"
+                Command="{Binding LoginCommand}"
                 Margin="10 18 10 10"
                 Padding="0"
                 Content="Login"/>

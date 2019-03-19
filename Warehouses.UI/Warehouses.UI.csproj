@@ -80,6 +80,7 @@
     <Compile Include="MyControls\PasswordBoxAssistant.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
     <Compile Include="ViewModels\AddBranchViewModel.cs" />
+    <Compile Include="ViewModels\AddMaterialViewModel.cs" />
     <Compile Include="ViewModels\AddWarehouseViewModels.cs" />
     <Compile Include="ViewModels\AddOrganizationViewModels.cs" />
     <Compile Include="ViewModels\IAddBranchViewModel.cs" />
@@ -108,8 +109,14 @@
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\AddUnitToMaterial.xaml.cs">
+      <DependentUpon>AddUnitToMaterial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\MaterialNameDetails.xaml.cs">
+      <DependentUpon>MaterialNameDetails.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -164,7 +171,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserControls\AddUnitToMaterial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\MaterialNameDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

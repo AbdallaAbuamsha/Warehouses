@@ -28,13 +28,16 @@ namespace Warehouses.UI.ViewModels
         {
             var boostrapper = new Bootstrapper();
             var container = boostrapper.Bootstrap();
-            var addOrganization = container.Resolve<AddWarehouse>();
-            addOrganization.ShowDialog();
+            var addWarehouse = container.Resolve<AddWarehouse>();
+            addWarehouse.ShowDialog();
         }
 
         private void NewBranchExecute()
         {
-            MessageBox.Show("NewBranchExecute");
+            var boostrapper = new Bootstrapper();
+            var container = boostrapper.Bootstrap();
+            var addBranch = container.Resolve<AddBranch>();
+            addBranch.ShowDialog();
         }
 
         private void NewOrganizationExecute()

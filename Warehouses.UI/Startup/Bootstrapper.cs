@@ -17,8 +17,12 @@ namespace Warehouses.UI.Startup
         {
             var builder = new ContainerBuilder();
 
+            builder.RegisterType<AddBranch>().AsSelf();
+            builder.RegisterType<AddBranchViewModel>().As<IAddBranchViewModel>();
+
             builder.RegisterType<AddWarehouse>().AsSelf();
             builder.RegisterType<AddWarehouseViewModels>().As<IAddWarehouseViewModels>();
+
             builder.RegisterType<OrganizationDataService>().As<IOrganizationDataService>();
             builder.RegisterType<BranchDataService>().As<IBranchDataService>();
             builder.RegisterType<WarehouseDataService>().As<IWarehouseDataService>();

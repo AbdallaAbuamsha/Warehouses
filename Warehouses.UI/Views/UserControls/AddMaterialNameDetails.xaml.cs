@@ -18,9 +18,9 @@ namespace Warehouses.UI.Views.UserControls
     /// <summary>
     /// Interaction logic for MaterialNameDetails.xaml
     /// </summary>
-    public partial class MaterialNameDetails : UserControl
+    public partial class AddMaterialNameDetails : UserControl
     {
-        public MaterialNameDetails()
+        public AddMaterialNameDetails()
         {
             InitializeComponent();
         }

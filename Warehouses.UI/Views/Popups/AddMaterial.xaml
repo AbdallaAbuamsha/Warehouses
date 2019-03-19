@@ -49,7 +49,7 @@
 
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="20">
             <!---->
-            <views:MaterialNameDetails />
+            <views:AddMaterialNameDetails />
             <!--First Name-->
             <StackPanel Grid.Column="0">
             <TextBox

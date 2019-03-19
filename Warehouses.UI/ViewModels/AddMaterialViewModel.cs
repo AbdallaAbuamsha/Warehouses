@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Warehouses.Model;
+using Warehouses.UI.Data;
 
 namespace Warehouses.UI.ViewModels
 {
     public class AddMaterialViewModel : ViewModelBase, IAddMaterialViewModel
     {
         private string _materialCode;
-        private string _parentName;
+        private string _selectedParent;
         private string _parentCode;
         private string _barcode;
         private string _serial;
@@ -22,19 +23,20 @@ namespace Warehouses.UI.ViewModels
         private float _minimumSaleAmount;
         private float _dazonElementsCount;
         private float _freeReferencesAmount;
+        private IMaterialDataService _materialDataService;
 
-
-        public AddMaterialViewModel()
+        public AddMaterialViewModel(IMaterialDataService materialDataService)
         {
             Materials = new ObservableCollection<Material>();
             Save = new DelegateCommand(ExecuteSaveCommand);
+            _materialDataService = materialDataService;            
         }
-
+        
         private void ExecuteSaveCommand()
         {
             MessageBox.Show(
                 MaterialCode + "\n" +
-                ParentName + "\n" +
+                SelectedParent + "\n" +
                 ParentCode + "\n" +
                 Barcode + "\n" +
                 Serial + "\n" +
@@ -46,7 +48,15 @@ namespace Warehouses.UI.ViewModels
         }
         public void Load()
         {
-
+            var materials = _materialDataService.GetAll();
+            FillLists<Material>(Materials, materials);
+        }
+        private void FillLists<T>(ObservableCollection<T> empty, IEnumerable<T> filled)
+        {
+            foreach (var item in filled)
+            {
+                empty.Add(item);
+            }
         }
         public ObservableCollection<Material> Materials { get; set; }
 
@@ -56,10 +66,10 @@ namespace Warehouses.UI.ViewModels
             set { _materialCode = value; }
         }
   
-        public string ParentName
+        public string SelectedParent
         {
-            get { return _parentName; }
-            set { _parentName = value; }
+            get { return _selectedParent; }
+            set { _selectedParent = value; }
         }
 
         public string ParentCode

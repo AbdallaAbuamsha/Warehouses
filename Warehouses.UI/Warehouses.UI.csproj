@@ -72,9 +72,11 @@
     </Compile>
     <Compile Include="Data\BranchDataService.cs" />
     <Compile Include="Data\IBranchDataService.cs" />
+    <Compile Include="Data\IMaterialDataService.cs" />
     <Compile Include="Data\IOrganizationDataService.cs" />
     <Compile Include="Data\IWarehouseDataService.cs" />
     <Compile Include="Data\IWarehouseDataService1.cs" />
+    <Compile Include="Data\MaterialDataService.cs" />
     <Compile Include="Data\OrganizationDataService.cs" />
     <Compile Include="Data\WarehouseDataService.cs" />
     <Compile Include="MyControls\PasswordBoxAssistant.cs" />

@@ -3,7 +3,7 @@ using Warehouses.Model;
 
 namespace Warehouses.UI.Data
 {
-    public class WarehouseDataService : IWarehouseDataService, IWarehouseDataService1
+    public class WarehouseDataService : IWarehouseDataService
     {
         public IEnumerable<Warehouse> GetAll()
         {

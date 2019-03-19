@@ -61,7 +61,7 @@
             <ComboBox
                 materialDesign:HintAssist.Hint="Parent Name"
                 ItemsSource="{Binding Materials}"
-                SelectedItem="{Binding SelectedParent}"
+                SelectedItem="{Binding SelectedParent,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                 DisplayMemberPath="Name"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintComboBox}" />

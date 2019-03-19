@@ -19,6 +19,7 @@ namespace Warehouses.UI.Startup
 
             builder.RegisterType<AddMaterial>().AsSelf();
             builder.RegisterType<AddMaterialViewModel>().As<IAddMaterialViewModel>();
+            builder.RegisterType<MaterialDataService>().As<IMaterialDataService>();
 
             builder.RegisterType<AddBranch>().AsSelf();
             builder.RegisterType<AddBranchViewModel>().As<IAddBranchViewModel>();

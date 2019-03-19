@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Prism.Commands;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 using Warehouses.Model;
 
 namespace Warehouses.UI.ViewModels
 {
-    public class AddMaterialViewModel : ViewModelBase
+    public class AddMaterialViewModel : ViewModelBase, IAddMaterialViewModel
     {
         private string _materialCode;
         private string _parentName;
@@ -24,6 +27,26 @@ namespace Warehouses.UI.ViewModels
         public AddMaterialViewModel()
         {
             Materials = new ObservableCollection<Material>();
+            Save = new DelegateCommand(ExecuteSaveCommand);
+        }
+
+        private void ExecuteSaveCommand()
+        {
+            MessageBox.Show(
+                MaterialCode + "\n" +
+                ParentName + "\n" +
+                ParentCode + "\n" +
+                Barcode + "\n" +
+                Serial + "\n" +
+                MaximumSaleAmount.ToString() + "\n" +
+                MinimumSaleAmount.ToString() + "\n" +
+                DazonElementsCount.ToString() + "\n" +
+                FreeReferencesAmount.ToString() + "\n" 
+                );
+        }
+        public void Load()
+        {
+
         }
         public ObservableCollection<Material> Materials { get; set; }
 
@@ -81,6 +104,6 @@ namespace Warehouses.UI.ViewModels
             set { _freeReferencesAmount = value; }
         }
 
-
+        public ICommand Save { get; set; }
     }
 }

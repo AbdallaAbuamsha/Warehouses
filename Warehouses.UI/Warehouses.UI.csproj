@@ -84,6 +84,7 @@
     <Compile Include="ViewModels\AddWarehouseViewModels.cs" />
     <Compile Include="ViewModels\AddOrganizationViewModels.cs" />
     <Compile Include="ViewModels\IAddBranchViewModel.cs" />
+    <Compile Include="ViewModels\IAddMaterialViewModel.cs" />
     <Compile Include="ViewModels\IAddOrganizationViewModels.cs" />
     <Compile Include="ViewModels\IAddWarehouseViewModels.cs" />
     <Compile Include="ViewModels\IMainMenuViewModel.cs" />

@@ -17,7 +17,8 @@ namespace Warehouses.UI.Startup
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<AddMaterial>().AsSelf();            
+            builder.RegisterType<AddMaterial>().AsSelf();
+            builder.RegisterType<AddMaterialViewModel>().As<IAddMaterialViewModel>();
 
             builder.RegisterType<AddBranch>().AsSelf();
             builder.RegisterType<AddBranchViewModel>().As<IAddBranchViewModel>();

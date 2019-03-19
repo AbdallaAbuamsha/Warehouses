@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Warehouses.UI.ViewModels;
 
 namespace Warehouses.UI.Views.Popups
 {
@@ -19,9 +20,19 @@ namespace Warehouses.UI.Views.Popups
     /// </summary>
     public partial class AddMaterial : Window
     {
-        public AddMaterial()
+        public AddMaterial(IAddMaterialViewModel addMaterialViewModel)
         {
             InitializeComponent();
+            AddMaterialViewModel = addMaterialViewModel;
+            this.DataContext = addMaterialViewModel;
+            Loaded += AddMaterial_Loaded;
         }
+
+        private void AddMaterial_Loaded(object sender, RoutedEventArgs e)
+        {
+            AddMaterialViewModel.Load();
+        }
+
+        public IAddMaterialViewModel AddMaterialViewModel { get; set; }
     }
 }

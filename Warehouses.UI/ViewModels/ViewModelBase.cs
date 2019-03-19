@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Warehouses.UI.ViewModels
 {
-    class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

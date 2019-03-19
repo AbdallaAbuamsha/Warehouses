@@ -70,12 +70,26 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Data\BranchDataService.cs" />
+    <Compile Include="Data\IBranchDataService.cs" />
+    <Compile Include="Data\IOrganizationDataService.cs" />
+    <Compile Include="Data\IWarehouseDataService.cs" />
+    <Compile Include="Data\IWarehouseDataService1.cs" />
+    <Compile Include="Data\OrganizationDataService.cs" />
+    <Compile Include="Data\WarehouseDataService.cs" />
     <Compile Include="MyControls\PasswordBoxAssistant.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
+    <Compile Include="ViewModels\AddWarehouseViewModels.cs" />
+    <Compile Include="ViewModels\AddOrganizationViewModels.cs" />
+    <Compile Include="ViewModels\IAddOrganizationViewModels.cs" />
+    <Compile Include="ViewModels\IAddWarehouseViewModels.cs" />
     <Compile Include="ViewModels\IMainMenuViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\Popups\AddWarehouse.xaml.cs">
+      <DependentUpon>AddWarehouse.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Popups\AddOrganization.xaml.cs">
       <DependentUpon>AddOrganization.xaml</DependentUpon>
     </Compile>
@@ -118,6 +132,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\Popups\AddWarehouse.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Popups\AddOrganization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,13 +154,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="Events\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Warehouse.Model\Warehouse.Model.csproj">
+    <ProjectReference Include="..\Warehouse.Model\Warehouses.Model.csproj">
       <Project>{323a73ce-9dc5-47b2-9e19-ba45d191da29}</Project>
-      <Name>Warehouse.Model</Name>
+      <Name>Warehouses.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

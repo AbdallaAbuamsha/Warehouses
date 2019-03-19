@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouses.UI", "Warehouses.UI\Warehouses.UI.csproj", "{C0770224-BEE7-4669-A8F0-BA0F557E6C1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse.Model", "Warehouse.Model\Warehouse.Model.csproj", "{323A73CE-9DC5-47B2-9E19-BA45D191DA29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouses.Model", "Warehouse.Model\Warehouses.Model.csproj", "{323A73CE-9DC5-47B2-9E19-BA45D191DA29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -18,14 +18,21 @@ namespace Warehouses.UI.Views.Popups
     /// <summary>
     /// Interaction logic for AddOrganization.xaml
     /// </summary>
-    public partial class AddOrganization : Window
+    public partial class AddWarehouse : Window
     {
-        public AddOrganization(IAddOrganizationViewModels addOrganizationViewModels)
+        public AddWarehouse(IAddWarehouseViewModels addWarehouseViewModels)
         {
             InitializeComponent();
-            AddOrganizationViewModels = addOrganizationViewModels;
-            this.DataContext = addOrganizationViewModels;
+            AddWarehouseViewModels = addWarehouseViewModels;
+            this.DataContext = addWarehouseViewModels;
+            Loaded += AddWarehouse_Loaded;
         }
-        public IAddOrganizationViewModels AddOrganizationViewModels { get; set; }
+
+        private void AddWarehouse_Loaded(object sender, RoutedEventArgs e)
+        {
+            AddWarehouseViewModels.Load();
+        }
+
+        public IAddWarehouseViewModels AddWarehouseViewModels { get; set; }
     }
 }

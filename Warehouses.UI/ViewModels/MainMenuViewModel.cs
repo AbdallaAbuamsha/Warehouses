@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using Autofac;
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Warehouses.UI.Startup;
+using Warehouses.UI.Views.Popups;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -23,7 +26,10 @@ namespace Warehouses.UI.ViewModels
 
         private void NewWarehouseExecute()
         {
-            MessageBox.Show("NewWarehouseExecute");
+            var boostrapper = new Bootstrapper();
+            var container = boostrapper.Bootstrap();
+            var addOrganization = container.Resolve<AddWarehouse>();
+            addOrganization.ShowDialog();
         }
 
         private void NewBranchExecute()
@@ -33,7 +39,10 @@ namespace Warehouses.UI.ViewModels
 
         private void NewOrganizationExecute()
         {
-            MessageBox.Show("NewOrganizationExecute");
+            var boostrapper = new Bootstrapper();
+            var container = boostrapper.Bootstrap();
+            var addOrganization = container.Resolve<AddOrganization>();
+            addOrganization.ShowDialog();
         }
 
         private void TransactionReceiptExecute()

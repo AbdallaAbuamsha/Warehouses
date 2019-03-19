@@ -65,7 +65,7 @@
                 Command="{Binding Save}"
                 Margin="10 18 10 10"
                 Padding="0"
-                Content="Login"/>
+                Content="Save"/>
         </StackPanel>
     </Grid>
 </Window>

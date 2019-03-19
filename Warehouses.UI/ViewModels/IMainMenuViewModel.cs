@@ -8,6 +8,8 @@ namespace Warehouses.UI.ViewModels
         ICommand NewBranchCommand { get; set; }
         ICommand NewOrganizationCommand { get; set; }
         ICommand NewWarehouseCommand { get; set; }
+        ICommand NewMaterialCommand { get; set; }
+        ICommand NewUnitCommand { get; set; }
         ICommand OutputReceiptCommand { get; set; }
         ICommand TransactionReceiptCommand { get; set; }
     }

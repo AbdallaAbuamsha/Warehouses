@@ -1,0 +1,379 @@
+﻿<Window x:Class="Warehouses.UI.Views.Popups.AddMaterial"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Warehouses.UI.Views.Popups"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="14"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="#EFE"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterScreen"
+        Title="AddOrganization" Height="750" Width="1050"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        WindowStyle="None">
+    <Grid Background="#EFE">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <materialDesign:Card Background="White" VerticalAlignment="Stretch" Grid.RowSpan="2" UniformCornerRadius="12" Padding="32" Margin="4,4,3.6,4" BorderBrush="Black" materialDesign:ShadowAssist.ShadowDepth="Depth3" Grid.ColumnSpan="2"/>
+        <Grid VerticalAlignment="Stretch" Width="2" Background="LightGray" HorizontalAlignment="Right"/>
+
+        <TextBlock
+            Text="Add Rawmaterial"
+            Padding="25 14 0 0"
+            Style="{DynamicResource MaterialDesignTitleTextBlock}"
+            VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,-0.4,0.4"
+            />
+        <materialDesign:PackIcon
+            Kind="Close"
+            Height="24"
+            Width="24"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="0,7,19.6,7.4"
+            Padding="0" Grid.Column="1"/>
+
+        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="20">
+            <GroupBox Header="Material Name" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBox
+                            x:Name="Username"
+                            materialDesign:HintAssist.Hint="Organization Name"
+                            Text="{Binding OrganizationName}"
+                            Padding="0 0 0 2.5"
+                            Margin="0"
+                            Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Grid.ColumnSpan="3"
+                            VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                    <ComboBox
+                        Grid.Column="1"
+                        materialDesign:HintAssist.Hint="Language"
+                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                        Padding="0 0 0 5"
+                        Margin="10 10 10 0"
+                        VerticalAlignment="Top"/>
+                    <Button
+                        Grid.Column="2"
+                        Command="{Binding Save}"
+                        Padding="24 0"
+                        Content="Save"
+                        VerticalAlignment="Center"/>
+                    <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0 10 0 0" Grid.ColumnSpan="3">
+                        <Grid x:Name="dataHeader">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.5*"/>
+                                <!--<ColumnDefinition Width="*"/>-->
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border BorderThickness="2 2 1 2" Grid.Column="0" Grid.Row="0" Padding="32 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
+                                <TextBlock Text="Name" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border BorderThickness="1 2 1 2" Grid.Column="1" Grid.Row="0" Padding="32 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
+                                <TextBlock Text="Language" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border BorderThickness="1 2 1 2" Grid.Column="2" Grid.Row="0" Padding="8 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
+                                <TextBlock Text="Delete" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+
+                        <ItemsControl x:Name="dataTable">
+                            <!--<ItemsControl.ItemTemplate>
+                                <DataTemplate>-->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <!--<ColumnDefinition Width="*"/>-->
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="0" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <TextBlock Text="Lettuce" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <TextBlock Text="English" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <materialDesign:PackIcon Kind="Delete" Padding="0" Margin="0" Height="24" Width="24"/>
+                                </Border>
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <!--<ColumnDefinition Width="*"/>-->
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="0" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <TextBlock Text="Lettuce" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <TextBlock Text="English" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <materialDesign:PackIcon Kind="Delete" Padding="0" Margin="0" Height="24" Width="24"/>
+                                </Border>
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <!--<ColumnDefinition Width="*"/>-->
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="0" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <TextBlock Text="Lettuce" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <TextBlock Text="English" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <materialDesign:PackIcon Kind="Delete" Padding="0" Margin="0" Height="24" Width="24"/>
+                                </Border>
+                            </Grid>
+
+
+
+                            <!--</DataTemplate>
+                            </ItemsControl.ItemTemplate>-->
+                        </ItemsControl>
+                    </StackPanel>
+
+                </Grid>
+
+            </GroupBox>
+
+            <!--First Name-->
+            <StackPanel Grid.Column="0">
+            <TextBox
+                materialDesign:HintAssist.Hint="Material Code"
+                Text="{Binding MaterialCode}"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+            </StackPanel>
+            <TextBox
+                materialDesign:HintAssist.Hint="Parent Name"
+                Text="{Binding ParentMaterial}"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox
+                materialDesign:HintAssist.Hint="Parent Code"
+                Text="{Binding ParentCode}"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox
+                materialDesign:HintAssist.Hint="Barcode"
+                Text="{Binding Location}"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox
+                materialDesign:HintAssist.Hint="Serial"
+                Text="{Binding Serial}"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+
+
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="20">
+            <GroupBox Header="Sale Information">
+                <StackPanel>
+                    <TextBox
+                        materialDesign:HintAssist.Hint="Maximum sale amount"
+                        Text="{Binding Location}"
+                        Margin="10"
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        materialDesign:HintAssist.Hint="Minimum sale amount"
+                        Text="{Binding Location}"
+                        Margin="10"
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+
+                    <TextBox
+                        materialDesign:HintAssist.Hint="Dazon elements number"
+                        Text="{Binding Location}"
+                        Margin="10"
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        materialDesign:HintAssist.Hint="Dazon elements number"
+                        Text="{Binding Location}"
+                        Margin="10"
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Units Information" Margin="0 4 0 0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Unit Name"
+                            Text="{Binding OrganizationName}"
+                            Padding="0 0 0 2.5"
+                            Margin="0"
+                            Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Grid.ColumnSpan="3"
+                            VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Unit Simpol"
+                            Text="{Binding OrganizationName}"
+                            Padding="10 0 10 2.5"
+                            Margin="0"
+                            Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Grid.ColumnSpan="3"
+                            VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                    <Button
+                        Grid.Column="2"
+                        Command="{Binding Save}"
+                        Padding="24 0"
+                        Content="Save"
+                        VerticalAlignment="Center"/>
+                    <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0 10 0 0" Grid.ColumnSpan="3">
+                        <Grid x:Name="UnitsDataHeader">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="0.5*"/>
+                                <!--<ColumnDefinition Width="*"/>-->
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border BorderThickness="2 2 1 2" Grid.Column="0" Grid.Row="0" Padding="32 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
+                                <TextBlock Text="Name" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border BorderThickness="1 2 1 2" Grid.Column="1" Grid.Row="0" Padding="32 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
+                                <TextBlock Text="Simpol" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border BorderThickness="1 2 1 2" Grid.Column="2" Grid.Row="0" Padding="8 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
+                                <TextBlock Text="Defult" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border BorderThickness="1 2 1 2" Grid.Column="3" Grid.Row="0" Padding="8 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
+                                <TextBlock Text="Delete" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+
+                        <ItemsControl x:Name="UnitsDataTable">
+                            <!--<ItemsControl.ItemTemplate>
+                                <DataTemplate>-->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <!--<ColumnDefinition Width="*"/>-->
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="0" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <TextBlock Text="Kelogram" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <TextBlock Text="Kg" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="0" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <materialDesign:PackIcon Kind="Check" HorizontalAlignment="Center" Padding="0" Margin="0" Height="24" Width="24"/>
+                                </Border>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="3" Grid.Row="0" Padding="0" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <materialDesign:PackIcon Kind="Delete" HorizontalAlignment="Center" Padding="0" Margin="0" Height="24" Width="24"/>
+                                </Border>
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <!--<ColumnDefinition Width="*"/>-->
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="0" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <TextBlock Text="Gram" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <TextBlock Text="g" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="0" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <materialDesign:PackIcon Kind="Check" HorizontalAlignment="Center" Padding="0" Margin="0" Height="24" Width="24"/>
+                                </Border>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="0" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <materialDesign:PackIcon Kind="Check" HorizontalAlignment="Center" Padding="0" Margin="0" Height="24" Width="24"/>
+                                </Border>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="3" Grid.Row="0" Padding="0" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                    <materialDesign:PackIcon Kind="Delete" HorizontalAlignment="Center" Padding="0" Margin="0" Height="24" Width="24"/>
+                                </Border>
+                            </Grid>
+                            <!--</DataTemplate>
+                            </ItemsControl.ItemTemplate>-->
+                        </ItemsControl>
+                    </StackPanel>
+
+                </Grid>
+
+            </GroupBox>
+        </StackPanel>
+        <!--Login-->
+        <Button
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            Command="{Binding Save}"
+            Margin="10 18 10 60"
+            Padding="0"
+            Content="Save"/>
+    </Grid>
+</Window>

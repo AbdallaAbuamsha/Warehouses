@@ -22,6 +22,21 @@ namespace Warehouses.UI.ViewModels
             NewOrganizationCommand = new DelegateCommand(NewOrganizationExecute);
             NewBranchCommand = new DelegateCommand(NewBranchExecute);
             NewWarehouseCommand = new DelegateCommand(NewWarehouseExecute);
+            NewMaterialCommand = new DelegateCommand(NewMaterialExecute);
+            NewUnitCommand = new DelegateCommand(NewUnitExecute);
+        }
+
+        private void NewUnitExecute()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void NewMaterialExecute()
+        {
+            var boostrapper = new Bootstrapper();
+            var container = boostrapper.Bootstrap();
+            var addMaterial = container.Resolve<AddMaterial>();
+            addMaterial.ShowDialog();
         }
 
         private void NewWarehouseExecute()
@@ -70,5 +85,7 @@ namespace Warehouses.UI.ViewModels
         public ICommand NewOrganizationCommand { get; set; }
         public ICommand NewBranchCommand { get; set; }
         public ICommand NewWarehouseCommand { get; set; }
+        public ICommand NewMaterialCommand { get ; set ; }
+        public ICommand NewUnitCommand { get ; set ; }
     }
 }

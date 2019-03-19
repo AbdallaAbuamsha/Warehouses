@@ -49,6 +49,19 @@
                         <materialDesign:PackIcon Kind="SourceBranch" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator />
+                <!-- Material -->
+                <MenuItem Header="Material" InputGestureText="Ctrl+M" Command="{Binding NewMaterialCommand}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Food" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <!-- Unit -->
+                <MenuItem Header="Unit" InputGestureText="Ctrl+U" Command="{Binding NewUnitCommand}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Weight" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
 
             <!-- Edit -->

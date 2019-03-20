@@ -47,7 +47,7 @@
                 Grid.Row="2"
                 x:Name="Username"
                 materialDesign:HintAssist.Hint="Organization Name"
-                Text="{Binding OrganizationName}"
+                Text="{Binding OrganizationWrapper.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 
@@ -55,7 +55,7 @@
             <TextBox
                 Grid.Row="2"
                 materialDesign:HintAssist.Hint="Location"
-                Text="{Binding Location}"
+                Text="{Binding OrganizationWrapper.Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 

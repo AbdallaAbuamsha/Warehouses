@@ -2,18 +2,35 @@
 using System.Windows;
 using System.Windows.Input;
 using System;
+using Warehouses.UI.Wrappers;
+using Warehouses.Model;
 
 namespace Warehouses.UI.ViewModels
 {
     public class AddOrganizationViewModels : ViewModelBase, IAddOrganizationViewModels
     {
-        private string _organizationName;
-        private string _location;
+        //private string _organizationName;
+        //private string _location;
+        private OrganizationWrapper _organizationWrapper;
 
         public AddOrganizationViewModels()
         {
-            Save = new DelegateCommand(ExecuteSaveOrganizationCommand);
+            Save = new DelegateCommand(ExecuteSaveOrganizationCommand, ExecuteCanSaveOrganizationCommand);
             Close = new DelegateCommand(ExecuteCloseOrganizationCommand);
+            OrganizationWrapper = new OrganizationWrapper(new Organization { Name = "" });
+            OrganizationWrapper.PropertyChanged += (s, e) =>
+            {
+                if(e.PropertyName.Equals(nameof(OrganizationWrapper.HasErrors)))
+                {
+                    ((DelegateCommand)Save).RaiseCanExecuteChanged();
+                }
+            };
+            ((DelegateCommand)Save).RaiseCanExecuteChanged();
+        }
+
+        private bool ExecuteCanSaveOrganizationCommand()
+        {
+            return OrganizationWrapper != null && !OrganizationWrapper.HasErrors;
         }
 
         private void ExecuteCloseOrganizationCommand()
@@ -23,28 +40,34 @@ namespace Warehouses.UI.ViewModels
 
         private void ExecuteSaveOrganizationCommand()
         {
-            MessageBox.Show(OrganizationName + " " + Location);
+            MessageBox.Show(OrganizationWrapper.Name + " " + OrganizationWrapper.Location);
         }
 
-        public string OrganizationName
+        public OrganizationWrapper OrganizationWrapper
         {
-            get { return _organizationName; }
-            set
-            {
-                _organizationName = value;
-                OnPropertyChanged();
-            }
+            get { return _organizationWrapper; }
+            set { _organizationWrapper = value; }
         }
 
-        public string Location
-        {
-            get { return _location; }
-            set
-            {
-                _location = value;
-                OnPropertyChanged();
-            }
-        }
+        //public string OrganizationName
+        //{
+        //    get { return _organizationName; }
+        //    set
+        //    {
+        //        _organizationName = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
+
+        //public string Location
+        //{
+        //    get { return _location; }
+        //    set
+        //    {
+        //        _location = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         public ICommand Save { get; set; }
         public ICommand Close { get; set; }

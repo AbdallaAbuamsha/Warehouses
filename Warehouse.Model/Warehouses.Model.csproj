@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Branch.cs" />
+    <Compile Include="Language.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="MaterialName.cs" />
     <Compile Include="Organization.cs" />

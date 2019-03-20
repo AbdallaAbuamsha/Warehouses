@@ -11,11 +11,11 @@ namespace Warehouses.UI.Data
     {
         public IEnumerable<Material> GetAll()
         {
-            yield return new Material { Name = "Material 1 " };
-            yield return new Material { Name = "Material 2 " };
-            yield return new Material { Name = "Material 3 " };
-            yield return new Material { Name = "Material 4 " };
-            yield return new Material { Name = "Material 5 " };
+            yield return new Material { Name = "Material 1 ", Code="111" };
+            yield return new Material { Name = "Material 2 ", Code="222" };
+            yield return new Material { Name = "Material 3 ", Code="333" };
+            yield return new Material { Name = "Material 4 ", Code="444" };
+            yield return new Material { Name = "Material 5 ", Code="555" };
         }
     }
 }

@@ -15,8 +15,7 @@ namespace Warehouses.UI.ViewModels
     public class AddMaterialViewModel : ViewModelBase, IAddMaterialViewModel
     {
         private string _materialCode;
-        private string _selectedParent;
-        private string _parentCode;
+        private Material _selectedParent;
         private string _barcode;
         private string _serial;
         private float _maximumSaleAmount;
@@ -36,8 +35,8 @@ namespace Warehouses.UI.ViewModels
         {
             MessageBox.Show(
                 MaterialCode + "\n" +
-                SelectedParent + "\n" +
-                ParentCode + "\n" +
+                SelectedParent.Name + "\n" +
+                SelectedParent.Code+ "\n" +
                 Barcode + "\n" +
                 Serial + "\n" +
                 MaximumSaleAmount.ToString() + "\n" +
@@ -66,17 +65,38 @@ namespace Warehouses.UI.ViewModels
             set { _materialCode = value; }
         }
   
-        public string SelectedParent
+        public Material SelectedParent
         {
             get { return _selectedParent; }
-            set { _selectedParent = value; }
+            set
+            {
+                _selectedParent = value;
+                OnPropertyChanged();
+                ParentCode = SelectedParent.Code;
+            }
         }
+        private string _parentCode;
 
         public string ParentCode
         {
             get { return _parentCode; }
-            set { _parentCode = value; }
+            set
+            {
+                _parentCode = value;
+                OnPropertyChanged();
+
+                if (    ParentCode.Equals(SelectedParent.Code)) return;
+
+                foreach (var material in Materials)
+                {
+                    if(material.Code.Equals(ParentCode))
+                    {
+                        SelectedParent = material;
+                    }
+                }
+            }
         }
+
 
         public string Barcode
         {

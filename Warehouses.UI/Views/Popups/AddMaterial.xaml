@@ -67,7 +67,7 @@
                 Style="{DynamicResource MaterialDesignFloatingHintComboBox}" />
             <TextBox
                 materialDesign:HintAssist.Hint="Parent Code"
-                Text="{Binding ParentCode}"
+                Text="{Binding ParentCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
             <TextBox

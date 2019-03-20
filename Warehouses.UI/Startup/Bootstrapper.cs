@@ -8,6 +8,7 @@ using Warehouses.UI.ViewModels;
 using Warehouses.UI.Views;
 using Warehouses.UI.Views.Popups;
 using Warehouses.UI.Data;
+using Prism.Events;
 
 namespace Warehouses.UI.Startup
 {
@@ -16,13 +17,17 @@ namespace Warehouses.UI.Startup
         public IContainer Bootstrap()
         {
             var builder = new ContainerBuilder();
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>();
 
             builder.RegisterType<AddMaterial>().AsSelf();
             builder.RegisterType<AddMaterialViewModel>().As<IAddMaterialViewModel>();
+
             builder.RegisterType<AddMaterialNameDetailsViewModel>().As<IAddMaterialNameDetailsViewModel>();
             builder.RegisterType<MaterialDataService>().As<IMaterialDataService>();
             builder.RegisterType<LanguagesDataService>().As<ILanguagesDataService>();
 
+            builder.RegisterType<AddMaterialUnitDetailsViewModel>().As<IAddMaterialUnitDetailsViewModel>();
+            builder.RegisterType<UnitDataService>().As<IUnitDataService>();
 
             builder.RegisterType<AddBranch>().AsSelf();
             builder.RegisterType<AddBranchViewModel>().As<IAddBranchViewModel>();

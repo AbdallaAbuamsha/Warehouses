@@ -7,8 +7,11 @@
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"             
              d:DesignHeight="300" d:DesignWidth="397.6">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
     <Grid>
-        <GroupBox Header="Material Name" >
+        <GroupBox Header="Units Informations" >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -59,20 +62,20 @@
                             </Border>
                         </Grid>
 
-                        <ItemsControl x:Name="dataTable" ItemsSource="{Binding MaterialUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <!--<ItemsControl.ItemTemplate>
-                                <DataTemplate>-->
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="0.5*"/>
-                                    <ColumnDefinition Width="0.5*"/>
-                                    <!--<ColumnDefinition Width="*"/>-->
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Button Grid.Column="0"
+                        <ItemsControl x:Name="dataTable" ItemsSource="{Binding MaterialUnits, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="0.5*"/>
+                                            <ColumnDefinition Width="0.5*"/>
+                                            <!--<ColumnDefinition Width="*"/>-->
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Button Grid.Column="0"
                                         Grid.Row="0"
                                         Padding="32 4"
                                         Command="{Binding Path=DataContext.SetAsDefaultUnit,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
@@ -81,23 +84,29 @@
                                         Width="auto"
                                         Background="White"
                                         BorderBrush="#b2bec3" >
-                                    <TextBlock Text="{Binding Name}" Foreground="#3498db" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Button>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <materialDesign:PackIcon Kind="Check" HorizontalAlignment="Center" Padding="0" Margin="0" Height="24" Width="24"/>
-                                </Border>
-                                <Button Grid.Column="2"
+                                            <TextBlock Text="{Binding Unit.Name}" Foreground="#3498db" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Button>
+                                        <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                            <materialDesign:PackIcon Kind="Check"
+                                                                     HorizontalAlignment="Center"
+                                                                     Padding="0"
+                                                                     Margin="0"
+                                                                     Height="24"
+                                                                     Width="24"
+                                                                     Visibility="{Binding Path=IsDefault, Converter={StaticResource BoolToVis}}"/>
+                                        </Border>
+                                        <Button Grid.Column="2"
                                         Grid.Row="0"
                                         Command="{Binding Path=DataContext.Delete,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
                                         CommandParameter="{Binding}"
                                         Padding="0"
                                         Background="White"
                                         BorderBrush="#b2bec3">
-                                    <materialDesign:PackIcon Kind="Delete" Padding="0" Margin="0" Height="24" Width="24" Foreground="DarkGray"/>
-                                </Button>
-                            </Grid>
-                            <!--</DataTemplate>
-                            </ItemsControl.ItemTemplate>-->
+                                            <materialDesign:PackIcon Kind="Delete" Padding="0" Margin="0" Height="24" Width="24" Foreground="DarkGray"/>
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </StackPanel>
                 </ScrollViewer>
@@ -105,8 +114,3 @@
         </GroupBox>
     </Grid>
 </UserControl>
-
-
-<!--<Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-    <materialDesign:PackIcon Kind="Check" HorizontalAlignment="Center" Padding="0" Margin="0" Height="24" Width="24"/>
-</Border>-->

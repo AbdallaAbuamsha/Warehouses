@@ -112,7 +112,7 @@
                 </StackPanel>
             </GroupBox>
 
-            <views:AddUnitToMaterial />
+            <views:AddUnitToMaterial DataContext="{Binding AddMaterialUnitViewModel}"/>
         </StackPanel>
         <!--Login-->
         <Button

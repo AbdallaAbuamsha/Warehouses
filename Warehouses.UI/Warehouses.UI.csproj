@@ -75,20 +75,24 @@
     <Compile Include="Data\ILanguagesDataService.cs" />
     <Compile Include="Data\IMaterialDataService.cs" />
     <Compile Include="Data\IOrganizationDataService.cs" />
+    <Compile Include="Data\IUnitDataService.cs" />
     <Compile Include="Data\IWarehouseDataService.cs" />
     <Compile Include="Data\LanguagesDataService.cs" />
     <Compile Include="Data\MaterialDataService.cs" />
     <Compile Include="Data\OrganizationDataService.cs" />
+    <Compile Include="Data\UnitDataService.cs" />
     <Compile Include="Data\WarehouseDataService.cs" />
     <Compile Include="MyControls\PasswordBoxAssistant.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
     <Compile Include="ViewModels\AddBranchViewModel.cs" />
+    <Compile Include="ViewModels\AddMaterialUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\AddMaterialNameDetailsViewModel.cs" />
     <Compile Include="ViewModels\AddMaterialViewModel.cs" />
     <Compile Include="ViewModels\AddWarehouseViewModels.cs" />
     <Compile Include="ViewModels\AddOrganizationViewModels.cs" />
     <Compile Include="ViewModels\IAddBranchViewModel.cs" />
     <Compile Include="ViewModels\IAddMaterialNameDetailsViewModel.cs" />
+    <Compile Include="ViewModels\IAddMaterialUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\IAddMaterialViewModel.cs" />
     <Compile Include="ViewModels\IAddOrganizationViewModels.cs" />
     <Compile Include="ViewModels\IAddWarehouseViewModels.cs" />
@@ -96,6 +100,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MaterialUnitListItemViewModel.cs" />
     <Compile Include="Views\Popups\AddBranch.xaml.cs">
       <DependentUpon>AddBranch.xaml</DependentUpon>
     </Compile>

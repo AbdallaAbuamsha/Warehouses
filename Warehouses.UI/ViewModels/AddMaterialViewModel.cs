@@ -23,13 +23,16 @@ namespace Warehouses.UI.ViewModels
         private float _dazonElementsCount;
         private float _freeReferencesAmount;
         private IMaterialDataService _materialDataService;
-
-        public AddMaterialViewModel(IMaterialDataService materialDataService, IAddMaterialNameDetailsViewModel addMaterialNameViewModel)
+        public AddMaterialViewModel(IMaterialDataService materialDataService, 
+            IAddMaterialNameDetailsViewModel addMaterialNameViewModel,
+            IAddMaterialUnitDetailsViewModel addMaterialUnitViewModel)
         {
             Materials = new ObservableCollection<Material>();
             Save = new DelegateCommand(ExecuteSaveCommand);
             _materialDataService = materialDataService;
+
             AddMaterialNameViewModel = addMaterialNameViewModel;
+            AddMaterialUnitViewModel = addMaterialUnitViewModel;
         }
         
         private void ExecuteSaveCommand()
@@ -50,9 +53,12 @@ namespace Warehouses.UI.ViewModels
         {
             var materials = _materialDataService.GetAll();
             AddMaterialNameViewModel.Load();
+            AddMaterialUnitViewModel.Load();
             FillLists<Material>(Materials, materials);
         }
         public IAddMaterialNameDetailsViewModel AddMaterialNameViewModel { get; set; }
+        public IAddMaterialUnitDetailsViewModel AddMaterialUnitViewModel { get; set; }
+
         public ObservableCollection<Material> Materials { get; set; }
 
         public string MaterialCode

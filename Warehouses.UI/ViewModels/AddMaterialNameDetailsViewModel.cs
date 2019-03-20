@@ -30,6 +30,7 @@ namespace Warehouses.UI.ViewModels
         private void ExecuteDeleteCommand(MaterialName materialName)
         {
             MaterialsNames.Remove(materialName);
+            Languages.Insert(0, materialName.Language);
         }
 
         public void Load()
@@ -41,7 +42,9 @@ namespace Warehouses.UI.ViewModels
         private void ExecuteAddCommand()
         {
             //MessageBox.Show(MaterialName + " " + SelectedLanguage.Name);
-            MaterialsNames.Add(new Warehouse.Model.MaterialName { Name = MaterialName, Language = SelectedLanguage.Name });
+            MaterialsNames.Add(new Warehouse.Model.MaterialName { Name = MaterialName, Language = SelectedLanguage });
+            Languages.Remove(SelectedLanguage);
+            MaterialName = string.Empty;
         }
 
         private bool ExecuteCanAddCommand()

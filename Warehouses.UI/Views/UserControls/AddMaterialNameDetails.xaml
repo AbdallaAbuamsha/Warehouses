@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Warehouses.UI.Views.UserControls"
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             
+             Background="White"
              d:DesignHeight="300" d:DesignWidth="560.305">
     <Grid>
         <GroupBox Header="Material Name" >
@@ -23,8 +23,8 @@
                 <StackPanel Grid.Column="0">
                     <TextBox
                             x:Name="Username"
-                            materialDesign:HintAssist.Hint="Organization Name"
-                            Text="{Binding OrganizationName}"
+                            materialDesign:HintAssist.Hint="Material Name"
+                            Text="{Binding MaterialName}"
                             Padding="0 0 0 2.5"
                             Margin="0"
                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Grid.ColumnSpan="3"
@@ -32,6 +32,9 @@
                 </StackPanel>
                 <ComboBox
                         Grid.Column="1"
+                        ItemsSource="{Binding Languages}"
+                        SelectedItem="{Binding SelectedLanguage}"
+                        DisplayMemberPath="Name"
                         materialDesign:HintAssist.Hint="Language"
                         Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                         Padding="0 0 0 5"
@@ -39,9 +42,9 @@
                         VerticalAlignment="Top"/>
                 <Button
                         Grid.Column="2"
-                        Command="{Binding Save}"
+                        Command="{Binding Add}"
                         Padding="24 0"
-                        Content="Save"
+                        Content="Add"
                         VerticalAlignment="Center"/>
                 <ScrollViewer Grid.Row="1" Height="140"  Margin="0 10 0 0"  Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto">
                     <StackPanel Orientation="Vertical">
@@ -68,94 +71,38 @@
                             </Border>
                         </Grid>
 
-                        <ItemsControl x:Name="dataTable">
-                            <!--<ItemsControl.ItemTemplate>
-                                <DataTemplate>-->
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="0.5*"/>
-                                    <!--<ColumnDefinition Width="*"/>-->
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="0" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <TextBlock Text="Lettuce" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <TextBlock Text="English" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <materialDesign:PackIcon Kind="Delete" Padding="0" Margin="0" Height="24" Width="24"/>
-                                </Border>
-                            </Grid>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="0.5*"/>
-                                    <!--<ColumnDefinition Width="*"/>-->
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="0" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <TextBlock Text="Lettuce" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <TextBlock Text="English" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <materialDesign:PackIcon Kind="Delete" Padding="0" Margin="0" Height="24" Width="24"/>
-                                </Border>
-                            </Grid>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="0.5*"/>
-                                    <!--<ColumnDefinition Width="*"/>-->
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="0" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <TextBlock Text="Lettuce" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <TextBlock Text="English" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <materialDesign:PackIcon Kind="Delete" Padding="0" Margin="0" Height="24" Width="24"/>
-                                </Border>
-                            </Grid>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="0.5*"/>
-                                    <!--<ColumnDefinition Width="*"/>-->
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="0" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <TextBlock Text="Lettuce" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <TextBlock Text="English" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <materialDesign:PackIcon Kind="Delete" Padding="0" Margin="0" Height="24" Width="24"/>
-                                </Border>
-                            </Grid>
+                        <ItemsControl x:Name="dataTable" ItemsSource="{Binding MaterialsNames, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="0.5*"/>
+                                            <!--<ColumnDefinition Width="*"/>-->
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Border BorderThickness="1 0 1 2" Grid.Column="0" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                            <TextBlock Text="{Binding Name}" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Border>
+                                        <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                            <TextBlock Text="{Binding Language}" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Border>
+                                        <Button Grid.Column="2"
+                                                Grid.Row="0"
+                                                 Command="{Binding Path=DataContext.Delete,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
+                                                CommandParameter="{Binding}"
+                                                Padding="0"
+                                                Background="White"
+                                                BorderBrush="#b2bec3">
+                                    <materialDesign:PackIcon Kind="Delete" Padding="0" Margin="0" Height="24" Width="24" Foreground="DarkGray"/>
+                                        </Button>
+                                    </Grid>
 
-
-
-                            <!--</DataTemplate>
-                            </ItemsControl.ItemTemplate>-->
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </StackPanel>
                 </ScrollViewer>

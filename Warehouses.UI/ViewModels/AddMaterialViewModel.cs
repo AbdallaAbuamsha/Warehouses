@@ -24,11 +24,12 @@ namespace Warehouses.UI.ViewModels
         private float _freeReferencesAmount;
         private IMaterialDataService _materialDataService;
 
-        public AddMaterialViewModel(IMaterialDataService materialDataService)
+        public AddMaterialViewModel(IMaterialDataService materialDataService, IAddMaterialNameDetailsViewModel addMaterialNameViewModel)
         {
             Materials = new ObservableCollection<Material>();
             Save = new DelegateCommand(ExecuteSaveCommand);
-            _materialDataService = materialDataService;            
+            _materialDataService = materialDataService;
+            AddMaterialNameViewModel = addMaterialNameViewModel;
         }
         
         private void ExecuteSaveCommand()
@@ -48,15 +49,10 @@ namespace Warehouses.UI.ViewModels
         public void Load()
         {
             var materials = _materialDataService.GetAll();
+            AddMaterialNameViewModel.Load();
             FillLists<Material>(Materials, materials);
         }
-        private void FillLists<T>(ObservableCollection<T> empty, IEnumerable<T> filled)
-        {
-            foreach (var item in filled)
-            {
-                empty.Add(item);
-            }
-        }
+        public IAddMaterialNameDetailsViewModel AddMaterialNameViewModel { get; set; }
         public ObservableCollection<Material> Materials { get; set; }
 
         public string MaterialCode

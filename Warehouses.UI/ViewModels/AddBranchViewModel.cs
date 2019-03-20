@@ -37,13 +37,6 @@ namespace Warehouses.UI.ViewModels
             FillLists(Organizations, organizations);
         }
 
-        private void FillLists<T>(ObservableCollection<T> empty, IEnumerable<T> filled)
-        {
-            foreach (var item in filled)
-            {
-                empty.Add(item);
-            }
-        }
         private void ExecuteCloseOrganizationCommand()
         {
             MessageBox.Show("Close");

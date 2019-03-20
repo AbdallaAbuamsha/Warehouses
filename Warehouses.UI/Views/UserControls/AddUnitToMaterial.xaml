@@ -6,39 +6,38 @@
              xmlns:local="clr-namespace:Warehouses.UI.Views.UserControls"
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"             
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="397.6">
     <Grid>
-        <GroupBox Header="Units Information" Margin="0 4 0 0">
+        <GroupBox Header="Material Name" >
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Column="0">
-                    <TextBox
-                            materialDesign:HintAssist.Hint="Unit Name"
-                            Text="{Binding OrganizationName}"
-                            Padding="0 0 0 2.5"
-                            Margin="0 0 20 0"
-                            Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Grid.ColumnSpan="3"
-                            VerticalAlignment="Bottom"/>
-                </StackPanel>
-
+                <ComboBox
+                        Grid.Column="0"
+                        ItemsSource="{Binding Units}"
+                        SelectedItem="{Binding SelectedUnit}"
+                        DisplayMemberPath="Name"
+                        materialDesign:HintAssist.Hint="Unit"
+                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                        Padding="0 0 0 5"
+                        Margin="10 10 10 0"
+                        VerticalAlignment="Top"/>
                 <Button
-                        Grid.Column="1"
-                        Command="{Binding Save}"
+                        Grid.Column="2"
+                        Command="{Binding Add}"
                         Padding="24 0"
-                        Content="Save"
+                        Content="Add"
                         VerticalAlignment="Center"/>
-                <ScrollViewer Grid.Row="1" Height="140" Margin="0 10 0 0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer Grid.Row="1" Height="140"  Margin="0 10 0 0"  Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto">
                     <StackPanel Orientation="Vertical">
-                        <Grid x:Name="UnitsDataHeader">
+                        <Grid x:Name="dataHeader">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="0.5*"/>
                                 <ColumnDefinition Width="0.5*"/>
@@ -46,29 +45,26 @@
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
                             <Border BorderThickness="2 2 1 2" Grid.Column="0" Grid.Row="0" Padding="32 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
                                 <TextBlock Text="Name" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Border>
-                            <Border BorderThickness="1 2 1 2" Grid.Column="1" Grid.Row="0" Padding="32 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
-                                <TextBlock Text="Simpol" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Border BorderThickness="1 2 1 2" Grid.Column="1" Grid.Row="0" Padding="8 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
+                                <TextBlock Text="Default" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Border>
-                            <Border BorderThickness="1 2 1 2" Grid.Column="2" Grid.Row="0" Padding="8 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
-                                <TextBlock Text="Defult" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
-                            <Border BorderThickness="1 2 1 2" Grid.Column="3" Grid.Row="0" Padding="8 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
+                            <Border BorderThickness="1 2 2 2" Grid.Column="2" Grid.Row="0" Padding="8 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
                                 <TextBlock Text="Delete" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Border>
                         </Grid>
 
-                        <ItemsControl x:Name="UnitsDataTable">
+                        <ItemsControl x:Name="dataTable" ItemsSource="{Binding MaterialUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <!--<ItemsControl.ItemTemplate>
                                 <DataTemplate>-->
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="0.5*"/>
                                     <ColumnDefinition Width="0.5*"/>
                                     <!--<ColumnDefinition Width="*"/>-->
@@ -76,45 +72,29 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="0" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <TextBlock Text="Kelogram" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <TextBlock Text="Kg" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+                                <Button Grid.Column="0"
+                                        Grid.Row="0"
+                                        Padding="32 4"
+                                        Command="{Binding Path=DataContext.SetAsDefaultUnit,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
+                                        CommandParameter="{Binding}"
+                                        Height="auto"
+                                        Width="auto"
+                                        Background="White"
+                                        BorderBrush="#b2bec3" >
+                                    <TextBlock Text="{Binding Name}" Foreground="#3498db" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Button>
+                                <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
                                     <materialDesign:PackIcon Kind="Check" HorizontalAlignment="Center" Padding="0" Margin="0" Height="24" Width="24"/>
                                 </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="3" Grid.Row="0" Padding="4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <materialDesign:PackIcon Kind="Delete" HorizontalAlignment="Center" Padding="0" Margin="0" Height="24" Width="24"/>
-                                </Border>
-                            </Grid>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="0.5*"/>
-                                    <ColumnDefinition Width="0.5*"/>
-                                    <!--<ColumnDefinition Width="*"/>-->
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="0" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <TextBlock Text="Gram" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="32 4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <TextBlock Text="g" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="0" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <materialDesign:PackIcon Kind="Check" HorizontalAlignment="Center" Padding="0" Margin="0" Height="24" Width="24"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <materialDesign:PackIcon Kind="Check" HorizontalAlignment="Center" Padding="0" Margin="0" Height="24" Width="24"/>
-                                </Border>
-                                <Border BorderThickness="1 0 1 2" Grid.Column="3" Grid.Row="0" Padding="4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
-                                    <materialDesign:PackIcon Kind="Delete" HorizontalAlignment="Center" Padding="0" Margin="0" Height="24" Width="24"/>
-                                </Border>
+                                <Button Grid.Column="2"
+                                        Grid.Row="0"
+                                        Command="{Binding Path=DataContext.Delete,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
+                                        CommandParameter="{Binding}"
+                                        Padding="0"
+                                        Background="White"
+                                        BorderBrush="#b2bec3">
+                                    <materialDesign:PackIcon Kind="Delete" Padding="0" Margin="0" Height="24" Width="24" Foreground="DarkGray"/>
+                                </Button>
                             </Grid>
                             <!--</DataTemplate>
                             </ItemsControl.ItemTemplate>-->
@@ -122,7 +102,11 @@
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
-
         </GroupBox>
     </Grid>
 </UserControl>
+
+
+<!--<Border BorderThickness="1 0 1 2" Grid.Column="2" Grid.Row="0" Padding="4" Height="auto" Width="auto" Background="White" BorderBrush="#b2bec3" CornerRadius="2">
+    <materialDesign:PackIcon Kind="Check" HorizontalAlignment="Center" Padding="0" Margin="0" Height="24" Width="24"/>
+</Border>-->

@@ -32,15 +32,21 @@
             Style="{DynamicResource MaterialDesignTitleTextBlock}"
             VerticalAlignment="Center"
             />
-        <materialDesign:PackIcon
-            Kind="Close"
+        <Button 
+            Command="{Binding Close}"
+            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                           AncestorType={x:Type Window}}}"
             Height="24"
             Width="24"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Margin="0 0 20 0"
-            Padding="0"/>
-
+            Padding="0"
+            Background="{x:Null}"
+            BorderBrush="{x:Null}">
+            <materialDesign:PackIcon
+            Kind="Close" Foreground="DarkGray" Height="24" Width="24"/>
+        </Button>
         <StackPanel Grid.Row="1" Orientation="Vertical" Margin="20">
             <!--First Name-->
             <TextBox

@@ -29,6 +29,7 @@ namespace Warehouses.UI.ViewModels
         {
             Materials = new ObservableCollection<Material>();
             Save = new DelegateCommand(ExecuteSaveCommand);
+            Close = new DelegateCommand<Window>(ExecuteCloseOrganizationCommand);
             _materialDataService = materialDataService;
 
             AddMaterialNameViewModel = addMaterialNameViewModel;
@@ -48,6 +49,10 @@ namespace Warehouses.UI.ViewModels
                 DazonElementsCount.ToString() + "\n" +
                 FreeReferencesAmount.ToString() + "\n" 
                 );
+        }
+        private void ExecuteCloseOrganizationCommand(Window window)
+        {
+            window.Close();
         }
         public void Load()
         {
@@ -137,5 +142,6 @@ namespace Warehouses.UI.ViewModels
         }
 
         public ICommand Save { get; set; }
+        public ICommand Close { get; set; }
     }
 }

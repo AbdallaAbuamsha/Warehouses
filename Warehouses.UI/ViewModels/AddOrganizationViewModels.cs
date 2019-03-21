@@ -16,7 +16,7 @@ namespace Warehouses.UI.ViewModels
         public AddOrganizationViewModels()
         {
             Save = new DelegateCommand(ExecuteSaveOrganizationCommand, ExecuteCanSaveOrganizationCommand);
-            Close = new DelegateCommand(ExecuteCloseOrganizationCommand);
+            Close = new DelegateCommand<Window>(ExecuteCloseOrganizationCommand);
             OrganizationWrapper = new OrganizationWrapper(new Organization { Name = "" });
             OrganizationWrapper.PropertyChanged += (s, e) =>
             {
@@ -33,9 +33,9 @@ namespace Warehouses.UI.ViewModels
             return OrganizationWrapper != null && !OrganizationWrapper.HasErrors;
         }
 
-        private void ExecuteCloseOrganizationCommand()
+        private void ExecuteCloseOrganizationCommand(Window window)
         {
-            MessageBox.Show("Close");
+            window.Close();
         }
 
         private void ExecuteSaveOrganizationCommand()

@@ -28,7 +28,7 @@ namespace Warehouses.UI.ViewModels
             Branch = new BranchWrapper(new Model.Branch());
 
             Save = new DelegateCommand(ExecuteSaveOrganizationCommand, ExecuteCanSaveOrganizationCommand);
-            Close = new DelegateCommand(ExecuteCloseOrganizationCommand);
+            Close = new DelegateCommand<Window>(ExecuteCloseOrganizationCommand);
 
             Branch.PropertyChanged += (s, e) =>
             {
@@ -54,9 +54,9 @@ namespace Warehouses.UI.ViewModels
             FillLists(Organizations, organizations);
         }
 
-        private void ExecuteCloseOrganizationCommand()
+        private void ExecuteCloseOrganizationCommand(Window window)
         {
-            MessageBox.Show("Close");
+            window.Close();
         }
         private void ExecuteSaveOrganizationCommand()
         {

@@ -38,14 +38,21 @@
             Style="{DynamicResource MaterialDesignTitleTextBlock}"
             VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,-0.4,0.4"
             />
-        <materialDesign:PackIcon
-            Kind="Close"
+        <Button 
+            Command="{Binding Close}"
+            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                           AncestorType={x:Type Window}}}"
             Height="24"
             Width="24"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Margin="0,7,19.6,7.4"
-            Padding="0" Grid.Column="1"/>
+            Margin="0 0 20 0"
+            Padding="0"
+            Background="{x:Null}"
+            BorderBrush="{x:Null}">
+            <materialDesign:PackIcon
+            Kind="Close" Foreground="DarkGray" Height="24" Width="24"/>
+        </Button>
 
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="20">
             <!---->

@@ -39,6 +39,7 @@
             VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,-0.4,0.4"
             />
         <Button 
+            Grid.Column="1"
             Command="{Binding Close}"
             CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
                            AncestorType={x:Type Window}}}"

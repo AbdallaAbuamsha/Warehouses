@@ -19,6 +19,10 @@ namespace Warehouses.UI.Startup
             var builder = new ContainerBuilder();
             builder.RegisterType<EventAggregator>().As<IEventAggregator>();
 
+            builder.RegisterType<AddUnit>().AsSelf();
+            builder.RegisterType<AddUnitViewModel>().As<IAddUnitViewModel>();
+            builder.RegisterType<AddUnitRelationViewModel>().As<IAddUnitRelationViewModel>();
+
             builder.RegisterType<AddMaterial>().AsSelf();
             builder.RegisterType<AddMaterialViewModel>().As<IAddMaterialViewModel>();
 

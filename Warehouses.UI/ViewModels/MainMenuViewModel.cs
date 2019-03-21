@@ -28,7 +28,10 @@ namespace Warehouses.UI.ViewModels
 
         private void NewUnitExecute()
         {
-            throw new NotImplementedException();
+            var boostrapper = new Bootstrapper();
+            var container = boostrapper.Bootstrap();
+            var addUnit = container.Resolve<AddUnit>();
+            addUnit.ShowDialog();
         }
 
         private void NewMaterialExecute()

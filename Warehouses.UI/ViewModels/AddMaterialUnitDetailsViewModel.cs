@@ -26,7 +26,7 @@ namespace Warehouses.UI.ViewModels
 
         private void ExecuteSetAsDefaultUnitCommand(MaterialUnitListItemViewModel obj)
         {
-            if(_defaultUnit != null)
+            if (_defaultUnit != null)
                 _defaultUnit.IsDefault = false;
             _defaultUnit = obj;
             obj.IsDefault = true;
@@ -68,7 +68,8 @@ namespace Warehouses.UI.ViewModels
 
         public ObservableCollection<Unit> Units { get; set; }
 
-        public ObservableCollection<MaterialUnitListItemViewModel> MaterialUnits {
+        public ObservableCollection<MaterialUnitListItemViewModel> MaterialUnits
+        {
             get
             {
                 return _materialUnits;
@@ -83,7 +84,8 @@ namespace Warehouses.UI.ViewModels
         public Unit SelectedUnit
         {
             get { return _selecteUnit; }
-            set {
+            set
+            {
                 _selecteUnit = value;
                 OnPropertyChanged();
             }

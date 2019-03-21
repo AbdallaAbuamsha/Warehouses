@@ -89,6 +89,8 @@
     <Compile Include="ViewModels\AddMaterialUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\AddMaterialNameDetailsViewModel.cs" />
     <Compile Include="ViewModels\AddMaterialViewModel.cs" />
+    <Compile Include="ViewModels\AddUnitRelationViewModel.cs" />
+    <Compile Include="ViewModels\AddUnitViewModel.cs" />
     <Compile Include="ViewModels\AddWarehouseViewModels.cs" />
     <Compile Include="ViewModels\AddOrganizationViewModels.cs" />
     <Compile Include="ViewModels\IAddBranchViewModel.cs" />
@@ -96,12 +98,18 @@
     <Compile Include="ViewModels\IAddMaterialUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\IAddMaterialViewModel.cs" />
     <Compile Include="ViewModels\IAddOrganizationViewModels.cs" />
+    <Compile Include="ViewModels\IAddUnitRelationViewModel.cs" />
+    <Compile Include="ViewModels\IAddUnitViewModel.cs" />
     <Compile Include="ViewModels\IAddWarehouseViewModels.cs" />
     <Compile Include="ViewModels\IMainMenuViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MaterialUnitListItemViewModel.cs" />
+    <Compile Include="ViewModels\UnitRelationListItemVIewModel.cs" />
+    <Compile Include="Views\Popups\AddUnit.xaml.cs">
+      <DependentUpon>AddUnit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Popups\AddBranch.xaml.cs">
       <DependentUpon>AddBranch.xaml</DependentUpon>
     </Compile>
@@ -121,6 +129,9 @@
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\AddUnitRelation.xaml.cs">
+      <DependentUpon>AddUnitRelation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\AddUnitToMaterial.xaml.cs">
       <DependentUpon>AddUnitToMaterial.xaml</DependentUpon>
     </Compile>
@@ -130,6 +141,7 @@
     <Compile Include="Views\UserControls\AddMaterialNameDetails.xaml.cs">
       <DependentUpon>AddMaterialNameDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wrappers\UnitWrapper.cs" />
     <Compile Include="Wrappers\WarehouseWrapper.cs" />
     <Compile Include="Wrappers\NotifyDataErrorBase.cs" />
     <Compile Include="Wrappers\BranchWrapper.cs" />
@@ -164,6 +176,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\Popups\AddUnit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Popups\AddBranch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -185,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\AddUnitRelation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

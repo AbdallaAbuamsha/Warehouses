@@ -3,21 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using Warehouses.UI.Wrappers;
 
 namespace Warehouses.UI.ViewModels
 {
     public class AddBranchViewModel : ViewModelBase, IAddBranchViewModel
     {
         private Organization _selectedOrganization;
-        private string _branchName;
-        private string _branchCode;
-        private string _location;
+
 
         IOrganizationDataService _organizationDataService;
         public AddBranchViewModel(IOrganizationDataService organizationDataService)
@@ -25,9 +25,26 @@ namespace Warehouses.UI.ViewModels
             _organizationDataService = organizationDataService;
 
             Organizations = new ObservableCollection<Organization>();
+            Branch = new BranchWrapper(new Model.Branch());
 
-            Save = new DelegateCommand(ExecuteSaveOrganizationCommand);
+            Save = new DelegateCommand(ExecuteSaveOrganizationCommand, ExecuteCanSaveOrganizationCommand);
             Close = new DelegateCommand(ExecuteCloseOrganizationCommand);
+
+            Branch.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName.Equals(nameof(OrganizationWrapper.HasErrors)))
+                {
+
+
+                    ((DelegateCommand)Save).RaiseCanExecuteChanged();
+                }
+            };
+            ((DelegateCommand)Save).RaiseCanExecuteChanged();
+        }
+
+        private bool ExecuteCanSaveOrganizationCommand()
+        {
+         return Branch != null && !Branch.HasErrors && SelectedOrganization != null;
         }
 
         public void Load()
@@ -45,9 +62,9 @@ namespace Warehouses.UI.ViewModels
         {
             MessageBox.Show(
                 SelectedOrganization.Name + "\n" +
-                BranchName + "\n" +
-                BranchCode + "\n" +
-                Location + "\n"
+                Branch.Name + "\n" +
+                Branch.Code + "\n" +
+                Branch.Location + "\n"
                 );
         }
 
@@ -63,35 +80,7 @@ namespace Warehouses.UI.ViewModels
             }
         }
 
-        public string BranchName
-        {
-            get { return _branchName; }
-            set
-            {
-                _branchName = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string BranchCode
-        {
-            get { return _branchCode; }
-            set
-            {
-                _branchCode = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Location
-        {
-            get { return _location; }
-            set
-            {
-                _location = value;
-                OnPropertyChanged();
-            }
-        }
+        public BranchWrapper Branch { get; set; }
 
         public ICommand Save { get; set; }
         public ICommand Close { get; set; }

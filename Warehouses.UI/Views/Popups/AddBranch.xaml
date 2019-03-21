@@ -57,7 +57,7 @@
                 Grid.Row="2"
                 x:Name="Username"
                 materialDesign:HintAssist.Hint="Branch Name"
-                Text="{Binding BranchName}"
+                Text="{Binding Branch.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 
@@ -65,7 +65,7 @@
             <TextBox
                 Grid.Row="2"
                 materialDesign:HintAssist.Hint="Branch Code"
-                Text="{Binding BranchCode}"
+                Text="{Binding Branch.Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 
@@ -73,7 +73,7 @@
             <TextBox
                 Grid.Row="2"
                 materialDesign:HintAssist.Hint="Location"
-                Text="{Binding Location}"
+                Text="{Binding Branch.Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 

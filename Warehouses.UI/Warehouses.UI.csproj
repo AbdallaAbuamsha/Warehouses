@@ -130,8 +130,8 @@
     <Compile Include="Views\UserControls\AddMaterialNameDetails.xaml.cs">
       <DependentUpon>AddMaterialNameDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wrappers\FriendWrapper.cs" />
     <Compile Include="Wrappers\NotifyDataErrorBase.cs" />
+    <Compile Include="Wrappers\BranchWrapper.cs" />
     <Compile Include="Wrappers\OrganizationWrapper.cs" />
     <Compile Include="Wrappers\WrapperBase.cs" />
   </ItemGroup>

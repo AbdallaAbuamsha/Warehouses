@@ -2,6 +2,10 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
+using System;
+using System.ComponentModel;
+
 namespace FriendsOrganizer.UI.Wrappers
 {
     public class WrapperBase<T> : NotifyDataErrorBase
@@ -53,10 +57,9 @@ namespace FriendsOrganizer.UI.Wrappers
                 AddError(propertyName, result.ErrorMessage);
             }
         }
-
         protected virtual IEnumerable<string> ValidateProperty(string propertyName)
         {
             return null;
-        }
+        }        
     }
 }

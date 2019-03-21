@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using Warehouses.Model;
 using Warehouses.UI.Data;
 using System.Collections.Generic;
+using Warehouses.UI.Wrappers;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -13,9 +14,6 @@ namespace Warehouses.UI.ViewModels
     {
         private Organization _selectedOrganization;
         private Branch _selectedBranch;
-        private string _warehouseName;
-        private string _warehouseCode;
-        private string _location;
 
         IOrganizationDataService _organizationDataService;
         IBranchDataService _branchDataService;
@@ -23,12 +21,25 @@ namespace Warehouses.UI.ViewModels
         {
             _organizationDataService = organizationDataService;
             _branchDataService = branchDataService;
-
+            
             Organizations = new ObservableCollection<Organization>();
             Branches = new ObservableCollection<Branch>();
+            Warehouse = new WarehouseWrapper(new Model.Warehouse());
+            Save = new DelegateCommand(ExecuteSaveOrganizationCommand, ExecuteCanSaveOrganizationCommand);
+            Close = new DelegateCommand<Window>(ExecuteCloseOrganizationCommand);
+            Warehouse.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName.Equals(nameof(Warehouse.HasErrors)))
+                {
+                    ((DelegateCommand)Save).RaiseCanExecuteChanged();
+                }
+            };
+            ((DelegateCommand)Save).RaiseCanExecuteChanged();
+        }
 
-            Save = new DelegateCommand(ExecuteSaveOrganizationCommand);
-            Close = new DelegateCommand(ExecuteCloseOrganizationCommand);           
+        private bool ExecuteCanSaveOrganizationCommand()
+        {
+            return SelectedOrganization != null && !Warehouse.HasErrors;
         }
 
         public void Load()
@@ -40,9 +51,9 @@ namespace Warehouses.UI.ViewModels
             FillLists(Branches, branches);;
         }
 
-        private void ExecuteCloseOrganizationCommand()
+        private void ExecuteCloseOrganizationCommand(Window window)
         {
-            MessageBox.Show("Close");
+            window.Close();
         }
 
         private void ExecuteSaveOrganizationCommand()
@@ -50,9 +61,9 @@ namespace Warehouses.UI.ViewModels
             MessageBox.Show(
                 SelectedOrganization.Name + "\n" +
                 SelectedBranch.Name + "\n" +
-                WarehouseName + "\n" +
-                WarehouseCode + "\n" +
-                Location + "\n"
+                Warehouse.Name + "\n" +
+                Warehouse.Code + "\n" +
+                Warehouse.Location + "\n"
                 );
         }
 
@@ -80,35 +91,7 @@ namespace Warehouses.UI.ViewModels
             }
         }
 
-        public string WarehouseName
-        {
-            get { return _warehouseName; }
-            set
-            {
-                _warehouseName = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string WarehouseCode
-        {
-            get { return _warehouseCode; }
-            set
-            {
-                _warehouseCode = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Location
-        {
-            get { return _location; }
-            set
-            {
-                _location = value;
-                OnPropertyChanged();
-            }
-        }
+        public WarehouseWrapper Warehouse { get; set; }
 
         public ICommand Save { get; set; }
         public ICommand Close { get; set; }

@@ -18,6 +18,5 @@ namespace Warehouses.Model
         [MinLength(3)]
         [Required]
         public string Code { get; set; }
-        public int ParentId { get; set; }
     }
 }

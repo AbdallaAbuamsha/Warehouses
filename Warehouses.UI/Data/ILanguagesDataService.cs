@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Warehouse.Model;
+using Warehouses.Model;
 
 namespace Warehouses.UI.Data
 {

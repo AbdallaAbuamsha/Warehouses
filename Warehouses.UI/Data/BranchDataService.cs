@@ -11,11 +11,23 @@ namespace Warehouses.UI.Data
     {
         public IEnumerable<Branch> GetAll()
         {
-            yield return new Branch{ Name = "Branch 1 " };
-            yield return new Branch{ Name = "Branch 2 " };
-            yield return new Branch{ Name = "Branch 3 " };
-            yield return new Branch{ Name = "Branch 4 " };
-            yield return new Branch{ Name = "Branch 5 " };
+            yield return new Branch{ Id = 1, Name = "Branch 1 ", ParentId = 1 };
+            yield return new Branch{ Id = 2, Name = "Branch 2 ", ParentId = 1 };
+            yield return new Branch{ Id = 3, Name = "Branch 3 ", ParentId = 3 };
+            yield return new Branch{ Id = 4, Name = "Branch 4 ", ParentId = 2 };
+            yield return new Branch{ Id = 5, Name = "Branch 5 ", ParentId = 2 };
+        }
+
+        public IEnumerable<Branch> GetByParentId(int id)
+        {
+            var branches = GetAll();
+            foreach (Branch branch in branches)
+            {
+                if(branch.ParentId == id)
+                {
+                    yield return branch;
+                }
+            }
         }
     }
 }

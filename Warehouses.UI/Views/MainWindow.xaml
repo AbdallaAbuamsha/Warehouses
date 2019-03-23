@@ -37,16 +37,24 @@
                 </Grid.RowDefinitions>
 
                 <ComboBox
+                    ItemsSource="{Binding Organizations}"
+                    SelectedItem="{Binding SelectedOrganization}"
+                    DisplayMemberPath="Name"
                     materialDesign:HintAssist.Hint="Organization"
                     Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
-                    Margin="10 10 10 0">
-                </ComboBox>
+                    Margin="10 10 10 0"/>
                 <ComboBox
+                    ItemsSource="{Binding Branches}"
+                    SelectedItem="{Binding SelectedBranch}"
+                    DisplayMemberPath="Name"
                     Grid.Row="1"
                     materialDesign:HintAssist.Hint="Branch"
                     Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                     Margin="10 10 10 0"/>
                 <ComboBox
+                    ItemsSource="{Binding Warehouses}"
+                    SelectedItem="{Binding SelectedWarehouse}"
+                    DisplayMemberPath="Name"                    
                     Grid.Row="2"                    
                     materialDesign:HintAssist.Hint="Warehouse"
                     Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
@@ -55,6 +63,59 @@
                     <TreeViewItem  />
                 </TreeView>
             </Grid>
+            <!--<GroupBox Header="Material Name" Grid.Row="1" Grid.Column="1" Margin="20 0">
+                <StackPanel Orientation="Vertical" Margin="0">
+
+                    <ComboBox
+                        ItemsSource="{Binding Organizations}"
+                        SelectedItem="{Binding SelectedOrganization}"
+                        DisplayMemberPath="Name"
+                        materialDesign:HintAssist.Hint="Organization"
+                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                        Margin="10 10 10 0">
+                    </ComboBox>
+                    <ComboBox
+                        Grid.Row="1"
+                        ItemsSource="{Binding Branches}"
+                        SelectedItem="{Binding SelectedBranch}"
+                        DisplayMemberPath="Name"
+                        materialDesign:HintAssist.Hint="Branch"
+                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                        Margin="10 10 10 0"/>
+                    --><!--First Name--><!--
+                    <TextBox
+                        Grid.Row="2"
+                        x:Name="Username"
+                        materialDesign:HintAssist.Hint="Warehouse Name"
+                        Text="{Binding Warehouse.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="10"
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+
+                    --><!--First Name--><!--
+                    <TextBox
+                        Grid.Row="2"
+                        materialDesign:HintAssist.Hint="Warehouse Code"
+                        Text="{Binding Warehouse.Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="10"
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+
+                    --><!--First Name--><!--
+                    <TextBox
+                        Grid.Row="2"
+                        materialDesign:HintAssist.Hint="Location"
+                        Text="{Binding Warehouse.Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="10"
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+
+                    --><!--Login--><!--
+                    <Button
+                        Grid.Row="5"
+                        Command="{Binding Save}"
+                        Margin="10 18 10 10"
+                        Padding="0"
+                        Content="Save"/>
+                </StackPanel>
+            </GroupBox>-->
         </Grid>
     </Grid>
 </Window>

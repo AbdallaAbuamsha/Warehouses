@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Warehouses.Model
 {
-    public class Material
+    public class Branch
     {
         public int Id { get; set; }
         [MaxLength(50)]
@@ -18,6 +18,9 @@ namespace Warehouses.Model
         [MinLength(3)]
         [Required]
         public string Code { get; set; }
-        public int ParentId { get; set; }
+        [MaxLength(50)]
+        [MinLength(3)]
+        [Required]
+        public string Location { get; set; }
     }
 }

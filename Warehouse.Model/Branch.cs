@@ -22,5 +22,6 @@ namespace Warehouses.Model
         [MinLength(3)]
         [Required]
         public string Location { get; set; }
+        public int ParentId { get; set; }
     }
 }

@@ -1,13 +1,7 @@
 ﻿using Prism.Commands;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using Warehouse.Model;
+using Warehouses.Model;
 using Warehouses.UI.Data;
 
 namespace Warehouses.UI.ViewModels
@@ -22,7 +16,7 @@ namespace Warehouses.UI.ViewModels
         {
             this._languageDataService = languageDataService;
             Languages = new ObservableCollection<Language>();
-            MaterialsNames = new ObservableCollection<Warehouse.Model.MaterialName>();
+            MaterialsNames = new ObservableCollection<MaterialName>();
             Add = new DelegateCommand(ExecuteAddCommand, ExecuteCanAddCommand);
             Delete = new DelegateCommand<MaterialName>(ExecuteDeleteCommand);
         }
@@ -42,7 +36,7 @@ namespace Warehouses.UI.ViewModels
         private void ExecuteAddCommand()
         {
             //MessageBox.Show(MaterialName + " " + SelectedLanguage.Name);
-            MaterialsNames.Add(new Warehouse.Model.MaterialName { Name = MaterialName, Language = SelectedLanguage });
+            MaterialsNames.Add(new MaterialName { Name = MaterialName, Language = SelectedLanguage });
             Languages.Remove(SelectedLanguage);
             MaterialName = string.Empty;
         }

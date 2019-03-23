@@ -14,6 +14,7 @@ namespace Warehouses.UI.ViewModels
         }
         protected virtual void FillLists<T>(ObservableCollection<T> empty, IEnumerable<T> filled)
         {
+            empty.Clear();
             foreach (var item in filled)
             {
                 empty.Add(item);

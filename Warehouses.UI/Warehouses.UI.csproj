@@ -225,13 +225,13 @@
     <Folder Include="Events\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Images\iconmap.png" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Warehouse.Model\Warehouses.Model.csproj">
       <Project>{323a73ce-9dc5-47b2-9e19-ba45d191da29}</Project>
       <Name>Warehouses.Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\iconmap.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -23,17 +23,16 @@ namespace Warehouses.UI.Views
         private MainWindowViewModel _mainWindowViewModel;
         public MainWindow(MainWindowViewModel mainWindowViewModel)
         {
-            _mainWindowViewModel = mainWindowViewModel;
-            this.DataContext = mainWindowViewModel;
 
             InitializeComponent();
-
+            _mainWindowViewModel = mainWindowViewModel;
+            this.DataContext = mainWindowViewModel;
             Loaded += MainWindow_Loaded;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            _mainWindowViewModel.Load();
         }
     }
 }

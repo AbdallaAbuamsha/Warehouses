@@ -83,6 +83,7 @@
     <Compile Include="Data\OrganizationDataService.cs" />
     <Compile Include="Data\UnitDataService.cs" />
     <Compile Include="Data\WarehouseDataService.cs" />
+    <Compile Include="Events\OrganizationSelectedEvent.cs" />
     <Compile Include="MyControls\PasswordBoxAssistant.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
     <Compile Include="ViewModels\AddBranchViewModel.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="ViewModels\AddUnitViewModel.cs" />
     <Compile Include="ViewModels\AddWarehouseViewModels.cs" />
     <Compile Include="ViewModels\AddOrganizationViewModels.cs" />
+    <Compile Include="ViewModels\BranchTreeViewItemViewModel.cs" />
     <Compile Include="ViewModels\IAddBranchViewModel.cs" />
     <Compile Include="ViewModels\IAddMaterialNameDetailsViewModel.cs" />
     <Compile Include="ViewModels\IAddMaterialUnitDetailsViewModel.cs" />
@@ -106,7 +108,9 @@
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MaterialUnitListItemViewModel.cs" />
+    <Compile Include="ViewModels\OrganizationTreeViewItemViewModel.cs" />
     <Compile Include="ViewModels\UnitRelationListItemVIewModel.cs" />
+    <Compile Include="ViewModels\WarehouseTreeViewItemViewModel.cs" />
     <Compile Include="Views\Popups\AddUnit.xaml.cs">
       <DependentUpon>AddUnit.xaml</DependentUpon>
     </Compile>
@@ -221,9 +225,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Events\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Images\iconmap.png" />
   </ItemGroup>

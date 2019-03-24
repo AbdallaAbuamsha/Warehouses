@@ -13,6 +13,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:VM   ="clr-namespace:Warehouses.UI.ViewModels"
         xmlns:views="clr-namespace:Warehouses.UI.Views.UserControls"
         Title="LoginWindow" Height="642.722" Width="1092.89" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
@@ -59,9 +60,40 @@
                     materialDesign:HintAssist.Hint="Warehouse"
                     Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                     Margin="10 10 10 0"/>
-                <TreeView Grid.Row="3">
-                    <TreeViewItem  />
-                </TreeView>
+                <StackPanel Grid.Row="3">
+                    <TreeView x:Name="MainTreeView"
+                              Margin="10"
+                              ItemsSource="{Binding Organizations,
+                                            Mode=TwoWay,
+                                            UpdateSourceTrigger=PropertyChanged}" >
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate
+                                ItemsSource="{Binding Branches}"
+                                DataType="{x:Type VM:OrganizationTreeViewItemViewModel}" >
+                                <Label Content="{Binding Name}"/>
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <HierarchicalDataTemplate
+                                        ItemsSource="{Binding Warehouses,
+                                                      Mode=TwoWay,
+                                                      UpdateSourceTrigger=PropertyChanged}" DataType="{x:Type VM:BranchTreeViewItemViewModel}">
+                                        <Label Content="{Binding Name}"/>
+                                        <HierarchicalDataTemplate.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type VM:WarehouseTreeViewItemViewModel}">
+                                                <Label Content="{Binding Name}"/>
+                                            </DataTemplate>
+                                        </HierarchicalDataTemplate.ItemTemplate>
+                                    </HierarchicalDataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </StackPanel>
             </Grid>
             <!--<GroupBox Header="Material Name" Grid.Row="1" Grid.Column="1" Margin="20 0">
                 <StackPanel Orientation="Vertical" Margin="0">

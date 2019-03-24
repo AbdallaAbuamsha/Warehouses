@@ -6,7 +6,7 @@ namespace Warehouses.UI.Data
 {
     public class WarehouseDataService : IWarehouseDataService
     {
-        public IEnumerable<Model.Warehouse> GetAll()
+        public IEnumerable<Warehouse> GetAll()
         {
             yield return new Warehouse { Name = "Warehouse 1 ", ParentId = 1 };
             yield return new Warehouse { Name = "Warehouse 2 ", ParentId = 1 };

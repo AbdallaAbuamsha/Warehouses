@@ -1,6 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using Autofac;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using Warehouses.UI.Startup;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -10,7 +15,7 @@ namespace Warehouses.UI.ViewModels
         private IBranchDataService _branchDataService;
         private IWarehouseDataService _warehouseDataService;
 
-        private Organization _selectedOrganization;
+        private OrganizationTreeViewItemViewModel _selectedOrganization;
         private Branch _selectedBranch;
 
         public MainWindowViewModel(
@@ -23,28 +28,47 @@ namespace Warehouses.UI.ViewModels
             _organizationDataService = organizationDataService;
             _branchDataService = branchDataService;
             _warehouseDataService = warehouseDataService;
-            Organizations = new ObservableCollection<Organization>();
+            Organizations = new ObservableCollection<OrganizationTreeViewItemViewModel>();
             Branches = new ObservableCollection<Branch>();
             Warehouses = new ObservableCollection<Warehouse>();
 
         }
-        public ObservableCollection<Organization> Load()
+        public ObservableCollection<OrganizationTreeViewItemViewModel> Load()
         {
             var organizations = _organizationDataService.GetAll();
-            FillLists(Organizations, organizations);
+            var bootstrapper = new Bootstrapper();
+            var builder = bootstrapper.Bootstrap();
+            foreach (Organization organization in organizations)
+            {
+                var orgItem = builder.Resolve<OrganizationTreeViewItemViewModel>();
+                orgItem.Id = organization.Id;
+                orgItem.Name = organization.Name;
+                Organizations.Add(orgItem);
+            }
             return Organizations;
         }
+
+        internal IEnumerable<Branch> LoadBranches(int id)
+        {
+            return _branchDataService.GetByParentId(id);
+        }
+
         public IMainMenuViewModel MainMenuViewModel { get; }
-        public ObservableCollection<Organization> Organizations { get; set; }
-        public Organization SelectedOrganization
+
+        internal IEnumerable LoadWarehouses(int id)
+        {
+            return _warehouseDataService.GetByParentId(id);
+        }
+
+        public ObservableCollection<OrganizationTreeViewItemViewModel> Organizations { get; set; }
+        public OrganizationTreeViewItemViewModel SelectedOrganization
         {
             get { return _selectedOrganization; }
             set
             {
                 _selectedOrganization = value;
                 OnPropertyChanged();
-                FillLists(Branches, _branchDataService.GetByParentId(SelectedOrganization.Id));
-                //FillLists(Warehouses, _warehouseDataService.GetByParentId(SelectedOrganization.Id));
+                
             }
         }
 

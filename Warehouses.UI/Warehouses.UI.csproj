@@ -83,9 +83,12 @@
     <Compile Include="Data\OrganizationDataService.cs" />
     <Compile Include="Data\UnitDataService.cs" />
     <Compile Include="Data\WarehouseDataService.cs" />
+    <Compile Include="Events\BranchComboBoxItemSelectedEvent.cs" />
+    <Compile Include="Events\BranchTreeItemSelectedEvent.cs" />
     <Compile Include="Events\OrganizationComboBoxItemSelectedEvent.cs" />
     <Compile Include="Events\OrganizationTreeItemSelectedEvent.cs" />
     <Compile Include="Events\TestEvent.cs" />
+    <Compile Include="Events\WarehouseItemSelectedEvent.cs" />
     <Compile Include="MyControls\PasswordBoxAssistant.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
     <Compile Include="ViewModels\AddBranchViewModel.cs" />

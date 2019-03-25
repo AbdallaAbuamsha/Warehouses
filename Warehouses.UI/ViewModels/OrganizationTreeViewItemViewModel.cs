@@ -1,12 +1,6 @@
 ﻿using Autofac;
 using Prism.Events;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using Warehouses.Model;
 using Warehouses.UI.Data;
 using Warehouses.UI.Events;
@@ -18,10 +12,12 @@ namespace Warehouses.UI.ViewModels
     {
         IBranchDataService _brancheDataService;
         IEventAggregator _eventAggregator;
-        public OrganizationTreeViewItemViewModel(IBranchDataService brancheDataService, IEventAggregator eventAggregator)
+        private Organization _organization;
+        public OrganizationTreeViewItemViewModel(Organization organization, IBranchDataService brancheDataService, IEventAggregator eventAggregator)
         {
             _brancheDataService = brancheDataService;
             _eventAggregator = eventAggregator;
+            _organization = organization;
             Branches = new ObservableCollection<BranchTreeViewItemViewModel>();
             Branches.Add(null);
             eventAggregator.GetEvent<OrganizationComboBoxItemSelectedEvent>().Subscribe(OrganizationSelected);
@@ -30,16 +26,25 @@ namespace Warehouses.UI.ViewModels
 
         private void OrganizationSelected(OrganizationTreeViewItemViewModel organization)
         {
-            if(organization.Id == this.Id)
+            if(organization.Organization.Id == this.Organization.Id)
             {
                 IsSelected = true;
                 IsExpanded = true;
             }
         }
+        
 
-        public int Id { get; set; }
+        public Organization Organization
+        {
+            get { return _organization; }
+            set
+            {
+                _organization = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public string Name { get; set; }
+
         public ObservableCollection<BranchTreeViewItemViewModel> Branches { get; set; }
         private bool _isSelected;
         public bool IsSelected
@@ -70,15 +75,12 @@ namespace Warehouses.UI.ViewModels
                     OnPropertyChanged();
                     if (_isExpanded)
                     {
-                        var branches = _brancheDataService.GetByParentId(Id);
+                        var branches = _brancheDataService.GetByParentId(Organization.Id);
                         Branches.Clear();
                         foreach (var branch in branches)
                         {
-                            var branchItem = Bootstrapper.Builder.Resolve<BranchTreeViewItemViewModel>();
-                            branchItem.Id = branch.Id;
-                            branchItem.Name = branch.Name;
-                            Branches.Add(branchItem);
-                            
+                            var branchItem = Bootstrapper.Builder.Resolve<BranchTreeViewItemViewModel>(new NamedParameter("branch", branch));
+                            Branches.Add(branchItem);   
                         }
                     }
                 }

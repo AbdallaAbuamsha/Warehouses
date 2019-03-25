@@ -16,7 +16,7 @@ namespace Warehouses.UI.Startup
     {
         public static readonly IContainer Builder = Bootstrap();
 
-        public static IContainer Bootstrap()
+        private static IContainer Bootstrap()
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();

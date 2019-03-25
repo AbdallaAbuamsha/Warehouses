@@ -17,22 +17,22 @@
         <StackPanel>
             <ComboBox
                         ItemsSource="{Binding Organizations}"
-                        SelectedItem="{Binding SelectedOrganization}"
-                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding SelectedOrganization, Mode=TwoWay}"
+                        DisplayMemberPath="Organization.Name"
                         materialDesign:HintAssist.Hint="Organization"
                         Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                         Margin="10 10 10 0"/>
             <ComboBox
                         ItemsSource="{Binding Branches}"
-                        SelectedItem="{Binding SelectedBranch}"
-                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding SelectedBranch, Mode=TwoWay}"
+                        DisplayMemberPath="Branch.Name"
                         materialDesign:HintAssist.Hint="Branch"
                         Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                         Margin="10 10 10 0"/>
             <ComboBox
                         ItemsSource="{Binding Warehouses}"
-                        SelectedItem="{Binding SelectedWarehouse}"
-                        DisplayMemberPath="Name"                                     
+                        SelectedItem="{Binding SelectedWarehouse, Mode=TwoWay}"
+                        DisplayMemberPath="Warehouse.Name"                                     
                         materialDesign:HintAssist.Hint="Warehouse"
                         Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                         Margin="10 10 10 0"/>
@@ -53,16 +53,16 @@
                     <HierarchicalDataTemplate
                                 ItemsSource="{Binding Branches}"
                                 DataType="{x:Type VM:OrganizationTreeViewItemViewModel}" >
-                        <Label Content="{Binding Name}"/>
+                        <Label Content="{Binding Organization.Name}"/>
                         <HierarchicalDataTemplate.ItemTemplate>
                             <HierarchicalDataTemplate
                                         ItemsSource="{Binding Warehouses,
                                                       Mode=TwoWay,
                                                       UpdateSourceTrigger=PropertyChanged}" DataType="{x:Type VM:BranchTreeViewItemViewModel}">
-                                <Label Content="{Binding Name}"/>
+                                <Label Content="{Binding Branch.Name}"/>
                                 <HierarchicalDataTemplate.ItemTemplate>
                                     <DataTemplate DataType="{x:Type VM:WarehouseTreeViewItemViewModel}">
-                                        <Label Content="{Binding Name}"/>
+                                        <Label Content="{Binding Warehouse.Name}"/>
                                     </DataTemplate>
                                 </HierarchicalDataTemplate.ItemTemplate>
                             </HierarchicalDataTemplate>

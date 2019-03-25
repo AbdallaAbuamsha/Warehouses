@@ -4,7 +4,8 @@ using Warehouses.UI.ViewModels;
 
 namespace Warehouses.UI.Events
 {
-    class OrganizationComboBoxItemSelectedEvent : PubSubEvent<OrganizationTreeViewItemViewModel>
+    class BranchTreeItemSelectedEvent : PubSubEvent<BranchTreeViewItemViewModel>
+
     {
     }
 }

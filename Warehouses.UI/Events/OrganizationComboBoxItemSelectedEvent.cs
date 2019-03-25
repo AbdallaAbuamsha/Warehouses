@@ -3,7 +3,7 @@ using Warehouses.UI.ViewModels;
 
 namespace Warehouses.UI.Events
 {
-    public class OrganizationSelectedEvent : PubSubEvent<OrganizationTreeViewItemViewModel>
+    class OrganizationComboBoxItemSelectedEvent : PubSubEvent<OrganizationTreeViewItemViewModel>
     {
     }
 }

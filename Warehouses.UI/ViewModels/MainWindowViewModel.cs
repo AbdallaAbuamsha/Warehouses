@@ -38,7 +38,8 @@ namespace Warehouses.UI.ViewModels
             Branches = new ObservableCollection<Branch>();
             Warehouses = new ObservableCollection<Warehouse>();
 
-            eventAggregator.GetEvent<OrganizationSelectedEvent>().Subscribe(OrganizationSelected);
+            eventAggregator.GetEvent<OrganizationTreeItemSelectedEvent>().Subscribe(OrganizationSelected);
+            
 
         }
 
@@ -81,6 +82,7 @@ namespace Warehouses.UI.ViewModels
             {
                 _selectedOrganization = value;
                 OnPropertyChanged();
+                _eventAggregator.GetEvent<OrganizationComboBoxItemSelectedEvent>().Publish(SelectedOrganization);
             }
         }
 

@@ -24,8 +24,18 @@ namespace Warehouses.UI.ViewModels
             _eventAggregator = eventAggregator;
             Branches = new ObservableCollection<BranchTreeViewItemViewModel>();
             Branches.Add(null);
+            eventAggregator.GetEvent<OrganizationComboBoxItemSelectedEvent>().Subscribe(OrganizationSelected);
+
         }
 
+        private void OrganizationSelected(OrganizationTreeViewItemViewModel organization)
+        {
+            if(organization.Id == this.Id)
+            {
+                IsSelected = true;
+                IsExpanded = true;
+            }
+        }
 
         public int Id { get; set; }
 
@@ -43,7 +53,7 @@ namespace Warehouses.UI.ViewModels
                     OnPropertyChanged();
                     if (_isSelected)
                     {
-                        _eventAggregator.GetEvent<OrganizationSelectedEvent>().Publish(this);
+                        _eventAggregator.GetEvent<OrganizationTreeItemSelectedEvent>().Publish(this);
                     }
                 }
             }

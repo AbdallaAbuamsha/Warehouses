@@ -54,6 +54,7 @@ namespace Warehouses.UI.Startup
 
             builder.RegisterType<MainWindow>().AsSelf();
             builder.RegisterType<MainWindowViewModel>().AsSelf();
+            builder.RegisterType<MainWIndowWarehouseSelectionViewModel>().As<IMainWIndowWarehouseSelectionViewModel>();
             builder.RegisterType<MainMenuViewModel>().As<IMainMenuViewModel>();
 
             builder.RegisterType<LoginWindow>().AsSelf();

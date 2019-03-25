@@ -106,9 +106,11 @@
     <Compile Include="ViewModels\IAddUnitViewModel.cs" />
     <Compile Include="ViewModels\IAddWarehouseViewModels.cs" />
     <Compile Include="ViewModels\IMainMenuViewModel.cs" />
+    <Compile Include="ViewModels\IMainWIndowWarehouseSelectionViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MainWIndowWarehouseSelectionViewModel.cs" />
     <Compile Include="ViewModels\MaterialUnitListItemViewModel.cs" />
     <Compile Include="ViewModels\OrganizationTreeViewItemViewModel.cs" />
     <Compile Include="ViewModels\UnitRelationListItemVIewModel.cs" />
@@ -146,6 +148,9 @@
     </Compile>
     <Compile Include="Views\UserControls\AddMaterialNameDetails.xaml.cs">
       <DependentUpon>AddMaterialNameDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\MainWIndowWarehouseSelectionDropDownsView.xaml.cs">
+      <DependentUpon>MainWIndowWarehouseSelectionDropDownsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wrappers\UnitWrapper.cs" />
     <Compile Include="Wrappers\WarehouseWrapper.cs" />
@@ -223,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\AddMaterialNameDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\MainWIndowWarehouseSelectionDropDownsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

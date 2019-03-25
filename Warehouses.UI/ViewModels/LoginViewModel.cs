@@ -25,9 +25,7 @@ namespace Warehouses.UI.ViewModels
 
         private void OnLoginExecute()
         {
-            var bootstrapper = new Bootstrapper();
-            var container = bootstrapper.Bootstrap();
-            MainWindow mainWindow = container.Resolve<MainWindow>();
+            MainWindow mainWindow = Bootstrapper.Builder.Resolve<MainWindow>();
             mainWindow.Show();
         }
 

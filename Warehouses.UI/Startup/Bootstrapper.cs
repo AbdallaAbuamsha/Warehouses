@@ -14,10 +14,12 @@ namespace Warehouses.UI.Startup
 {
     class Bootstrapper
     {
-        public IContainer Bootstrap()
+        public static readonly IContainer Builder = Bootstrap();
+
+        public static IContainer Bootstrap()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<EventAggregator>().As<IEventAggregator>();
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 
             builder.RegisterType<OrganizationTreeViewItemViewModel>().AsSelf();
             builder.RegisterType<BranchTreeViewItemViewModel>().AsSelf();

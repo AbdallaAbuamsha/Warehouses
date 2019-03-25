@@ -1,10 +1,13 @@
 ﻿using Autofac;
+using Prism.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using Warehouses.UI.Events;
 using Warehouses.UI.Startup;
 
 namespace Warehouses.UI.ViewModels
@@ -14,7 +17,7 @@ namespace Warehouses.UI.ViewModels
         private IOrganizationDataService _organizationDataService;
         private IBranchDataService _branchDataService;
         private IWarehouseDataService _warehouseDataService;
-
+        IEventAggregator _eventAggregator;
         private OrganizationTreeViewItemViewModel _selectedOrganization;
         private Branch _selectedBranch;
 
@@ -22,25 +25,35 @@ namespace Warehouses.UI.ViewModels
             IMainMenuViewModel mainMenuViewModel,
             IOrganizationDataService organizationDataService,
             IBranchDataService branchDataService,
-            IWarehouseDataService warehouseDataService)
+            IWarehouseDataService warehouseDataService,
+            IEventAggregator eventAggregator)
         {
-            this.MainMenuViewModel = mainMenuViewModel;
+            MainMenuViewModel = mainMenuViewModel;
             _organizationDataService = organizationDataService;
             _branchDataService = branchDataService;
             _warehouseDataService = warehouseDataService;
+            _eventAggregator = eventAggregator;
+
             Organizations = new ObservableCollection<OrganizationTreeViewItemViewModel>();
             Branches = new ObservableCollection<Branch>();
             Warehouses = new ObservableCollection<Warehouse>();
 
+            eventAggregator.GetEvent<OrganizationSelectedEvent>().Subscribe(OrganizationSelected);
+
         }
+
+
+        public void OrganizationSelected(OrganizationTreeViewItemViewModel organization)
+        {
+            SelectedOrganization = organization;
+        }
+
         public ObservableCollection<OrganizationTreeViewItemViewModel> Load()
         {
             var organizations = _organizationDataService.GetAll();
-            var bootstrapper = new Bootstrapper();
-            var builder = bootstrapper.Bootstrap();
             foreach (Organization organization in organizations)
             {
-                var orgItem = builder.Resolve<OrganizationTreeViewItemViewModel>();
+                var orgItem = Bootstrapper.Builder.Resolve<OrganizationTreeViewItemViewModel>();
                 orgItem.Id = organization.Id;
                 orgItem.Name = organization.Name;
                 Organizations.Add(orgItem);
@@ -68,7 +81,6 @@ namespace Warehouses.UI.ViewModels
             {
                 _selectedOrganization = value;
                 OnPropertyChanged();
-                
             }
         }
 

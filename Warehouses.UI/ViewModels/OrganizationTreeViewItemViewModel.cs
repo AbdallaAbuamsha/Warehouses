@@ -1,12 +1,15 @@
 ﻿using Autofac;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using Warehouses.UI.Events;
 using Warehouses.UI.Startup;
 
 namespace Warehouses.UI.ViewModels
@@ -14,12 +17,16 @@ namespace Warehouses.UI.ViewModels
     public class OrganizationTreeViewItemViewModel : ViewModelBase
     {
         IBranchDataService _brancheDataService;
-        public OrganizationTreeViewItemViewModel(IBranchDataService brancheDataService)
+        IEventAggregator _eventAggregator;
+        public OrganizationTreeViewItemViewModel(IBranchDataService brancheDataService, IEventAggregator eventAggregator)
         {
             _brancheDataService = brancheDataService;
+            _eventAggregator = eventAggregator;
             Branches = new ObservableCollection<BranchTreeViewItemViewModel>();
             Branches.Add(null);
         }
+
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -36,17 +43,7 @@ namespace Warehouses.UI.ViewModels
                     OnPropertyChanged();
                     if (_isSelected)
                     {
-                        var branches = _brancheDataService.GetByParentId(Id);
-                        Branches.Clear();
-                        var bootstrapper = new Bootstrapper();
-                        var builder = bootstrapper.Bootstrap();
-                        foreach (var branch in branches)
-                        {
-                            var branchItem = builder.Resolve<BranchTreeViewItemViewModel>();
-                            branchItem.Id = branch.Id;
-                            branchItem.Name = branch.Name;
-                            Branches.Add(branchItem);
-                        }
+                        _eventAggregator.GetEvent<OrganizationSelectedEvent>().Publish(this);
                     }
                 }
             }
@@ -65,14 +62,13 @@ namespace Warehouses.UI.ViewModels
                     {
                         var branches = _brancheDataService.GetByParentId(Id);
                         Branches.Clear();
-                        var bootstrapper = new Bootstrapper();
-                        var builder = bootstrapper.Bootstrap();
                         foreach (var branch in branches)
                         {
-                            var branchItem = builder.Resolve<BranchTreeViewItemViewModel>();
+                            var branchItem = Bootstrapper.Builder.Resolve<BranchTreeViewItemViewModel>();
                             branchItem.Id = branch.Id;
                             branchItem.Name = branch.Name;
                             Branches.Add(branchItem);
+                            
                         }
                     }
                 }

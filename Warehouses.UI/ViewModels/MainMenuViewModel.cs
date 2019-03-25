@@ -28,41 +28,31 @@ namespace Warehouses.UI.ViewModels
 
         private void NewUnitExecute()
         {
-            var boostrapper = new Bootstrapper();
-            var container = boostrapper.Bootstrap();
-            var addUnit = container.Resolve<AddUnit>();
+            var addUnit = Bootstrapper.Builder.Resolve<AddUnit>();
             addUnit.ShowDialog();
         }
 
         private void NewMaterialExecute()
         {
-            var boostrapper = new Bootstrapper();
-            var container = boostrapper.Bootstrap();
-            var addMaterial = container.Resolve<AddMaterial>();
+            var addMaterial = Bootstrapper.Builder.Resolve<AddMaterial>();
             addMaterial.ShowDialog();
         }
 
         private void NewWarehouseExecute()
         {
-            var boostrapper = new Bootstrapper();
-            var container = boostrapper.Bootstrap();
-            var addWarehouse = container.Resolve<AddWarehouse>();
+            var addWarehouse = Bootstrapper.Builder.Resolve<AddWarehouse>();
             addWarehouse.ShowDialog();
         }
 
         private void NewBranchExecute()
         {
-            var boostrapper = new Bootstrapper();
-            var container = boostrapper.Bootstrap();
-            var addBranch = container.Resolve<AddBranch>();
+            var addBranch = Bootstrapper.Builder.Resolve<AddBranch>();
             addBranch.ShowDialog();
         }
 
         private void NewOrganizationExecute()
         {
-            var boostrapper = new Bootstrapper();
-            var container = boostrapper.Bootstrap();
-            var addOrganization = container.Resolve<AddOrganization>();
+            var addOrganization = Bootstrapper.Builder.Resolve<AddOrganization>();
             addOrganization.ShowDialog();
         }
 

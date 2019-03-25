@@ -18,9 +18,7 @@ namespace Warehouses.UI
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var bootstrapper = new Bootstrapper();
-            var container = bootstrapper.Bootstrap();
-            LoginWindow login = container.Resolve<LoginWindow>();
+            LoginWindow login = Bootstrapper.Builder.Resolve<LoginWindow>();
             login.Show();
         }
     }

@@ -45,9 +45,14 @@ namespace Warehouses.UI.ViewModels
             _unitService = unitService;
             _eventAggregator = eventAggregator;
             Materials = new ObservableCollection<Material>();
+            FillLists(Materials, _materialService.GetAll());
             MainUnits = new ObservableCollection<Unit>();
+            FillLists(MainUnits, _unitService.GetAll());
             RelatedUnits = new ObservableCollection<UnitValueViewModel>();
+            //FillLists(RelatedUnits, _unitService.GetAll());
             Warehouses = new ObservableCollection<Warehouse>();
+            FillLists(Warehouses, _warehouseService.GetAll());
+
             Id = ++Increaser;
             _eventAggregator.GetEvent<DeleteReceiptRowEvent>().Subscribe(DeleteReceiptRow);
         }

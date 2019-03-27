@@ -70,7 +70,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Margin="10"
-                Padding="15 5">
+                Padding="15 2">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Add" Foreground="White"/>
                 <materialDesign:PackIcon Kind="Add" Padding="0" Margin="0" Height="24" Width="24" Foreground="White"/>

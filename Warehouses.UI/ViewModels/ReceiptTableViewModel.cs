@@ -18,8 +18,15 @@ namespace Warehouses.UI.ViewModels
             _eventAggregator = eventAggregator;
             RowsItems = new ObservableCollection<ReceiptTableItemViewModel>();
             Delete = new DelegateCommand<ReceiptTableItemViewModel>(ExecuteDeleteCommand, ExecuteCanDeleteCommand);
+            NewLine = new DelegateCommand(AddRow);
             _eventAggregator.GetEvent<AddReceiptRowEvent>().Subscribe(AddRow);
+            RowsItems.Add(Bootstrapper.Builder.Resolve<ReceiptTableItemViewModel>());
         }
+
+        //private void CreateNewLine()
+        //{
+        //    _eventAggregator.GetEvent<AddReceiptRowEvent>().Publish();
+        //}
 
         private void AddRow()
         {
@@ -38,6 +45,7 @@ namespace Warehouses.UI.ViewModels
         }
 
         public ObservableCollection<ReceiptTableItemViewModel> RowsItems { get; set; }
-        public ICommand Delete { get; set; }      
+        public ICommand Delete { get; set; }
+        public ICommand NewLine { get; set; }
     }
 }

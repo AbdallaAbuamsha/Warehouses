@@ -24,7 +24,7 @@ namespace Warehouses.UI.ViewModels
         private BranchTreeViewItemViewModel _selectedBranch;
         private WarehouseTreeViewItemViewModel _selectedWarehouse;
 
-        public MainWIndowWarehouseSelectionViewModel(IMainMenuViewModel mainMenuViewModel,
+        public MainWIndowWarehouseSelectionViewModel(
             IOrganizationDataService organizationDataService,
             IBranchDataService branchDataService,
             IWarehouseDataService warehouseDataService,
@@ -141,6 +141,7 @@ namespace Warehouses.UI.ViewModels
                     var temp = Bootstrapper.Builder.Resolve<WarehouseTreeViewItemViewModel>(new NamedParameter("warehouse", warehouse));
                     Warehouses.Add(temp);
                 }
+                SelectedOrganization.IsSelected = false;
                 _eventAggregator.GetEvent<BranchComboBoxItemSelectedEvent>().Publish(SelectedBranch);
 
             }

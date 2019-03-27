@@ -15,9 +15,10 @@ namespace Warehouses.UI.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
 
-        public MainWindowViewModel(IMainWIndowWarehouseSelectionViewModel mainWIndowWarehouseSelectionDropDownsViewModel)
+        public MainWindowViewModel(IMainMenuViewModel mainMenuViewModel, IMainWIndowWarehouseSelectionViewModel mainWIndowWarehouseSelectionDropDownsViewModel)
         {
             MainWIndowWarehouseSelectionDropDownsViewModel = mainWIndowWarehouseSelectionDropDownsViewModel;
+            MainMenuViewModel = mainMenuViewModel;
         }
 
 
@@ -26,5 +27,6 @@ namespace Warehouses.UI.ViewModels
             MainWIndowWarehouseSelectionDropDownsViewModel.Load();
         }
         public IMainWIndowWarehouseSelectionViewModel MainWIndowWarehouseSelectionDropDownsViewModel { get; set; }
+        public IMainMenuViewModel MainMenuViewModel { get; set; }
     }
 }

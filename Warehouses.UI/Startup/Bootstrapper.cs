@@ -21,6 +21,11 @@ namespace Warehouses.UI.Startup
             var builder = new ContainerBuilder();
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 
+            builder.RegisterType<Receipt>().AsSelf();
+            builder.RegisterType<ReceiptViewModel>().As<IReceiptViewModel>();
+            builder.RegisterType<ReceiptTableViewModel>().AsSelf();
+            builder.RegisterType<ReceiptTableItemViewModel>().AsSelf();
+
             builder.RegisterType<OrganizationTreeViewItemViewModel>().AsSelf();
             builder.RegisterType<BranchTreeViewItemViewModel>().AsSelf();
             builder.RegisterType<WarehouseTreeViewItemViewModel>().AsSelf();

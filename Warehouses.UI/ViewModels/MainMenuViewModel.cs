@@ -28,32 +28,27 @@ namespace Warehouses.UI.ViewModels
 
         private void NewUnitExecute()
         {
-            var addUnit = Bootstrapper.Builder.Resolve<AddUnit>();
-            addUnit.ShowDialog();
+            Bootstrapper.Builder.Resolve<AddUnit>().ShowDialog();
         }
 
         private void NewMaterialExecute()
         {
-            var addMaterial = Bootstrapper.Builder.Resolve<AddMaterial>();
-            addMaterial.ShowDialog();
+            Bootstrapper.Builder.Resolve<AddMaterial>().ShowDialog();
         }
 
         private void NewWarehouseExecute()
         {
-            var addWarehouse = Bootstrapper.Builder.Resolve<AddWarehouse>();
-            addWarehouse.ShowDialog();
+            Bootstrapper.Builder.Resolve<AddWarehouse>().ShowDialog();
         }
 
         private void NewBranchExecute()
         {
-            var addBranch = Bootstrapper.Builder.Resolve<AddBranch>();
-            addBranch.ShowDialog();
+            Bootstrapper.Builder.Resolve<AddBranch>().ShowDialog();
         }
 
         private void NewOrganizationExecute()
         {
-            var addOrganization = Bootstrapper.Builder.Resolve<AddOrganization>();
-            addOrganization.ShowDialog();
+            Bootstrapper.Builder.Resolve<AddOrganization>().ShowDialog();
         }
 
         private void TransactionReceiptExecute()
@@ -68,7 +63,7 @@ namespace Warehouses.UI.ViewModels
 
         private void InputReceiptExecute()
         {
-            MessageBox.Show("InputReceiptExecute");
+            Bootstrapper.Builder.Resolve<Receipt>().ShowDialog(); ;
         }
 
         public ICommand InputReceiptCommand { get; set; }

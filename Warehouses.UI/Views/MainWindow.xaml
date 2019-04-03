@@ -14,7 +14,13 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"        
         xmlns:views="clr-namespace:Warehouses.UI.Views.UserControls"
+        xmlns:viewModels="clr-namespace:Warehouses.UI.ViewModels"
         Title="LoginWindow" Height="642.722" Width="1092.89" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModels:AddOrganizationViewModels}">
+            <views:OrganizationDetailView/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -30,6 +36,9 @@
             </Grid.ColumnDefinitions>
             <views:MainWIndowWarehouseSelectionDropDownsView DataContext="{Binding MainWIndowWarehouseSelectionDropDownsViewModel}" />
 
+            <ContentControl Grid.Row="1"
+                            Grid.Column="1"
+                            Content="{Binding DetailViewModel}"/>
             <!--<GroupBox Header="Material Name" Grid.Row="1" Grid.Column="1" Margin="20 0">
                 <StackPanel Orientation="Vertical" Margin="0">
 

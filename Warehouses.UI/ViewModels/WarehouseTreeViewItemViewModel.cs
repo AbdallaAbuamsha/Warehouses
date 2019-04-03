@@ -15,9 +15,8 @@ namespace Warehouses.UI.ViewModels
         IWarehouseDataService _warehouseDataService;
         IEventAggregator _eventAggregator;
         private Warehouse _warehouse;
-        private bool _isSelected;
         private bool _isExpanded;
-
+        private bool _isSelected;
 
         public WarehouseTreeViewItemViewModel(Warehouse warehouse, IWarehouseDataService warehouseDataService, IEventAggregator eventAggregator)
         {

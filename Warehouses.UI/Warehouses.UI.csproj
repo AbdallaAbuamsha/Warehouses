@@ -84,12 +84,15 @@
     <Compile Include="Data\UnitDataService.cs" />
     <Compile Include="Data\WarehouseDataService.cs" />
     <Compile Include="Events\AddReceiptRowEvent.cs" />
+    <Compile Include="Events\AfterDetailClosedEvent.cs" />
+    <Compile Include="Events\AfterDetailDeletedEvent.cs" />
+    <Compile Include="Events\AfterDetailSavedEvent.cs" />
     <Compile Include="Events\BranchComboBoxItemSelectedEvent.cs" />
     <Compile Include="Events\BranchTreeItemSelectedEvent.cs" />
     <Compile Include="Events\DeleteReceiptRowEvent.cs" />
+    <Compile Include="Events\OpenDetailViewEvent.cs" />
     <Compile Include="Events\OrganizationComboBoxItemSelectedEvent.cs" />
     <Compile Include="Events\OrganizationTreeItemSelectedEvent.cs" />
-    <Compile Include="Events\TestEvent.cs" />
     <Compile Include="Events\WarehouseItemSelectedEvent.cs" />
     <Compile Include="MyControls\PasswordBoxAssistant.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
@@ -102,6 +105,7 @@
     <Compile Include="ViewModels\AddWarehouseViewModels.cs" />
     <Compile Include="ViewModels\AddOrganizationViewModels.cs" />
     <Compile Include="ViewModels\BranchTreeViewItemViewModel.cs" />
+    <Compile Include="ViewModels\DetailViewModelBase.cs" />
     <Compile Include="ViewModels\IAddBranchViewModel.cs" />
     <Compile Include="ViewModels\IAddMaterialNameDetailsViewModel.cs" />
     <Compile Include="ViewModels\IAddMaterialUnitDetailsViewModel.cs" />
@@ -110,6 +114,7 @@
     <Compile Include="ViewModels\IAddUnitRelationViewModel.cs" />
     <Compile Include="ViewModels\IAddUnitViewModel.cs" />
     <Compile Include="ViewModels\IAddWarehouseViewModels.cs" />
+    <Compile Include="ViewModels\IDetailViewModel.cs" />
     <Compile Include="ViewModels\IMainMenuViewModel.cs" />
     <Compile Include="ViewModels\IMainWIndowWarehouseSelectionViewModel.cs" />
     <Compile Include="ViewModels\IReceiptViewModel.cs" />
@@ -150,6 +155,8 @@
     <Compile Include="Views\Popups\Receipt.xaml.cs">
       <DependentUpon>Receipt.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Services\IMessageDialogService.cs" />
+    <Compile Include="Views\Services\MessageDialogService.cs" />
     <Compile Include="Views\UserControls\AddUnitRelation.xaml.cs">
       <DependentUpon>AddUnitRelation.xaml</DependentUpon>
     </Compile>
@@ -164,6 +171,9 @@
     </Compile>
     <Compile Include="Views\UserControls\MainWIndowWarehouseSelectionDropDownsView.xaml.cs">
       <DependentUpon>MainWIndowWarehouseSelectionDropDownsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\OrganizationDetailView.xaml.cs">
+      <DependentUpon>OrganizationDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\ReceiptTable.xaml.cs">
       <DependentUpon>ReceiptTable.xaml</DependentUpon>
@@ -252,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\MainWIndowWarehouseSelectionDropDownsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\OrganizationDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

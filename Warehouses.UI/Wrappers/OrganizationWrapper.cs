@@ -9,7 +9,11 @@ namespace Warehouses.UI.Wrappers
         {
 
         }
-
+        public int Id
+        {
+            get { return GetValue<int>(); }
+            set { SetValue(value); }
+        }
         public string Name
         {
             get { return GetValue<string>(); }

@@ -1,6 +1,6 @@
 ﻿namespace Warehouses.UI.ViewModels
 {
-    public interface IMainWIndowWarehouseSelectionViewModel
+    public interface IMainViewModel
     {
         void Load();
     }

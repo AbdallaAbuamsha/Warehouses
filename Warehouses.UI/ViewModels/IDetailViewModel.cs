@@ -8,7 +8,7 @@ namespace Warehouses.UI.ViewModels
 {
     public interface IDetailViewModel
     {
-        Task LoadAsync(int id);
+        void Load(int id);
         int Id { get; }
     }
 }

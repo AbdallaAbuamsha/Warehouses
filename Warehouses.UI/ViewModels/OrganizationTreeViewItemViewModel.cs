@@ -13,15 +13,21 @@ namespace Warehouses.UI.ViewModels
         IBranchDataService _brancheDataService;
         IEventAggregator _eventAggregator;
         private Organization _organization;
-        public OrganizationTreeViewItemViewModel(Organization organization, IBranchDataService brancheDataService, IEventAggregator eventAggregator)
+        private bool _isSelected;
+        private bool _isExpanded;
+        private string _detailViewModelName;
+        public OrganizationTreeViewItemViewModel(Organization organization,
+            string detailViewModelName,
+            IBranchDataService brancheDataService,
+            IEventAggregator eventAggregator)
         {
             _brancheDataService = brancheDataService;
             _eventAggregator = eventAggregator;
             _organization = organization;
+            _detailViewModelName = detailViewModelName;
             Branches = new ObservableCollection<BranchTreeViewItemViewModel>();
             Branches.Add(null);
             eventAggregator.GetEvent<OrganizationComboBoxItemSelectedEvent>().Subscribe(OrganizationSelected);
-
         }
 
         private void OrganizationSelected(OrganizationTreeViewItemViewModel organization)
@@ -46,7 +52,6 @@ namespace Warehouses.UI.ViewModels
 
 
         public ObservableCollection<BranchTreeViewItemViewModel> Branches { get; set; }
-        private bool _isSelected;
         public bool IsSelected
         {
             get { return _isSelected; }
@@ -58,12 +63,19 @@ namespace Warehouses.UI.ViewModels
                     OnPropertyChanged();
                     if (_isSelected)
                     {
-                        _eventAggregator.GetEvent<OrganizationTreeItemSelectedEvent>().Publish(this);
+                        // _eventAggregator.GetEvent<OrganizationTreeItemSelectedEvent>().Publish(this);
+                        _eventAggregator.GetEvent<OpenDetailViewEvent>().Publish(
+                            new OpenDetailViewEventArgs
+                            {
+                                Id = Organization.Id,
+                                ViewModelName = _detailViewModelName
+                            });
                     }
                 }
             }
         }
-        private bool _isExpanded;
+
+
         public bool IsExpanded
         {
             get { return _isExpanded; }

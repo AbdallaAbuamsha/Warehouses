@@ -17,7 +17,7 @@
         xmlns:viewModels="clr-namespace:Warehouses.UI.ViewModels"
         Title="LoginWindow" Height="642.722" Width="1092.89" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Window.Resources>
-        <DataTemplate DataType="{x:Type viewModels:AddOrganizationViewModels}">
+        <DataTemplate DataType="{x:Type viewModels:OrganizationDetailViewModel}">
             <views:OrganizationDetailView/>
         </DataTemplate>
     </Window.Resources>
@@ -34,7 +34,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
-            <views:MainWIndowWarehouseSelectionDropDownsView DataContext="{Binding MainWIndowWarehouseSelectionDropDownsViewModel}" />
+            <views:MainWIndowWarehouseSelectionDropDownsView DataContext="{Binding NavigationViewModel}" />
 
             <ContentControl Grid.Row="1"
                             Grid.Column="1"

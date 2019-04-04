@@ -7,14 +7,14 @@
              mc:Ignorable="d" 
              xmlns:VM   ="clr-namespace:Warehouses.UI.ViewModels"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             
+             Background="White"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel>
+        <!--<StackPanel>
             <ComboBox
                         ItemsSource="{Binding Organizations}"
                         SelectedItem="{Binding SelectedOrganization, Mode=TwoWay}"
@@ -36,7 +36,7 @@
                         materialDesign:HintAssist.Hint="Warehouse"
                         Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                         Margin="10 10 10 0"/>
-        </StackPanel>
+        </StackPanel>-->
         <StackPanel Grid.Row="3">
             <TreeView x:Name="MainTreeView"
                               Margin="10"

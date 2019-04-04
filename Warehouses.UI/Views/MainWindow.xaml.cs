@@ -22,8 +22,8 @@ namespace Warehouses.UI.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainWindowViewModel _mainWindowViewModel;
-        public MainWindow(MainWindowViewModel mainWindowViewModel)
+        private IMainViewModel _mainWindowViewModel;
+        public MainWindow(IMainViewModel mainWindowViewModel)
         {
 
             InitializeComponent();

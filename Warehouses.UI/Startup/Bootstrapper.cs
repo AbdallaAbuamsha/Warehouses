@@ -9,6 +9,7 @@ using Warehouses.UI.Views;
 using Warehouses.UI.Views.Popups;
 using Warehouses.UI.Data;
 using Prism.Events;
+using Warehouses.UI.Views.Services;
 
 namespace Warehouses.UI.Startup
 {
@@ -20,6 +21,7 @@ namespace Warehouses.UI.Startup
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
+            builder.RegisterType<MessageDialogService>().As<IMessageDialogService>().SingleInstance();
 
             builder.RegisterType<Receipt>().AsSelf();
             builder.RegisterType<ReceiptViewModel>().As<IReceiptViewModel>();
@@ -57,9 +59,12 @@ namespace Warehouses.UI.Startup
             builder.RegisterType<AddOrganization>().AsSelf();
             builder.RegisterType<AddOrganizationViewModels>().As<IAddOrganizationViewModels>();
 
+            builder.RegisterType<OrganizationDetailViewModel>()
+                .Keyed<IDetailViewModel>(nameof(OrganizationDetailViewModel));
+
             builder.RegisterType<MainWindow>().AsSelf();
-            builder.RegisterType<MainWindowViewModel>().AsSelf();
-            builder.RegisterType<MainWIndowWarehouseSelectionViewModel>().As<IMainWIndowWarehouseSelectionViewModel>();
+            builder.RegisterType<MainViewModel>().As<IMainViewModel>();
+            builder.RegisterType<NavigationViewModel>().As<INavigationViewModel>();
             builder.RegisterType<MainMenuViewModel>().As<IMainMenuViewModel>();
 
             builder.RegisterType<LoginWindow>().AsSelf();

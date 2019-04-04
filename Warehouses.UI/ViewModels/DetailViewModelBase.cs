@@ -28,7 +28,7 @@ namespace Warehouses.UI.ViewModels
             CloseDetailViewCommand = new DelegateCommand(OnCloseDetailViewExecute);
         }
 
-        public abstract Task LoadAsync(int id);
+        public abstract void Load(int id);
 
         public ICommand SaveCommand { get; private set; }
 

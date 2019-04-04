@@ -41,7 +41,7 @@ namespace Warehouses.UI.ViewModels
             var org = id > 0
               ? _organizationService.GetById(id)
               : CreateNewOrganization();
-            OrganizationWrapper = new OrganizationWrapper(org);
+            InitializeOrganization(org);
         }
         private void InitializeOrganization(Organization organization)
         {

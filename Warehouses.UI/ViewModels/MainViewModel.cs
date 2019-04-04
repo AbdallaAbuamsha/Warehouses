@@ -60,14 +60,14 @@ namespace Warehouses.UI.ViewModels
 
         private void OnOpenDetailView(OpenDetailViewEventArgs args)
         {
-            if (DetailViewModel != null)
-            {
-                var result = _messageDialogService.ShowOkCancelDialog("If you've made changes will be discared. Navigate away?", "Question");
-                if (result == MessageDialogResult.Cancel)
-                {
-                    return;
-                }
-            }
+            //if (DetailViewModel != null)
+            //{
+            //    var result = _messageDialogService.ShowOkCancelDialog("If you've made changes will be discared. Navigate away?", "Question");
+            //    if (result == MessageDialogResult.Cancel)
+            //    {
+            //        return;
+            //    }
+            //}
 
             DetailViewModel = _detailViewModelCreator[args.ViewModelName];
             DetailViewModel.Load(args.Id);

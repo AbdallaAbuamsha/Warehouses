@@ -9,5 +9,6 @@ namespace Warehouses.UI.Data
         Organization GetById(int id);
         bool Save(Organization organization);
         bool Delete(Organization organization);
+        bool HasSiblings();
     }
 }

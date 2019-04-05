@@ -7,33 +7,34 @@ using System.Text;
 using System.Threading.Tasks;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using Warehouses.UI.Events;
 
 namespace Warehouses.UI.ViewModels
 {
-    public class WarehouseTreeViewItemViewModel : ViewModelBase
+    public class WarehouseTreeViewItemViewModel : TreeViewItemViewModel
     {
         IWarehouseDataService _warehouseDataService;
         IEventAggregator _eventAggregator;
         private Warehouse _warehouse;
         private bool _isExpanded;
         private bool _isSelected;
+        private string _detailViewModelName;
 
-        public WarehouseTreeViewItemViewModel(Warehouse warehouse, IWarehouseDataService warehouseDataService, IEventAggregator eventAggregator)
+        public WarehouseTreeViewItemViewModel(
+            int id,
+            string displayMember,
+            string detailViewModelName,
+            IWarehouseDataService warehouseDataService,
+            IEventAggregator eventAggregator)
+            :base(id, displayMember)
         {
             _warehouseDataService = warehouseDataService;
             _eventAggregator = eventAggregator;
-            _warehouse = warehouse;
-            Warehouses = new ObservableCollection<WarehouseTreeViewItemViewModel>();
+            _detailViewModelName = detailViewModelName;
+            TreeItems = new ObservableCollection<TreeViewItemViewModel>();
         }
 
-        public Warehouse Warehouse
-        {
-            get { return _warehouse; }
-            set { _warehouse = value; }
-        }
-
-
-        public ObservableCollection<WarehouseTreeViewItemViewModel> Warehouses { get; set; }
+        public ObservableCollection<TreeViewItemViewModel> TreeItems { get; set; }
         public bool IsSelected
         {
             get { return _isSelected; }
@@ -41,7 +42,12 @@ namespace Warehouses.UI.ViewModels
             {
                 if (_isSelected != value)
                 {
-
+                    _eventAggregator.GetEvent<OpenDetailViewEvent>().Publish(
+                    new OpenDetailViewEventArgs
+                    {
+                        Id = this.Id,
+                        ViewModelName = _detailViewModelName
+                    });
                 }
             }
         }
@@ -56,8 +62,8 @@ namespace Warehouses.UI.ViewModels
                     OnPropertyChanged();
                     if (_isExpanded)
                     {
-                        var warehouses = _warehouseDataService.GetByParentId(Warehouse.Id);
-                        Warehouses.Clear();
+                        var warehouses = _warehouseDataService.GetByParentId(Id);
+                        TreeItems.Clear();
                     }
                 }
             }

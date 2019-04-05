@@ -104,6 +104,7 @@
     <Compile Include="ViewModels\AddUnitViewModel.cs" />
     <Compile Include="ViewModels\AddWarehouseViewModels.cs" />
     <Compile Include="ViewModels\AddOrganizationViewModels.cs" />
+    <Compile Include="ViewModels\BranchDetailViewModel.cs" />
     <Compile Include="ViewModels\BranchTreeViewItemViewModel.cs" />
     <Compile Include="ViewModels\DetailViewModelBase.cs" />
     <Compile Include="ViewModels\IAddBranchViewModel.cs" />
@@ -129,8 +130,10 @@
     <Compile Include="ViewModels\ReceiptTableItemViewModel.cs" />
     <Compile Include="ViewModels\ReceiptTableViewModel.cs" />
     <Compile Include="ViewModels\ReceiptViewModel.cs" />
+    <Compile Include="ViewModels\TreeViewItemViewModel.cs" />
     <Compile Include="ViewModels\UnitRelationListItemVIewModel.cs" />
     <Compile Include="ViewModels\UnitValueViewModel.cs" />
+    <Compile Include="ViewModels\WarehouseDetailViewModel.cs" />
     <Compile Include="ViewModels\WarehouseTreeViewItemViewModel.cs" />
     <Compile Include="Views\Popups\AddUnit.xaml.cs">
       <DependentUpon>AddUnit.xaml</DependentUpon>
@@ -165,6 +168,9 @@
     <Compile Include="Views\UserControls\AddUnitToMaterial.xaml.cs">
       <DependentUpon>AddUnitToMaterial.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\BranchDetailView.xaml.cs">
+      <DependentUpon>BranchDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -179,6 +185,9 @@
     </Compile>
     <Compile Include="Views\UserControls\ReceiptTable.xaml.cs">
       <DependentUpon>ReceiptTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\WarehouseDetailView.xaml.cs">
+      <DependentUpon>WarehouseDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wrappers\UnitWrapper.cs" />
     <Compile Include="Wrappers\WarehouseWrapper.cs" />
@@ -255,6 +264,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserControls\BranchDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -272,6 +285,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\ReceiptTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\WarehouseDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,50 +8,41 @@ using Warehouses.UI.Startup;
 
 namespace Warehouses.UI.ViewModels
 {
-    public class OrganizationTreeViewItemViewModel : ViewModelBase
+    public class OrganizationTreeViewItemViewModel : TreeViewItemViewModel
     {
         IBranchDataService _brancheDataService;
         IEventAggregator _eventAggregator;
-        private Organization _organization;
         private bool _isSelected;
         private bool _isExpanded;
         private string _detailViewModelName;
-        public OrganizationTreeViewItemViewModel(Organization organization,
+        public OrganizationTreeViewItemViewModel(
+            int id,
+            string displayMember,
             string detailViewModelName,
             IBranchDataService brancheDataService,
             IEventAggregator eventAggregator)
+            :base(id, displayMember)
         {
             _brancheDataService = brancheDataService;
             _eventAggregator = eventAggregator;
-            _organization = organization;
             _detailViewModelName = detailViewModelName;
-            Branches = new ObservableCollection<BranchTreeViewItemViewModel>();
-            Branches.Add(null);
+            TreeItems = new ObservableCollection<TreeViewItemViewModel>();
+            TreeItems.Add(null);
             eventAggregator.GetEvent<OrganizationComboBoxItemSelectedEvent>().Subscribe(OrganizationSelected);
         }
 
         private void OrganizationSelected(OrganizationTreeViewItemViewModel organization)
         {
-            if(organization.Organization.Id == this.Organization.Id)
+            if(organization.Id == Id)
             {
                 IsSelected = true;
                 IsExpanded = true;
             }
-        }
-        
-
-        public Organization Organization
-        {
-            get { return _organization; }
-            set
-            {
-                _organization = value;
-                OnPropertyChanged();
-            }
-        }
+        }      
 
 
-        public ObservableCollection<BranchTreeViewItemViewModel> Branches { get; set; }
+        public ObservableCollection<TreeViewItemViewModel> TreeItems { get; set; }
+
         public bool IsSelected
         {
             get { return _isSelected; }
@@ -67,14 +58,13 @@ namespace Warehouses.UI.ViewModels
                         _eventAggregator.GetEvent<OpenDetailViewEvent>().Publish(
                             new OpenDetailViewEventArgs
                             {
-                                Id = Organization.Id,
+                                Id = this.Id,
                                 ViewModelName = _detailViewModelName
                             });
                     }
                 }
             }
         }
-
 
         public bool IsExpanded
         {
@@ -87,12 +77,12 @@ namespace Warehouses.UI.ViewModels
                     OnPropertyChanged();
                     if (_isExpanded)
                     {
-                        var branches = _brancheDataService.GetByParentId(Organization.Id);
-                        Branches.Clear();
+                        var branches = _brancheDataService.GetByParentId(Id);
+                        TreeItems.Clear();
                         foreach (var branch in branches)
                         {
-                            var branchItem = Bootstrapper.Builder.Resolve<BranchTreeViewItemViewModel>(new NamedParameter("branch", branch));
-                            Branches.Add(branchItem);   
+                            var branchItem = new BranchTreeViewItemViewModel(branch.Id, branch.Name, nameof(BranchDetailViewModel), new WarehouseDataService(), _eventAggregator);
+                            TreeItems.Add(branchItem);   
                         }
                     }
                 }

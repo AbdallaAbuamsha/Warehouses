@@ -27,10 +27,8 @@ namespace Warehouses.UI.ViewModels
             _detailViewModelCreator = detailViewModelCreator;
             _messageDialogService = messageDialogService;
 
-            _eventAggregator.GetEvent<OpenDetailViewEvent>()
-             .Subscribe(OnOpenDetailView);
-            _eventAggregator.GetEvent<AfterDetailDeletedEvent>()
-              .Subscribe(AfterDetailDeleted);
+            _eventAggregator.GetEvent<OpenDetailViewEvent>().Subscribe(OnOpenDetailView);
+            _eventAggregator.GetEvent<AfterDetailDeletedEvent>().Subscribe(AfterDetailDeleted);
 
             CreateNewDetailCommand = new DelegateCommand<Type>(OnCreateNewDetailExecute);
 
@@ -46,6 +44,7 @@ namespace Warehouses.UI.ViewModels
         public ICommand CreateNewDetailCommand { get; }
 
         public INavigationViewModel NavigationViewModel { get; }
+
         public IMainMenuViewModel MainMenuViewModel { get; set; }
 
         public IDetailViewModel DetailViewModel
@@ -85,7 +84,6 @@ namespace Warehouses.UI.ViewModels
         }
     }
 }
-
 
     //public MainWindowViewModel(IMainMenuViewModel mainMenuViewModel,
     //    IMainWIndowWarehouseSelectionViewModel mainWIndowWarehouseSelectionDropDownsViewModel)

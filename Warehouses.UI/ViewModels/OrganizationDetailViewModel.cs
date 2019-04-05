@@ -15,15 +15,16 @@ namespace Warehouses.UI.ViewModels
     public class OrganizationDetailViewModel : DetailViewModelBase
     {
         private IOrganizationDataService _organizationService;
+        private OrganizationWrapper _organizationWrapper;
+        private IMessageDialogService _messageDialogService;
 
         public OrganizationDetailViewModel(IEventAggregator eventAggregator,
             IMessageDialogService messageDialogService,
             IOrganizationDataService organizationService) : base(eventAggregator, messageDialogService)
         {
             _organizationService = organizationService;
+            _messageDialogService = messageDialogService;
         }
-
-        private OrganizationWrapper _organizationWrapper;
 
         public OrganizationWrapper OrganizationWrapper
         {
@@ -34,7 +35,6 @@ namespace Warehouses.UI.ViewModels
                 OnPropertyChanged();
             }
         }
-
 
         public override void Load(int id)
         {
@@ -63,10 +63,20 @@ namespace Warehouses.UI.ViewModels
 
         protected override void OnDeleteExecute()
         {
+            if (_organizationService.HasSiblings())
+            {
+                _messageDialogService.ShowInfoDialog($"{OrganizationWrapper.Name}  can't be deleted, as this Organization has at least one branch or warehouse.");
+                return;
+            }
+            var result = _messageDialogService.ShowOkCancelDialog($"Do you really want to delete the Organization {OrganizationWrapper.Name}?","Question");
+
+            if (result == MessageDialogResult.Cancel)
+                return;
             bool res = _organizationService.Delete(_organizationWrapper.Model);
             if(res == true)
             {
                 MessageDialogService.ShowInfoDialog("Deleted Seccessfully");
+                RaiseDetailDeletedEvent(OrganizationWrapper.Id);
             }
             else
             {
@@ -85,6 +95,7 @@ namespace Warehouses.UI.ViewModels
             if (res == true)
             {
                 MessageDialogService.ShowInfoDialog("Saved Seccessfully");
+                RaiseDetailSavedEvent(OrganizationWrapper.Id, $"{OrganizationWrapper.Name}");
             }
             else
             {

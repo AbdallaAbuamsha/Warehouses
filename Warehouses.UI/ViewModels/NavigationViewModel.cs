@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Warehouses.Model;
 using Warehouses.UI.Data;
 using Warehouses.UI.Events;
@@ -33,10 +34,12 @@ namespace Warehouses.UI.ViewModels
             _warehouseDataService = warehouseDataService;
             _eventAggregator = eventAggregator;
 
-            Organizations = new ObservableCollection<OrganizationTreeViewItemViewModel>();
+            Organizations = new ObservableCollection<TreeViewItemViewModel>();
             Branches = new ObservableCollection<BranchTreeViewItemViewModel>();
             Warehouses = new ObservableCollection<WarehouseTreeViewItemViewModel>();
 
+            _eventAggregator.GetEvent<AfterDetailSavedEvent>().Subscribe(AfterDetailSaved);
+            _eventAggregator.GetEvent<AfterDetailDeletedEvent>().Subscribe(AfterDetailDeleted);
             //eventAggregator.GetEvent<OrganizationTreeItemSelectedEvent>().Subscribe(OrganizationSelected);
             //eventAggregator.GetEvent<BranchTreeItemSelectedEvent>().Subscribe(BranchSelected);
             //eventAggregator.GetEvent<WarehouseItemSelectedEvent>().Subscribe(WarehouseSelected);
@@ -48,7 +51,8 @@ namespace Warehouses.UI.ViewModels
             foreach (Organization organization in organizations)
             {
                 var orgItem = new OrganizationTreeViewItemViewModel(
-                    organization,
+                    organization.Id,
+                    organization.Name,
                     nameof(OrganizationDetailViewModel),
                     _branchDataService,
                     _eventAggregator);
@@ -100,7 +104,7 @@ namespace Warehouses.UI.ViewModels
 
         public IMainMenuViewModel MainMenuViewModel { get; }
 
-        public ObservableCollection<OrganizationTreeViewItemViewModel> Organizations { get; set; }
+        public ObservableCollection<TreeViewItemViewModel> Organizations { get; set; }
 
         //public OrganizationTreeViewItemViewModel SelectedOrganization
         //{
@@ -156,5 +160,53 @@ namespace Warehouses.UI.ViewModels
             set { _selectedWarehouse = value; }
         }
 
+        private void AfterDetailDeleted(AfterDetailDeletedEventArgs args)
+        {
+            switch (args.ViewModelName)
+            {
+                case nameof(OrganizationDetailViewModel):
+                    AfterDetailDeleted(Organizations, args);
+                    break;
+            }
+        }
+
+        private void AfterDetailDeleted(ObservableCollection<TreeViewItemViewModel> items,
+          AfterDetailDeletedEventArgs args)
+        {
+            var item = items.SingleOrDefault(f => f.Id == args.Id);
+            if (item != null)
+            {
+                items.Remove(item);
+            }
+        }
+
+        private void AfterDetailSaved(AfterDetailSavedEventArgs args)
+        {
+            switch (args.ViewModelName)
+            {
+                case nameof(OrganizationDetailViewModel):
+                    AfterDetailSaved(Organizations, args);
+                    break;
+            }
+        }
+
+        private void AfterDetailSaved(ObservableCollection<TreeViewItemViewModel> items,
+          AfterDetailSavedEventArgs args)
+        {
+            var lookupItem = items.SingleOrDefault(l => l.Id == args.Id);
+            if (lookupItem == null)
+            {
+                items.Add(new OrganizationTreeViewItemViewModel(
+                    args.Id,
+                    args.DisplayMember,
+                    args.ViewModelName,
+                    _branchDataService,                  
+                  _eventAggregator));
+            }
+            else
+            {
+                lookupItem.DisplayMember = args.DisplayMember;
+            }
+        }
     }
 }

@@ -20,6 +20,12 @@
         <DataTemplate DataType="{x:Type viewModels:OrganizationDetailViewModel}">
             <views:OrganizationDetailView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:BranchDetailViewModel}">
+            <views:BranchDetailView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:WarehouseDetailViewModel}">
+            <views:WarehouseDetailView/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>

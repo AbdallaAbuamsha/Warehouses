@@ -51,10 +51,10 @@
                 </TreeView.ItemContainerStyle>
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate
-                                ItemsSource="{Binding Branches}"
+                                ItemsSource="{Binding TreeItems}"
                                 DataType="{x:Type VM:OrganizationTreeViewItemViewModel}" >
-                        <Label Content="{Binding Organization.Name}"/>
-                        <HierarchicalDataTemplate.ItemTemplate>
+                        <Label Content="{Binding DisplayMember}"/>
+                        <!--<HierarchicalDataTemplate.ItemTemplate>
                             <HierarchicalDataTemplate
                                         ItemsSource="{Binding Warehouses,
                                                       Mode=TwoWay,
@@ -66,7 +66,7 @@
                                     </DataTemplate>
                                 </HierarchicalDataTemplate.ItemTemplate>
                             </HierarchicalDataTemplate>
-                        </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>-->
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>

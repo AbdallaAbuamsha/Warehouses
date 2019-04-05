@@ -31,5 +31,10 @@ namespace Warehouses.UI.Data
         {
             return true;
         }
+
+        public bool HasSiblings()
+        {
+            return false;
+        }
     }
 }

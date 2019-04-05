@@ -61,6 +61,10 @@ namespace Warehouses.UI.Startup
 
             builder.RegisterType<OrganizationDetailViewModel>()
                 .Keyed<IDetailViewModel>(nameof(OrganizationDetailViewModel));
+            builder.RegisterType<BranchDetailViewModel>()
+                .Keyed<IDetailViewModel>(nameof(BranchDetailViewModel));
+            builder.RegisterType<WarehouseDetailViewModel>()
+                .Keyed<IDetailViewModel>(nameof(WarehouseDetailViewModel));
 
             builder.RegisterType<MainWindow>().AsSelf();
             builder.RegisterType<MainViewModel>().As<IMainViewModel>();

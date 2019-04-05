@@ -9,6 +9,11 @@ namespace Warehouses.UI.Data
 {
     public class BranchDataService : IBranchDataService
     {
+        public bool Delete(Branch model)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Branch> GetAll()
         {
             yield return new Branch{ Id = 1, Name = "Branch 1 ", ParentId = 1 };
@@ -16,6 +21,11 @@ namespace Warehouses.UI.Data
             yield return new Branch{ Id = 3, Name = "Branch 3 ", ParentId = 3 };
             yield return new Branch{ Id = 4, Name = "Branch 4 ", ParentId = 2 };
             yield return new Branch{ Id = 5, Name = "Branch 5 ", ParentId = 2 };
+        }
+
+        public Branch GetById(int id)
+        {
+            return GetAll().First(f => f.Id == id);
         }
 
         public IEnumerable<Branch> GetByParentId(int id)
@@ -28,6 +38,21 @@ namespace Warehouses.UI.Data
                     yield return branch;
                 }
             }
+        }
+
+        public IEnumerable<Organization> GetAllOrganizations()
+        {
+            return new OrganizationDataService().GetAll();
+        }
+
+        public bool HasSiblings()
+        {
+            return false;
+        }
+
+        public bool Save(Branch model)
+        {
+            return true;
         }
     }
 }

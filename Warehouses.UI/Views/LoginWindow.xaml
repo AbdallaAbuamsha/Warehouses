@@ -16,7 +16,7 @@
         xmlns:ff="clr-namespace:Warehouses.UI.MyControls"
         Title="LoginWindow" Height="642.722" Width="1092.89" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
-    <Grid Margin="25">
+    <Grid x:Name="root" Margin="25">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
@@ -39,7 +39,7 @@
             <Image Source="pack://application:,,,/Resources/Images/iconmap.png"/>
             <TextBlock
                 Grid.Row="1"
-                Text="Manage you organizations, warehouses, material from anyware wherever you are"
+                Text="{StaticResource login_form_message}"
                 TextWrapping="Wrap"
                 TextAlignment="Center"               
                 LineHeight="34"
@@ -60,10 +60,25 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <Button HorizontalAlignment="Right"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    Padding="5"
+                    Margin="0 0 5 0"
+                    Command="{Binding OpenSettingsCommand}">
+                <materialDesign:PackIcon Kind="Settings"
+                                         Padding="0"
+                                         Margin="0"
+                                         Foreground="DarkGray"
+                                         Height="24"
+                                         Width="24"
+                                         />
+            </Button>
+
             <!--Login label-->
             <TextBlock
                 Grid.Row="1"
-                Text="Login"
+                Text="{DynamicResource login_label}"
                 Margin="10 0 10 10"
                 Style="{DynamicResource MaterialDesignTitleTextBlock}" />
 
@@ -71,7 +86,7 @@
             <TextBox
                 Grid.Row="2"
                 x:Name="Username"
-                materialDesign:HintAssist.Hint="First Name"
+                materialDesign:HintAssist.Hint="{DynamicResource username}"
                 Text="{Binding Username}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
@@ -79,8 +94,13 @@
             <!--Password-->
             <PasswordBox
                 Grid.Row="3"
-                materialDesign:HintAssist.Hint="Password"
-                ff:PasswordBoxAssistant.BindPassword="true"  ff:PasswordBoxAssistant.BoundPassword="{Binding Path=Password}"
+                materialDesign:HintAssist.Hint="{DynamicResource password}"
+                ff:PasswordBoxAssistant.BindPassword="true"
+                ff:PasswordBoxAssistant.BoundPassword=
+                    "{Binding Path=Password,
+                              Mode=TwoWay,
+                              UpdateSourceTrigger=PropertyChanged}"
+                
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" />
 
@@ -88,7 +108,7 @@
             <!--Rememer me-->
             <CheckBox
                 Grid.Row="4"
-                Content="Remember Me"
+                Content="{DynamicResource remember_me}"
                 IsChecked="{Binding Path=RememberMe}"
                 Margin="10 18 10 10"/>
 
@@ -96,9 +116,10 @@
             <Button
                 Grid.Row="5"
                 Command="{Binding LoginCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                 Margin="10 18 10 10"
                 Padding="0"
-                Content="Login"/>
+                Content="{StaticResource login_btn}"/>
         </Grid>
     </Grid>
 </Window>

@@ -1,0 +1,55 @@
+﻿<Window x:Class="Warehouses.UI.Views.Popups.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Warehouses.UI.Views.Popups"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+        Height="240" Width="450" WindowStyle="None" HorizontalAlignment="Center" VerticalAlignment="Center" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" ResizeMode="NoResize">
+    <Grid x:Name="root" Background="Transparent">
+
+        <Grid Background="Transparent" Visibility="Visible">
+            <Rectangle  Stroke="DarkGray" Fill="White" RadiusX="15" RadiusY="15"/>
+            <DockPanel  Margin="20 40 20 0">
+                <Label DockPanel.Dock="Top"
+                       Content="{DynamicResource settings}"
+                       FontFamily="Segoe UI Black"
+                       FontSize="24" />
+                <DockPanel LastChildFill="True"  DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0 10 0 0">
+                    <MaterialDesign:PackIcon DockPanel.Dock="Left" Kind="Language" Height="24" Width="24" Margin=" 0 15 15 0" VerticalAlignment="Center" Foreground="#707070"/>
+                    <TextBlock DockPanel.Dock="Left" x:Name="tb_name"
+                                     HorizontalAlignment="Left"
+                                     Text="{DynamicResource language}"
+                                     FontSize="16"
+                               VerticalAlignment="Bottom"
+                               Margin="0 0 0 0">
+                    </TextBlock>
+                    <ComboBox x:Name="languageComboBox"
+                              DockPanel.Dock="Left"
+                              Margin="15 0 0 0"
+                              SelectionChanged="languageComboBox_SelectionChanged">
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ComboBoxItem}">
+                                <Setter Property="Background" Value="White" />
+                                <Setter Property="Padding" Value="10" />
+                                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+
+                        <ComboBoxItem>English</ComboBoxItem>
+                        <ComboBoxItem>Arabic</ComboBoxItem>
+                        <ComboBoxItem>French</ComboBoxItem>
+                    </ComboBox>
+                </DockPanel>
+
+            </DockPanel>
+            <!--Close Button-->
+            <Button x:Name="close_btn" Click="close_btn_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="DarkGray" Background="Transparent" BorderBrush="Transparent" Height="auto" Width="auto"  Margin="0 15 0 0">
+                <MaterialDesign:PackIcon Kind="Close"   Height="32" Width="32" Background="Transparent" Foreground="Gray"/>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

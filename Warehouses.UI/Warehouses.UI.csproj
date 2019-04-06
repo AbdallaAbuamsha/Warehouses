@@ -33,6 +33,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.9.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.9.1\lib\net45\Autofac.dll</HintPath>
@@ -77,11 +86,13 @@
     <Compile Include="Data\IMaterialDataService.cs" />
     <Compile Include="Data\IOrganizationDataService.cs" />
     <Compile Include="Data\IUnitDataService.cs" />
+    <Compile Include="Data\IUserDataService.cs" />
     <Compile Include="Data\IWarehouseDataService.cs" />
     <Compile Include="Data\LanguagesDataService.cs" />
     <Compile Include="Data\MaterialDataService.cs" />
     <Compile Include="Data\OrganizationDataService.cs" />
     <Compile Include="Data\UnitDataService.cs" />
+    <Compile Include="Data\UserDataService.cs" />
     <Compile Include="Data\WarehouseDataService.cs" />
     <Compile Include="Events\AddReceiptRowEvent.cs" />
     <Compile Include="Events\AfterDetailClosedEvent.cs" />
@@ -93,8 +104,10 @@
     <Compile Include="Events\OpenDetailViewEvent.cs" />
     <Compile Include="Events\OrganizationComboBoxItemSelectedEvent.cs" />
     <Compile Include="Events\OrganizationTreeItemSelectedEvent.cs" />
+    <Compile Include="Events\SettingsEvents.cs" />
     <Compile Include="Events\WarehouseItemSelectedEvent.cs" />
     <Compile Include="MyControls\PasswordBoxAssistant.cs" />
+    <Compile Include="MyControls\PasswordHelper.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
     <Compile Include="ViewModels\AddBranchViewModel.cs" />
     <Compile Include="ViewModels\AddMaterialUnitDetailsViewModel.cs" />
@@ -135,6 +148,7 @@
     <Compile Include="ViewModels\UnitValueViewModel.cs" />
     <Compile Include="ViewModels\WarehouseDetailViewModel.cs" />
     <Compile Include="ViewModels\WarehouseTreeViewItemViewModel.cs" />
+    <Compile Include="Views\Framework.cs" />
     <Compile Include="Views\Popups\AddUnit.xaml.cs">
       <DependentUpon>AddUnit.xaml</DependentUpon>
     </Compile>
@@ -159,6 +173,9 @@
     </Compile>
     <Compile Include="Views\Popups\Receipt.xaml.cs">
       <DependentUpon>Receipt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Popups\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Services\IMessageDialogService.cs" />
     <Compile Include="Views\Services\MessageDialogService.cs" />
@@ -189,6 +206,7 @@
     <Compile Include="Views\UserControls\WarehouseDetailView.xaml.cs">
       <DependentUpon>WarehouseDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowBase.cs" />
     <Compile Include="Wrappers\UnitWrapper.cs" />
     <Compile Include="Wrappers\WarehouseWrapper.cs" />
     <Compile Include="Wrappers\NotifyDataErrorBase.cs" />
@@ -215,6 +233,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -224,6 +243,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\Strings\العربية.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Strings\english.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Popups\AddUnit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -255,6 +282,10 @@
     <Page Include="Views\Popups\Receipt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Popups\SettingsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UserControls\AddUnitRelation.xaml">
       <SubType>Designer</SubType>

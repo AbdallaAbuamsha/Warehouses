@@ -1,34 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Contexts;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
-using Warehouses.UI.ViewModels;
+using System.Windows.Controls;
 using Warehouses.UI.Views.Popups;
 
 namespace Warehouses.UI.Views
 {
-    /// <summary>
-    /// Interaction logic for LoginWindow.xaml
-    /// </summary>
-    public partial class LoginWindow : Window
+    public abstract class WindowBase : Window
     {
-        LoginViewModel _viewModel;
-
-        public LoginWindow(LoginViewModel viewModel)
+        protected Grid _root;
+        public object MyDataContext;
+        public WindowBase()
         {
-            InitializeComponent();
-            _viewModel = viewModel;
-            DataContext = _viewModel;
-            Loaded += LoginWindow_Loaded;
+            MyDataContext = DataContext;
+            Loaded += WindowBase_Loaded;
         }
 
-        private void LoginWindow_Loaded(object sender, RoutedEventArgs e)
+        private void WindowBase_Loaded(object sender, RoutedEventArgs e)
         {
-            Keyboard.Focus(Username);
+            _root = GetRoot();
             SettingsWindow.settingsEvent.changeLanguage += ChangeLanguage;
             SetLanguageDictionary();
         }
 
-        private void ChangeLanguage()
+        public abstract Grid GetRoot();
+
+        protected virtual void ChangeLanguage()
         {
             ResourceDictionary dict = new ResourceDictionary();
             var path = @"Resources\Strings\" + SettingsWindow.languageFileName;
@@ -37,15 +38,15 @@ namespace Warehouses.UI.Views
 
             if (SettingsWindow.languageFileName.Equals("العربية.xaml"))
             {
-                root.FlowDirection = FlowDirection.RightToLeft;
+                _root.FlowDirection = FlowDirection.RightToLeft;
             }
             else
             {
-                root.FlowDirection = FlowDirection.LeftToRight;
+                _root.FlowDirection = FlowDirection.LeftToRight;
             }
         }
 
-        private void SetLanguageDictionary()
+        protected void SetLanguageDictionary()
         {
             string language = Properties.Settings.Default.Language;
             if (string.IsNullOrEmpty(language))

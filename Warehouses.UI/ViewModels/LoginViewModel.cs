@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Prism.Commands;
 using Warehouses.UI.Views;
 using Warehouses.UI.Startup;
 using Autofac;
+using Warehouses.UI.Data;
+using Warehouses.UI.Views.Services;
+using Warehouses.UI.Views.Popups;
+using Warehouses.UI.Properties;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -17,23 +17,36 @@ namespace Warehouses.UI.ViewModels
         private String _username;
         private String _password;
         private bool _rememberMe;
+        private IUserDataService _userService;
+        private IMessageDialogService _messageService;
 
-        public LoginViewModel()
-        {
-            LoginCommand = new DelegateCommand(OnLoginExecute, OnCanLoginExcecute);
+        public LoginViewModel(IUserDataService userService, IMessageDialogService messageService)
+        {            
+            _userService = userService;
+            _messageService = messageService;
+            LoginCommand = new DelegateCommand<Window>(OnLoginExecute);
+            OpenSettingsCommand = new DelegateCommand(OnOpenSettingsCommandExecute);
         }
 
-        private void OnLoginExecute()
+        private void OnLoginExecute(Window window)
         {
+            var user = _userService.Login(Username, Password);
+            if(user == null)
+            {                
+                _messageService.ShowInfoDialog(Application.Current.FindResource("login_failed").ToString());
+                return;
+            }
+            if(RememberMe)
+            {
+                Settings.Default.RememberMe = true;
+                Settings.Default.Username = Username;
+                Settings.Default.Password = Password;
+                Settings.Default.Save();
+            }
             MainWindow mainWindow = Bootstrapper.Builder.Resolve<MainWindow>();
             mainWindow.Show();
+            window.Close();
         }
-
-        private bool OnCanLoginExcecute()
-        {
-            return true;
-        }
-
         public String Username
         {
             get { return _username; }
@@ -42,16 +55,28 @@ namespace Warehouses.UI.ViewModels
 
         public String Password
         {
-            get { return _password; }
-            set { _password = value; }
+            get {
+                return _password;
+            }
+            set
+            {
+                _password = value;
+            }
         }
 
         public bool RememberMe
         {
             get { return _rememberMe; }
             set { _rememberMe = value; }
-        }
+        }    
 
         public ICommand LoginCommand { get; set; }
+        public ICommand OpenSettingsCommand { get; set; }
+
+        private void OnOpenSettingsCommandExecute()
+        {
+            SettingsWindow sw = new SettingsWindow();
+            sw.ShowDialog();
+        }
     }
 }

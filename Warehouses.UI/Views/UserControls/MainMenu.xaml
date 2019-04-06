@@ -87,7 +87,9 @@
             <MenuItem Header="_Settings" />
 
             <!-- Logout -->
-            <MenuItem Header="_Logout" />
+            <MenuItem Header="_Logout"
+                      Command="{Binding LogoutCommand}"
+                      CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
         </Menu>
     </Grid>
 </UserControl>

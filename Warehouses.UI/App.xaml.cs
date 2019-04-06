@@ -8,6 +8,8 @@ using System.Windows;
 using Autofac;
 using Warehouses.UI.Startup;
 using Warehouses.UI.Views;
+using Warehouses.UI.Properties;
+using Warehouses.UI.Data;
 
 namespace Warehouses.UI
 {
@@ -18,8 +20,22 @@ namespace Warehouses.UI
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            LoginWindow login = Bootstrapper.Builder.Resolve<LoginWindow>();
-            login.Show();
+            if (Settings.Default.RememberMe == true)
+            {
+                string username = Settings.Default.Username;
+                string password = Settings.Default.Password;
+                var user = new UserDataService().Login(username, password);
+                if (user != null)
+                {
+                    MainWindow mainWindow = Bootstrapper.Builder.Resolve<MainWindow>();
+                    mainWindow.Show();
+                }
+            }
+            else
+            {
+                LoginWindow login = Bootstrapper.Builder.Resolve<LoginWindow>();
+                login.Show();
+            }
         }
     }
 }

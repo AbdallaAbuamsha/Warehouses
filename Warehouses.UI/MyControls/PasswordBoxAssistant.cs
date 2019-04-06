@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace Warehouses.UI.MyControls
 {
-    public class PasswordBoxAssistant
+    /*
+     This code is based on this blog: http://blog.functionalfun.net/2008/06/wpf-passwordbox-and-data-binding.html
+    */
+    public static class PasswordBoxAssistant
     {
         public static readonly DependencyProperty BoundPassword =
-                  DependencyProperty.RegisterAttached("BoundPassword", typeof(string), typeof(PasswordBoxAssistant), new PropertyMetadata(string.Empty, OnBoundPasswordChanged));
+            DependencyProperty.RegisterAttached("BoundPassword", typeof(string), typeof(PasswordBoxAssistant), new PropertyMetadata(string.Empty, OnBoundPasswordChanged));
 
         public static readonly DependencyProperty BindPassword = DependencyProperty.RegisterAttached(
             "BindPassword", typeof(bool), typeof(PasswordBoxAssistant), new PropertyMetadata(false, OnBindPasswordChanged));

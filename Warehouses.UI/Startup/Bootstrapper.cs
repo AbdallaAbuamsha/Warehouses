@@ -73,6 +73,7 @@ namespace Warehouses.UI.Startup
 
             builder.RegisterType<LoginWindow>().AsSelf();
             builder.RegisterType<LoginViewModel>().AsSelf();
+            builder.RegisterType<UserDataService>().As<IUserDataService>();
 
             return builder.Build();
         }

@@ -7,7 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Warehouses.UI.Properties;
 using Warehouses.UI.Startup;
+using Warehouses.UI.Views;
 using Warehouses.UI.Views.Popups;
 
 namespace Warehouses.UI.ViewModels
@@ -24,6 +26,24 @@ namespace Warehouses.UI.ViewModels
             NewWarehouseCommand = new DelegateCommand(NewWarehouseExecute);
             NewMaterialCommand = new DelegateCommand(NewMaterialExecute);
             NewUnitCommand = new DelegateCommand(NewUnitExecute);
+            SettingsCommand = new DelegateCommand(SettingsCommandExecute);
+            LogoutCommand = new DelegateCommand<Window>(OnLogoutCommandExecute);
+        }
+
+        private void OnLogoutCommandExecute(Window window)
+        {
+            Settings.Default.RememberMe = false;
+            Settings.Default.Username = "";
+            Settings.Default.Password = "";
+            Settings.Default.Save();
+            Bootstrapper.Builder.Resolve<LoginWindow>().Show();
+            window.Close();
+        }
+
+        private void SettingsCommandExecute()
+        {
+            SettingsWindow sw = new SettingsWindow();
+            sw.ShowDialog();
         }
 
         private void NewUnitExecute()
@@ -69,11 +89,12 @@ namespace Warehouses.UI.ViewModels
         public ICommand InputReceiptCommand { get; set; }
         public ICommand OutputReceiptCommand { get; set; }
         public ICommand TransactionReceiptCommand { get; set; }
-
         public ICommand NewOrganizationCommand { get; set; }
         public ICommand NewBranchCommand { get; set; }
         public ICommand NewWarehouseCommand { get; set; }
         public ICommand NewMaterialCommand { get ; set ; }
         public ICommand NewUnitCommand { get ; set ; }
+        public ICommand SettingsCommand { get ; set ; }
+        public ICommand LogoutCommand { get; private set; }
     }
 }

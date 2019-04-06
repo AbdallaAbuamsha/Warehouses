@@ -2,10 +2,6 @@
 using System.Collections.ObjectModel;
 using Warehouses.UI.Data;
 using Warehouses.UI.Events;
-using System;
-using Warehouses.Model;
-using Warehouses.UI.Startup;
-using Autofac;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -25,21 +21,6 @@ namespace Warehouses.UI.ViewModels
             _detailViewModelName = detailViewModelName;
             TreeItems = new ObservableCollection<TreeViewItemViewModel>();
             TreeItems.Add(null);
-            eventAggregator.GetEvent<BranchComboBoxItemSelectedEvent>().Subscribe(BranchSelected);
-
-        }
-
-        private void BranchSelected(TreeViewItemViewModel branch)
-        {
-            if (branch.Id == this.Id)
-            {
-                IsSelected = true;
-                IsExpanded = true;
-            }
-            else
-            {
-                IsSelected = false;
-            }
         }
 
         public ObservableCollection<TreeViewItemViewModel> TreeItems { get; set; }
@@ -78,7 +59,7 @@ namespace Warehouses.UI.ViewModels
                         TreeItems.Clear();
                         foreach (var warehouse in warehouses)
                         {
-                            var warehouseItem = new WarehouseTreeViewItemViewModel(warehouse.Id, warehouse.Name, nameof(WarehouseDetailViewModel), new WarehouseDataService(), _eventAggregator);
+                            var warehouseItem = new WarehouseTreeViewItemViewModel(warehouse.Id, warehouse.Name, nameof(WarehouseDetailViewModel), new WarehouseDataService(), _eventAggregator);                            
                             TreeItems.Add(warehouseItem);
                             /////////Warehouses.Add(new WarehouseTreeViewItemViewModel { Id = branch.Id, Name = branch.Name });
                         }

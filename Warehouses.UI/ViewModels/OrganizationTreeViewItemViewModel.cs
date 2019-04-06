@@ -28,7 +28,6 @@ namespace Warehouses.UI.ViewModels
             _detailViewModelName = detailViewModelName;
             TreeItems = new ObservableCollection<TreeViewItemViewModel>();
             TreeItems.Add(null);
-            eventAggregator.GetEvent<OrganizationComboBoxItemSelectedEvent>().Subscribe(OrganizationSelected);
         }
 
         private void OrganizationSelected(OrganizationTreeViewItemViewModel organization)

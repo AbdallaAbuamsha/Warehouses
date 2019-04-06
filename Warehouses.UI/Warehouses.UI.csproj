@@ -98,12 +98,8 @@
     <Compile Include="Events\AfterDetailClosedEvent.cs" />
     <Compile Include="Events\AfterDetailDeletedEvent.cs" />
     <Compile Include="Events\AfterDetailSavedEvent.cs" />
-    <Compile Include="Events\BranchComboBoxItemSelectedEvent.cs" />
-    <Compile Include="Events\BranchTreeItemSelectedEvent.cs" />
     <Compile Include="Events\DeleteReceiptRowEvent.cs" />
     <Compile Include="Events\OpenDetailViewEvent.cs" />
-    <Compile Include="Events\OrganizationComboBoxItemSelectedEvent.cs" />
-    <Compile Include="Events\OrganizationTreeItemSelectedEvent.cs" />
     <Compile Include="Events\SettingsEvents.cs" />
     <Compile Include="Events\WarehouseItemSelectedEvent.cs" />
     <Compile Include="MyControls\PasswordBoxAssistant.cs" />

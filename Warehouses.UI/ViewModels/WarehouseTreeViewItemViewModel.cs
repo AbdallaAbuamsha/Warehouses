@@ -1,10 +1,5 @@
 ﻿using Prism.Events;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Warehouses.Model;
 using Warehouses.UI.Data;
 using Warehouses.UI.Events;
@@ -32,6 +27,7 @@ namespace Warehouses.UI.ViewModels
             _eventAggregator = eventAggregator;
             _detailViewModelName = detailViewModelName;
             TreeItems = new ObservableCollection<TreeViewItemViewModel>();
+            TreeItems.Add(null);
         }
 
         public ObservableCollection<TreeViewItemViewModel> TreeItems { get; set; }
@@ -42,12 +38,16 @@ namespace Warehouses.UI.ViewModels
             {
                 if (_isSelected != value)
                 {
-                    _eventAggregator.GetEvent<OpenDetailViewEvent>().Publish(
-                    new OpenDetailViewEventArgs
+                    _isSelected = value;
+                    if (IsSelected)
                     {
-                        Id = this.Id,
-                        ViewModelName = _detailViewModelName
-                    });
+                        _eventAggregator.GetEvent<OpenDetailViewEvent>().Publish(
+                        new OpenDetailViewEventArgs
+                        {
+                            Id = this.Id,
+                            ViewModelName = _detailViewModelName
+                        });
+                    }
                 }
             }
         }

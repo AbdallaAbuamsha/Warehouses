@@ -1,10 +1,5 @@
 ﻿using Prism.Commands;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Warehouses.Model;
 using Warehouses.UI.Data;
@@ -15,15 +10,15 @@ namespace Warehouses.UI.ViewModels
     {
         IUnitDataService _unitDataService;
         private Unit _selecteUnit;
+        private float? _factor;
         private ObservableCollection<UnitRelationListItemVIewModel> _materialUnits;
-
 
         public AddUnitRelationViewModel(IUnitDataService unitDataService)
         {
             this._unitDataService = unitDataService;
             Units = new ObservableCollection<Unit>();
             UnitRelations = new ObservableCollection<UnitRelationListItemVIewModel>();
-            Add = new DelegateCommand(ExecuteAddCommand, ExecuteCanAddCommand);
+            Add = new DelegateCommand(ExecuteAddRelationCommand, ExecuteCanAddCommand);
             Delete = new DelegateCommand<UnitRelationListItemVIewModel>(ExecuteDeleteCommand);
         }
 
@@ -37,19 +32,6 @@ namespace Warehouses.UI.ViewModels
         {
             var units = _unitDataService.GetAll();
             FillLists(Units, units);
-        }
-
-        private void ExecuteAddCommand()
-        {
-            var matUnit = new UnitRelationListItemVIewModel { MyUnit = SelectedUnit, Factor =  this.Factor};
-            UnitRelations.Add(matUnit);
-            Units.Remove(SelectedUnit);
-
-        }
-
-        private bool ExecuteCanAddCommand()
-        {
-            return true;// SelectedLanguage != null && !string.IsNullOrEmpty(MaterialName);
         }
 
         public ObservableCollection<Unit> Units { get; set; }
@@ -74,14 +56,19 @@ namespace Warehouses.UI.ViewModels
             {
                 _selecteUnit = value;
                 OnPropertyChanged();
+                ((DelegateCommand)Add).RaiseCanExecuteChanged();
             }
         }
-        private float _factor;
 
-        public float Factor
+        public float? Factor
         {
             get { return _factor; }
-            set { _factor = value; }
+            set
+            {
+                _factor = value;
+                OnPropertyChanged();
+                ((DelegateCommand)Add).RaiseCanExecuteChanged();
+            }
         }
 
         public ICommand Add { get; set; }
@@ -89,5 +76,20 @@ namespace Warehouses.UI.ViewModels
         public ICommand Delete { get; set; }
 
         public ICommand SetAsDefaultUnit { get; set; }
+
+        private void ExecuteAddRelationCommand()
+        {
+            var matUnit = new UnitRelationListItemVIewModel { MyUnit = SelectedUnit, Factor = this.Factor.Value };
+            UnitRelations.Add(matUnit);
+            Units.Remove(SelectedUnit);
+            Factor = null;
+            ((DelegateCommand)Add).RaiseCanExecuteChanged();
+        }
+
+        private bool ExecuteCanAddCommand()
+        {
+            return SelectedUnit != null && Factor.HasValue;
+        }
+
     }
 }

@@ -17,5 +17,10 @@ namespace Warehouses.UI.Data
             yield return new Unit { Name = "Unit 4 " };
             yield return new Unit { Name = "Unit 5 " };
         }
+
+        public bool Save(Unit unit)
+        {
+            return true;
+        }
     }
 }

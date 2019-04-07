@@ -25,7 +25,7 @@ namespace Warehouses.UI.Wrappers
             set { SetValue(value); }
         }
 
-        public string Sympol
+        public string Symbol
         {
             get { return GetValue<string>(); }
             set { SetValue(value); }

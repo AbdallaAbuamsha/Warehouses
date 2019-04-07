@@ -6,5 +6,6 @@ namespace Warehouses.UI.Data
     public interface IUnitDataService
     {
         IEnumerable<Unit> GetAll();
+        bool Save(Unit model);
     }
 }

@@ -17,6 +17,6 @@ namespace Warehouses.Model
         [MaxLength(50)]
         [MinLength(3)]
         [Required]
-        public string Sympol { get; set; }
+        public string Symbol { get; set; }
     }
 }

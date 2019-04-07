@@ -13,10 +13,15 @@ using Warehouses.UI.Wrappers;
 namespace Warehouses.UI.ViewModels
 {
     class AddUnitViewModel : ViewModelBase, IAddUnitViewModel
-    {         
+    {
+        private UnitWrapper _myUnit;
+        private IUnitDataService _unitService;
 
-        public AddUnitViewModel(IAddUnitRelationViewModel addUnitRelationViewModel)
+        public AddUnitViewModel(
+            IUnitDataService unitService,
+            IAddUnitRelationViewModel addUnitRelationViewModel)
         {
+            _unitService = unitService;
             MyAddUnitRelationViewModel = addUnitRelationViewModel;
             MyUnit = new UnitWrapper(new Unit());
             Save = new DelegateCommand(ExecuteSaveCommand, ExecuteCanSaveCommand);
@@ -28,27 +33,44 @@ namespace Warehouses.UI.ViewModels
                 }
             };
             ((DelegateCommand)Save).RaiseCanExecuteChanged();
+            MyUnit.Name = "";
+            MyUnit.Symbol = "";
         }
 
         public void Load()
         {
             MyAddUnitRelationViewModel.Load();
+
         }
+
+        public IAddUnitRelationViewModel MyAddUnitRelationViewModel { get; set; }
+
+        public UnitWrapper MyUnit
+        {
+            get
+            { return _myUnit; }
+            set
+            {
+                _myUnit = value;
+                OnPropertyChanged();
+                if(Save != null)
+                    ((DelegateCommand)Save).RaiseCanExecuteChanged();
+            }
+        }
+
+        public ICommand Save { get; set; }
+
+        public ICommand Close { get; set; }
+
         private void ExecuteSaveCommand()
         {
-
-
+            bool addUnitResult = _unitService.Save(MyUnit.Model);
         }
 
         private bool ExecuteCanSaveCommand()
         {
-            return true;// SelectedLanguage != null && !string.IsNullOrEmpty(MaterialName);
+            return MyUnit != null && !MyUnit.HasErrors;
         }
-
-        public IAddUnitRelationViewModel MyAddUnitRelationViewModel { get; set; }
-        public UnitWrapper MyUnit { get; set; }
-        public ICommand Save { get; set; }
-        public ICommand Close { get; set; }
 
     }
 }

@@ -3,13 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Warehouses.UI.Views.UserControls"
+             xmlns:converter="clr-namespace:Warehouses.UI.Converters"
+             xmlns:control="clr-namespace:Warehouses.UI.Converters"
              mc:Ignorable="d" 
              Background="White"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"             
              d:DesignHeight="300" d:DesignWidth="397.6">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <converter:NullableFloatConverter x:Key="nullConverter" />
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <Style.Triggers>
+                <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                    <Setter Property="IsDropDownOpen" Value="true" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <GroupBox Header="Units Relations" >
@@ -28,8 +37,7 @@
                         ItemsSource="{Binding Units}"
                         SelectedItem="{Binding SelectedUnit}"
                         DisplayMemberPath="Name"
-                        materialDesign:HintAssist.Hint="Unit"
-                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                        materialDesign:HintAssist.Hint="Unit"                        
                         Padding="0 0 0 5"
                         Margin="10 10 10 0"
                         VerticalAlignment="Top"/>
@@ -37,10 +45,11 @@
                     <TextBox
                             x:Name="Username"
                             materialDesign:HintAssist.Hint="Factor"
-                            Text="{Binding Factor}"
+                            Text="{Binding Factor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Padding="4 0 0 2.5"
                             Margin="0 0 10 0"
                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Grid.ColumnSpan="3"
+                            PreviewTextInput="NumberValidationTextBox"
                             VerticalAlignment="Bottom"/>
                 </StackPanel>
                 <Button

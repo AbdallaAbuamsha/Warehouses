@@ -12,7 +12,6 @@
         <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
             <Style.Triggers>
                 <Trigger Property="IsKeyboardFocusWithin" Value="True">
-
                     <Setter Property="IsDropDownOpen" Value="true" />
                 </Trigger>
             </Style.Triggers>

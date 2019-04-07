@@ -80,6 +80,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\NullableFloatConverter.cs" />
     <Compile Include="Data\BranchDataService.cs" />
     <Compile Include="Data\IBranchDataService.cs" />
     <Compile Include="Data\ILanguagesDataService.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Events\OpenDetailViewEvent.cs" />
     <Compile Include="Events\SettingsEvents.cs" />
     <Compile Include="Events\WarehouseItemSelectedEvent.cs" />
+    <Compile Include="MyControls\DoubleTextBox.cs" />
     <Compile Include="MyControls\PasswordBoxAssistant.cs" />
     <Compile Include="MyControls\PasswordHelper.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
@@ -203,6 +205,7 @@
       <DependentUpon>WarehouseDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowBase.cs" />
+    <Compile Include="Wrappers\UnitRelationListItemWrapper.cs" />
     <Compile Include="Wrappers\UnitWrapper.cs" />
     <Compile Include="Wrappers\WarehouseWrapper.cs" />
     <Compile Include="Wrappers\NotifyDataErrorBase.cs" />

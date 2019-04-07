@@ -119,7 +119,7 @@
                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                 Margin="10 18 10 10"
                 Padding="0"
-                Content="{StaticResource login_btn}"/>
+                Content="{DynamicResource login_btn}"/>
         </Grid>
     </Grid>
 </Window>

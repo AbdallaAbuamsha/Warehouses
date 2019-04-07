@@ -26,6 +26,7 @@ namespace Warehouses.UI.ViewModels
             MyAddUnitRelationViewModel = addUnitRelationViewModel;
             MyUnit = new UnitWrapper(new Unit());
             Save = new DelegateCommand(ExecuteSaveCommand, ExecuteCanSaveCommand);
+            Close = new DelegateCommand<Window>(ExecuteCloseCommand);
             MyUnit.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName.Equals(nameof(OrganizationWrapper.HasErrors)))
@@ -68,6 +69,11 @@ namespace Warehouses.UI.ViewModels
             int newUnitId = _unitService.Save(MyUnit.Model);
             MyAddUnitRelationViewModel.SaveRelations(newUnitId);
             Application.Current.MainWindow.Close();
+        }
+
+        private void ExecuteCloseCommand(Window window)
+        {
+            window.Close();
         }
 
         private bool ExecuteCanSaveCommand()

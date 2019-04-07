@@ -9,4 +9,18 @@
     <system:String x:Key="login_btn">دخول</system:String>
     <system:String x:Key="login_form_message">Manage you organizations, warehouses, material from anyware wherever you are</system:String>
     <system:String x:Key="login_failed">فشل تسجيل الدخول</system:String>
+
+
+    <system:String x:Key="add_unit_title">إضافة واحدة</system:String>
+    <system:String x:Key="unit_name">اسم الواحدة</system:String>
+    <system:String x:Key="unit_symbol">الرمز</system:String>
+    <system:String x:Key="unit_save">حفظ</system:String>
+
+    <system:String x:Key="unit_relations">علاقات الواحدات</system:String>
+    <system:String x:Key="unit_relation_selecte_unit">الواحدة</system:String>
+    <system:String x:Key="unit_relation_factor">المعامل</system:String>
+    <system:String x:Key="unit_relation_add">إضافة</system:String>
+    <system:String x:Key="unit_relation_table_name">الاسم</system:String>
+    <system:String x:Key="unit_relation_table_factor">المعامل</system:String>
+    <system:String x:Key="unit_relation_table_delete">حذف</system:String>
 </ResourceDictionary>

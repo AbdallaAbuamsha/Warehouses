@@ -9,4 +9,18 @@
     <system:String x:Key="login_btn">Login</system:String>
     <system:String x:Key="login_form_message">Manage you organizations, warehouses, material from anyware wherever you are</system:String>
     <system:String x:Key="login_failed">Login Failed</system:String>
+
+
+    <system:String x:Key="add_unit_title">Add Unit</system:String>
+    <system:String x:Key="unit_name">Unit Name</system:String>
+    <system:String x:Key="unit_symbol">Unit Symbol</system:String>
+    <system:String x:Key="unit_save">Save</system:String>
+
+    <system:String x:Key="unit_relations">Units Relations</system:String>
+    <system:String x:Key="unit_relation_selecte_unit">Unit</system:String>
+    <system:String x:Key="unit_relation_factor">Factor</system:String>
+    <system:String x:Key="unit_relation_add">Add</system:String>
+    <system:String x:Key="unit_relation_table_name">Name</system:String>
+    <system:String x:Key="unit_relation_table_factor">Factor</system:String>
+    <system:String x:Key="unit_relation_table_delete">Delete</system:String>
 </ResourceDictionary>

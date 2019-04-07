@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Warehouses.Model;
 using Warehouses.UI.Data;
@@ -64,7 +65,9 @@ namespace Warehouses.UI.ViewModels
 
         private void ExecuteSaveCommand()
         {
-            bool addUnitResult = _unitService.Save(MyUnit.Model);
+            int newUnitId = _unitService.Save(MyUnit.Model);
+            MyAddUnitRelationViewModel.SaveRelations(newUnitId);
+            Application.Current.MainWindow.Close();
         }
 
         private bool ExecuteCanSaveCommand()

@@ -7,7 +7,7 @@ using Warehouses.Model;
 
 namespace Warehouses.UI.ViewModels
 {
-    public class UnitRelationListItemVIewModel
+    public class UnitRelationListItemViewModel
     {
         public Unit MyUnit { get; set; }
         public float Factor { get; set; }

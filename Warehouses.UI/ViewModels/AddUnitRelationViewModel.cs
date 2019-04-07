@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using System;
+using System.Linq;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -11,18 +13,18 @@ namespace Warehouses.UI.ViewModels
         IUnitDataService _unitDataService;
         private Unit _selecteUnit;
         private float? _factor;
-        private ObservableCollection<UnitRelationListItemVIewModel> _materialUnits;
+        private ObservableCollection<UnitRelationListItemViewModel> _materialUnits;
 
         public AddUnitRelationViewModel(IUnitDataService unitDataService)
         {
-            this._unitDataService = unitDataService;
+            _unitDataService = unitDataService;
             Units = new ObservableCollection<Unit>();
-            UnitRelations = new ObservableCollection<UnitRelationListItemVIewModel>();
+            UnitRelations = new ObservableCollection<UnitRelationListItemViewModel>();
             Add = new DelegateCommand(ExecuteAddRelationCommand, ExecuteCanAddCommand);
-            Delete = new DelegateCommand<UnitRelationListItemVIewModel>(ExecuteDeleteCommand);
+            Delete = new DelegateCommand<UnitRelationListItemViewModel>(ExecuteDeleteCommand);
         }
 
-        private void ExecuteDeleteCommand(UnitRelationListItemVIewModel unit)
+        private void ExecuteDeleteCommand(UnitRelationListItemViewModel unit)
         {
             UnitRelations.Remove(unit);
             Units.Insert(0, unit.MyUnit);
@@ -34,9 +36,13 @@ namespace Warehouses.UI.ViewModels
             FillLists(Units, units);
         }
 
+        public void SaveRelations(int newUnitId)
+        {
+            _unitDataService.SaveUnitRelations(UnitRelations.ToList());
+        }
         public ObservableCollection<Unit> Units { get; set; }
 
-        public ObservableCollection<UnitRelationListItemVIewModel> UnitRelations
+        public ObservableCollection<UnitRelationListItemViewModel> UnitRelations
         {
             get
             {
@@ -79,7 +85,7 @@ namespace Warehouses.UI.ViewModels
 
         private void ExecuteAddRelationCommand()
         {
-            var matUnit = new UnitRelationListItemVIewModel { MyUnit = SelectedUnit, Factor = this.Factor.Value };
+            var matUnit = new UnitRelationListItemViewModel { MyUnit = SelectedUnit, Factor = this.Factor.Value };
             UnitRelations.Add(matUnit);
             Units.Remove(SelectedUnit);
             Factor = null;

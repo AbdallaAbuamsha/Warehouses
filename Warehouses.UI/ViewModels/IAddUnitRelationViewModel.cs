@@ -3,5 +3,6 @@
     public interface IAddUnitRelationViewModel
     {
         void Load();
+        void SaveRelations(int newUnitId);
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Warehouses.Model;
+using Warehouses.UI.ViewModels;
 
 namespace Warehouses.UI.Data
 {
@@ -18,9 +19,15 @@ namespace Warehouses.UI.Data
             yield return new Unit { Name = "Unit 5 " };
         }
 
-        public bool Save(Unit unit)
+        public int Save(Unit unit)
         {
-            return true;
+            int newUnitId = 1;
+            return newUnitId;
+        }
+
+        public void SaveUnitRelations(List<UnitRelationListItemViewModel> relations)
+        {
+            
         }
     }
 }

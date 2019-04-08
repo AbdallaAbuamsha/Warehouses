@@ -50,4 +50,19 @@
     <system:String x:Key="material_unit_table_name">اسم</system:String>
     <system:String x:Key="material_unit_table_default">تعديل</system:String>
     <system:String x:Key="material_unit_table_delete">حذف</system:String>
+
+    <system:String x:Key="add_branch_title">إضافة فرع</system:String>
+    <system:String x:Key="add_branch_organization">المنظمة</system:String>
+    <system:String x:Key="add_branch_name">اسم الفرع</system:String>
+    <system:String x:Key="add_branch_code">رمز الفرع</system:String>
+    <system:String x:Key="add_branch_location">الموقع</system:String>
+    <system:String x:Key="add_branch_save_button">حفظ</system:String>
+
+    <system:String x:Key="add_warehouse_title">Add Warehouse</system:String>
+    <system:String x:Key="add_warehouse_organization">Organization</system:String>
+    <system:String x:Key="add_warehouse_branch">Branch</system:String>
+    <system:String x:Key="add_warehouse_name">Warehouse Name</system:String>
+    <system:String x:Key="add_warehouse_code">Warehouse Code</system:String>
+    <system:String x:Key="add_warehouse_location">Location</system:String>
+    <system:String x:Key="add_warehouse_save">Save</system:String>
 </ResourceDictionary>

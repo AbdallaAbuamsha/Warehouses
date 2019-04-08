@@ -11,14 +11,23 @@
         TextElement.FontSize="14"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="#EFE"
+        Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
         Title="AddOrganization" Height="450" Width="550"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         WindowStyle="None">
-    <Grid Background="#EFE" >
+    <Window.Resources>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <Style.Triggers>
+                <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                    <Setter Property="IsDropDownOpen" Value="true" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="root" >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -27,7 +36,7 @@
         <materialDesign:Card Background="White" VerticalAlignment="Stretch" Grid.RowSpan="2" UniformCornerRadius="12" Padding="32" Margin="4" BorderBrush="Black" materialDesign:ShadowAssist.ShadowDepth="Depth3"/>
 
         <TextBlock
-            Text="Add Warehouse"
+            Text="{DynamicResource add_warehouse_title}"
             Padding="25 25 0 0"
             Style="{DynamicResource MaterialDesignTitleTextBlock}"
             VerticalAlignment="Center"
@@ -44,7 +53,7 @@
             Padding="0"
             Background="{x:Null}"
             BorderBrush="{x:Null}">
-        <materialDesign:PackIcon
+            <materialDesign:PackIcon
             Kind="Close" Foreground="DarkGray" Height="24" Width="24"/>
         </Button>
         <StackPanel Grid.Row="1" Orientation="Vertical" Margin="20">
@@ -53,8 +62,8 @@
                     ItemsSource="{Binding Organizations}"
                     SelectedItem="{Binding SelectedOrganization}"
                     DisplayMemberPath="Name"
-                    materialDesign:HintAssist.Hint="Organization"
-                    Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                    materialDesign:HintAssist.Hint="{DynamicResource add_warehouse_organization}"
+                    IsDropDownOpen="True"
                     Margin="10 10 10 0">
             </ComboBox>
             <ComboBox
@@ -62,14 +71,13 @@
                     ItemsSource="{Binding Branches}"
                     SelectedItem="{Binding SelectedBranch}"
                     DisplayMemberPath="Name"
-                    materialDesign:HintAssist.Hint="Branch"
-                    Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                    materialDesign:HintAssist.Hint="{DynamicResource add_warehouse_branch}"
                     Margin="10 10 10 0"/>
             <!--First Name-->
             <TextBox
                 Grid.Row="2"
                 x:Name="Username"
-                materialDesign:HintAssist.Hint="Warehouse Name"
+                materialDesign:HintAssist.Hint="{DynamicResource add_warehouse_name}"
                 Text="{Binding Warehouse.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
@@ -77,7 +85,7 @@
             <!--First Name-->
             <TextBox
                 Grid.Row="2"
-                materialDesign:HintAssist.Hint="Warehouse Code"
+                materialDesign:HintAssist.Hint="{DynamicResource add_warehouse_code}"
                 Text="{Binding Warehouse.Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
@@ -85,7 +93,7 @@
             <!--First Name-->
             <TextBox
                 Grid.Row="2"
-                materialDesign:HintAssist.Hint="Location"
+                materialDesign:HintAssist.Hint="{DynamicResource add_warehouse_location}"
                 Text="{Binding Warehouse.Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
@@ -96,7 +104,7 @@
                 Command="{Binding Save}"
                 Margin="10 18 10 10"
                 Padding="0"
-                Content="Save"/>
+                Content="{DynamicResource add_warehouse_save}"/>
         </StackPanel>
     </Grid>
 </Window>

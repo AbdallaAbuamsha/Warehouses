@@ -40,6 +40,9 @@ namespace Warehouses.UI.ViewModels
                 }
             };
             ((DelegateCommand)Save).RaiseCanExecuteChanged();
+            Branch.Name = "";
+            Branch.Code = "";
+            Branch.Location = "";
         }
 
         private bool ExecuteCanSaveOrganizationCommand()

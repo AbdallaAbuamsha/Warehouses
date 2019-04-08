@@ -35,11 +35,14 @@ namespace Warehouses.UI.ViewModels
                 }
             };
             ((DelegateCommand)Save).RaiseCanExecuteChanged();
+            Warehouse.Name = "";
+            Warehouse.Code = "";
+            Warehouse.Location = "";
         }
 
         private bool ExecuteCanSaveOrganizationCommand()
         {
-            return SelectedOrganization != null && !Warehouse.HasErrors;
+            return SelectedOrganization != null && SelectedBranch != null && !Warehouse.HasErrors;
         }
 
         public void Load()

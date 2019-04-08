@@ -17,7 +17,7 @@
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         WindowStyle="None" WindowState="Maximized" d:DesignWidth="1249.6">
-    <Grid>
+    <Grid x:Name="root">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>

@@ -50,5 +50,24 @@
     <system:String x:Key="material_unit_table_name">Name</system:String>
     <system:String x:Key="material_unit_table_default">Default</system:String>
     <system:String x:Key="material_unit_table_delete">Delete</system:String>
-    
+
+    <system:String x:Key="add_branch_title">Add Branch</system:String>
+    <system:String x:Key="add_branch_organization">Organization</system:String>
+    <system:String x:Key="add_branch_name">Branch Name</system:String>
+    <system:String x:Key="add_branch_code">Branch Code</system:String>
+    <system:String x:Key="add_branch_location">Location</system:String>
+    <system:String x:Key="add_branch_save_button">Save</system:String>
+
+    <system:String x:Key="add_warehouse_title">Add Warehouse</system:String>
+    <system:String x:Key="add_warehouse_organization">Organization</system:String>
+    <system:String x:Key="add_warehouse_branch">Branch</system:String>
+    <system:String x:Key="add_warehouse_name">Warehouse Name</system:String>
+    <system:String x:Key="add_warehouse_code">Warehouse Code</system:String>
+    <system:String x:Key="add_warehouse_location">Location</system:String>
+    <system:String x:Key="add_warehouse_save">Save</system:String>
+
+    <system:String x:Key="add_organization_title">Add Organization</system:String>
+    <system:String x:Key="add_organization_name">Organization Name</system:String>
+    <system:String x:Key="add_organization_location">Location</system:String>
+    <system:String x:Key="add_organization_save">Save</system:String>
 </ResourceDictionary>

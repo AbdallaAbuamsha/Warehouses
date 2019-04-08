@@ -26,6 +26,9 @@ namespace Warehouses.UI.ViewModels
                 }
             };
             ((DelegateCommand)Save).RaiseCanExecuteChanged();
+            OrganizationWrapper.Name = "";
+            OrganizationWrapper.Location = "";
+
         }
 
         private bool ExecuteCanSaveOrganizationCommand()
@@ -48,26 +51,6 @@ namespace Warehouses.UI.ViewModels
             get { return _organizationWrapper; }
             set { _organizationWrapper = value; }
         }
-
-        //public string OrganizationName
-        //{
-        //    get { return _organizationName; }
-        //    set
-        //    {
-        //        _organizationName = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        //public string Location
-        //{
-        //    get { return _location; }
-        //    set
-        //    {
-        //        _location = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
 
         public ICommand Save { get; set; }
         public ICommand Close { get; set; }

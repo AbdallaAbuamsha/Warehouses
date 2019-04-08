@@ -11,14 +11,14 @@
         TextElement.FontSize="14"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="#EFE"
+        Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
         Title="AddOrganization" Height="300" Width="550"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         WindowStyle="None">
-    <Grid Background="#EFE" >
+    <Grid x:Name="root" >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -27,7 +27,7 @@
         <materialDesign:Card Background="White" VerticalAlignment="Stretch" Grid.RowSpan="2" UniformCornerRadius="12" Padding="32" Margin="4" BorderBrush="Black" materialDesign:ShadowAssist.ShadowDepth="Depth3"/>
 
         <TextBlock
-            Text="Add Organization"
+            Text="{DynamicResource add_organization_title}"
             Padding="25 25 0 0"
             Style="{DynamicResource MaterialDesignTitleTextBlock}"
             VerticalAlignment="Center"
@@ -52,7 +52,7 @@
             <TextBox
                 Grid.Row="2"
                 x:Name="Username"
-                materialDesign:HintAssist.Hint="Organization Name"
+                materialDesign:HintAssist.Hint="{DynamicResource add_organization_name}"
                 Text="{Binding OrganizationWrapper.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
@@ -60,7 +60,7 @@
             <!--First Name-->
             <TextBox
                 Grid.Row="2"
-                materialDesign:HintAssist.Hint="Location"
+                materialDesign:HintAssist.Hint="{DynamicResource add_organization_location}"
                 Text="{Binding OrganizationWrapper.Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
@@ -71,7 +71,7 @@
                 Command="{Binding Save}"
                 Margin="10 18 10 10"
                 Padding="0"
-                Content="Save"/>
+                Content="{DynamicResource add_organization_save}"/>
         </StackPanel>
     </Grid>
 </Window>

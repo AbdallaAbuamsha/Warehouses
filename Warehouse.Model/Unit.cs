@@ -15,7 +15,6 @@ namespace Warehouses.Model
         [Required]
         public string Name { get; set; }
         [MaxLength(50)]
-        [MinLength(3)]
         [Required]
         public string Symbol { get; set; }
     }

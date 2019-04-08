@@ -23,6 +23,12 @@ namespace Warehouses.UI.Views.UserControls
         public AddMaterialNameDetails()
         {
             InitializeComponent();
+            Loaded += AddMaterialNameDetails_Loaded;
+        }
+
+        private void AddMaterialNameDetails_Loaded(object sender, RoutedEventArgs e)
+        {
+            Keyboard.Focus(start_input);
         }
     }
 }

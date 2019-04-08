@@ -19,7 +19,7 @@
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         WindowStyle="None">
-    <Grid Background="#EFE">
+    <Grid x:Name="root">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -61,31 +61,31 @@
             <!--First Name-->
             <StackPanel Grid.Column="0">
             <TextBox
-                materialDesign:HintAssist.Hint="Material Code"
-                Text="{Binding MaterialCode}"
+                materialDesign:HintAssist.Hint="{DynamicResource material_code}"
+                Text="{Binding Material.Code}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
             </StackPanel>
             <ComboBox
-                materialDesign:HintAssist.Hint="Parent Name"
+                materialDesign:HintAssist.Hint="{DynamicResource material_parent_name}"
                 ItemsSource="{Binding Materials}"
                 SelectedItem="{Binding SelectedParent,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                 DisplayMemberPath="Name"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintComboBox}" />
             <TextBox
-                materialDesign:HintAssist.Hint="Parent Code"
+                materialDesign:HintAssist.Hint="{DynamicResource material_parent_code}"
                 Text="{Binding ParentCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
             <TextBox
-                materialDesign:HintAssist.Hint="Barcode"
-                Text="{Binding Barcode}"
+                materialDesign:HintAssist.Hint="{DynamicResource material_barcode}"
+                Text="{Binding Material.Barcode}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
             <TextBox
-                materialDesign:HintAssist.Hint="Serial"
-                Text="{Binding Serial}"
+                materialDesign:HintAssist.Hint="{DynamicResource material_serial}"
+                Text="{Binding Material.Serial}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 
@@ -94,27 +94,27 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="20">
-            <GroupBox Header="Sale Information">
+            <GroupBox Header="{DynamicResource material_sale_information}">
                 <StackPanel>
                     <TextBox
-                        materialDesign:HintAssist.Hint="Maximum sale amount"
-                        Text="{Binding MaximumSaleAmount}"
+                        materialDesign:HintAssist.Hint="{DynamicResource material_maximum_sale_amount}"
+                        Text="{Binding Material.MaximumSaleAmount}"
                         Margin="10"
                         Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
                     <TextBox
-                        materialDesign:HintAssist.Hint="Minimum sale amount"
-                        Text="{Binding MinimumSaleAmount}"
+                        materialDesign:HintAssist.Hint="{DynamicResource material_minimum_sale_amount}"
+                        Text="{Binding Material.MinimumSaleAmount}"
                         Margin="10"
                         Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 
                     <TextBox
-                        materialDesign:HintAssist.Hint="Dazon elements count"
-                        Text="{Binding DazonElementsCount}"
+                        materialDesign:HintAssist.Hint="{DynamicResource material_dason_element_count}"
+                        Text="{Binding Material.DazonElementsCount}"
                         Margin="10"
                         Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
                     <TextBox
-                        materialDesign:HintAssist.Hint="Free references amount"
-                        Text="{Binding FreeReferencesAmount}"
+                        materialDesign:HintAssist.Hint="{DynamicResource material_free_references_amount}"
+                        Text="{Binding Material.FreeReferencesAmount}"
                         Margin="10"
                         Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
                 </StackPanel>
@@ -131,6 +131,6 @@
             Command="{Binding Save}"
             Margin="10 18 10 60"
             Padding="0"
-            Content="Save"/>
+            Content="{DynamicResource material_save}"/>
     </Grid>
 </Window>

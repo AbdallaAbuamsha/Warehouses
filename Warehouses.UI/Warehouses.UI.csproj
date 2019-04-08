@@ -205,6 +205,7 @@
       <DependentUpon>WarehouseDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowBase.cs" />
+    <Compile Include="Wrappers\MaterialWrapper.cs" />
     <Compile Include="Wrappers\UnitRelationListItemWrapper.cs" />
     <Compile Include="Wrappers\UnitWrapper.cs" />
     <Compile Include="Wrappers\WarehouseWrapper.cs" />

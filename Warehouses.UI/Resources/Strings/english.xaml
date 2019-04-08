@@ -23,4 +23,32 @@
     <system:String x:Key="unit_relation_table_name">Name</system:String>
     <system:String x:Key="unit_relation_table_factor">Factor</system:String>
     <system:String x:Key="unit_relation_table_delete">Delete</system:String>
+
+    <system:String x:Key="material_name_title">Material Name</system:String>
+    <system:String x:Key="material_name_text_box">Material Name</system:String>
+    <system:String x:Key="material_name_language">Language</system:String>
+    <system:String x:Key="material_name_add">Add</system:String>
+    <system:String x:Key="material_name_table_name">Name</system:String>
+    <system:String x:Key="material_name_table_language">Language</system:String>
+    <system:String x:Key="material_name_table_delete">Delete</system:String>
+
+    <system:String x:Key="material_code">Material Code</system:String>
+    <system:String x:Key="material_parent_name">Parent Name</system:String>
+    <system:String x:Key="material_parent_code">Parent Code</system:String>
+    <system:String x:Key="material_barcode">Barcode</system:String>
+    <system:String x:Key="material_serial">Serial</system:String>
+    <system:String x:Key="material_sale_information">Sale Information</system:String>
+    <system:String x:Key="material_maximum_sale_amount">Maximum sale amount</system:String>
+    <system:String x:Key="material_minimum_sale_amount">Minimum sale amount</system:String>
+    <system:String x:Key="material_dason_element_count">Dazon elements count</system:String>
+    <system:String x:Key="material_free_references_amount">Free references amount</system:String>
+    <system:String x:Key="material_save">Save</system:String>
+
+    <system:String x:Key="material_units_information">Units Informations</system:String>
+    <system:String x:Key="material_unit_selection_hint">Unit</system:String>
+    <system:String x:Key="material_unit_add">Add</system:String>
+    <system:String x:Key="material_unit_table_name">Name</system:String>
+    <system:String x:Key="material_unit_table_default">Default</system:String>
+    <system:String x:Key="material_unit_table_delete">Delete</system:String>
+    
 </ResourceDictionary>

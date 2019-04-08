@@ -84,7 +84,8 @@
             </MenuItem>
 
             <!-- Settings -->
-            <MenuItem Header="_Settings" />
+            <MenuItem Header="_Settings"
+                      Command="{Binding SettingsCommand}"/>
 
             <!-- Logout -->
             <MenuItem Header="_Logout"

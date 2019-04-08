@@ -33,20 +33,8 @@ namespace Warehouses.UI.ViewModels
             FillLists(Languages, languages);
         }
 
-        private void ExecuteAddCommand()
-        {
-            //MessageBox.Show(MaterialName + " " + SelectedLanguage.Name);
-            MaterialsNames.Add(new MaterialName { Name = MaterialName, Language = SelectedLanguage });
-            Languages.Remove(SelectedLanguage);
-            MaterialName = string.Empty;
-        }
-
-        private bool ExecuteCanAddCommand()
-        {
-            return true;// SelectedLanguage != null && !string.IsNullOrEmpty(MaterialName);
-        }
-
         public ObservableCollection<Language> Languages { get; set; }
+
         private ObservableCollection<MaterialName> _materialsNames;
 
         public ObservableCollection<MaterialName> MaterialsNames {
@@ -60,11 +48,13 @@ namespace Warehouses.UI.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public string MaterialName
         {
             get { return _materialName; }
             set { _materialName = value;
                 OnPropertyChanged();
+                ((DelegateCommand)Add).RaiseCanExecuteChanged();
             }
         }
 
@@ -74,9 +64,28 @@ namespace Warehouses.UI.ViewModels
             set {
                 _selecteLanguage = value;
                 OnPropertyChanged();
+                ((DelegateCommand)Add).RaiseCanExecuteChanged();
             }
         }
+
         public ICommand Add { get; set; }
+
         public ICommand Delete { get; set; }
+
+        private void ExecuteAddCommand()
+        {
+            //MessageBox.Show(MaterialName + " " + SelectedLanguage.Name);
+            MaterialsNames.Add(new MaterialName { Name = MaterialName, Language = SelectedLanguage });
+            Languages.Remove(SelectedLanguage);
+            MaterialName = string.Empty;
+        }
+
+        private bool ExecuteCanAddCommand()
+        {
+            return !string.IsNullOrEmpty(MaterialName) 
+                && !string.IsNullOrWhiteSpace(MaterialName)
+                && SelectedLanguage != null ;
+        }
+
     }
 }

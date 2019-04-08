@@ -23,4 +23,31 @@
     <system:String x:Key="unit_relation_table_name">الاسم</system:String>
     <system:String x:Key="unit_relation_table_factor">المعامل</system:String>
     <system:String x:Key="unit_relation_table_delete">حذف</system:String>
+
+    <system:String x:Key="material_name_title">اسم المادة</system:String>
+    <system:String x:Key="material_name_text_box">اسم المادة</system:String>
+    <system:String x:Key="material_name_language">اللغة</system:String>
+    <system:String x:Key="material_name_add">إصافة</system:String>
+    <system:String x:Key="material_name_table_name">الاسم</system:String>
+    <system:String x:Key="material_name_table_language">اللغة</system:String>
+    <system:String x:Key="material_name_table_delete">حذف</system:String>
+
+    <system:String x:Key="material_code">رمز المادة</system:String>
+    <system:String x:Key="material_parent_name">اسم الأب</system:String>
+    <system:String x:Key="material_parent_code">رمز الأب</system:String>
+    <system:String x:Key="material_barcode">الباركود</system:String>
+    <system:String x:Key="material_serial">الرقم التسلسلي</system:String>
+    <system:String x:Key="material_sale_information">معلومات البيع</system:String>
+    <system:String x:Key="material_maximum_sale_amount">حد البيع الأعظمي</system:String>
+    <system:String x:Key="material_minimum_sale_amount">حد البيع الأصغري</system:String>
+    <system:String x:Key="material_dason_element_count">عدد عناصر الدزينة</system:String>
+    <system:String x:Key="material_free_references_amount">عدد العينات المجانية</system:String>
+    <system:String x:Key="material_save">حفظ</system:String>
+
+    <system:String x:Key="material_units_information">معلومات الواحدات</system:String>
+    <system:String x:Key="material_unit_selection_hint">الواحدة</system:String>
+    <system:String x:Key="material_unit_add">إضافة</system:String>
+    <system:String x:Key="material_unit_table_name">اسم</system:String>
+    <system:String x:Key="material_unit_table_default">تعديل</system:String>
+    <system:String x:Key="material_unit_table_delete">حذف</system:String>
 </ResourceDictionary>

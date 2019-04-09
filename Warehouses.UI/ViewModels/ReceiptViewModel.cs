@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Events;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Warehouses.Model;
@@ -21,23 +22,17 @@ namespace Warehouses.UI.ViewModels
             ReceiptTable = receiptTable;
             Warehouses = new ObservableCollection<Warehouse>();
             AddRow = new DelegateCommand(ExecuteAddRowCommand, ExecuteCanAddRowCommand);
-
-        }
-        private bool ExecuteCanAddRowCommand()
-        {
-            return true;
+            Date = DateTime.Now;
         }
 
-        private void ExecuteAddRowCommand()
-        {
-            _eventAggregator.GetEvent<AddReceiptRowEvent>().Publish();
-        }
         public void Load()
         {
             var warehouses = _warehouseService.GetAll();
             FillLists(Warehouses, warehouses);
         }
+
         public ReceiptTableViewModel ReceiptTable { get; set; }
+
         public ObservableCollection<Warehouse> Warehouses { get; set; }
 
         public Warehouse SelectedFromWarehouse
@@ -49,7 +44,20 @@ namespace Warehouses.UI.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public DateTime Date { get; set; }
+
         public ICommand AddRow { get; set; }
+
+        private bool ExecuteCanAddRowCommand()
+        {
+            return true;
+        }
+
+        private void ExecuteAddRowCommand()
+        {
+            _eventAggregator.GetEvent<AddReceiptRowEvent>().Publish();
+        }
 
     }
 }

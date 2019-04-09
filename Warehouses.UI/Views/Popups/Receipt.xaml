@@ -54,7 +54,8 @@
                 SelectedItem="{Binding SelectedFromWarehouse, Mode=TwoWay}"
                 DisplayMemberPath="Name"                                     
                 materialDesign:HintAssist.Hint="From"
-                Width="250"
+                MinWidth="250"
+                HorizontalAlignment="Stretch"
                 Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                 Margin="10 10 10 0"/>
             <ComboBox
@@ -62,15 +63,20 @@
                 SelectedItem="{Binding SelectedToWarehouse, Mode=TwoWay}"
                 DisplayMemberPath="Name"                                     
                 materialDesign:HintAssist.Hint="To"
-                Width="250"
+                MinWidth="250"
+                HorizontalAlignment="Stretch"
                 Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                 Margin="10 10 10 0"/>
+            <Label Content="Date"
+                   Margin="6 16 0 0"/>
             <toolkit:DateTimePicker
-                Value="{Binding DateFrom,
+                Value="{Binding Date,
                         Mode=TwoWay,
                         UpdateSourceTrigger=PropertyChanged}"
-                        Margin="10"
-                        Padding="0 4"/>
+                        materialDesign:HintAssist.Hint="To"
+                        MinWidth="250"
+                        Margin="12 0 0 10"
+                        Padding="0 6"/>
         </StackPanel>
         <Button Grid.Row="1"
                 Command="{Binding Path=AddRow}" 

@@ -29,19 +29,19 @@ namespace Warehouses.Model
         [Required]
         [RegularExpression(@"^\d+\.\d{0,2}$")]
         [Range(0, 99999999.99)]
-        public float? MaximumSaleAmount { get; set; }
+        public float MaximumSaleAmount { get; set; }
         [Required]
         [RegularExpression(@"^\d+\.\d{0,2}$")]
         [Range(0, 99999999.99)]
-        public float? MinimumSaleAmount { get; set; }
+        public float MinimumSaleAmount { get; set; }
         [Required]
         [RegularExpression(@"^\d+\.\d{0,2}$")]
         [Range(0, 99999999.99)]
-        public float? DazonElementsCount { get; set; }
+        public float DazonElementsCount { get; set; }
         [Required]
         [RegularExpression(@"^\d+\.\d{0,2}$")]
         [Range(0, 99999999.99)]
-        public float? FreeReferencesAmount { get; set; }
+        public float FreeReferencesAmount { get; set; }
 
         public List<Unit> units;
         public int ParentId { get; set; }

@@ -42,10 +42,10 @@ namespace Warehouses.UI.ViewModels
             Material.Code = "";
             Material.Barcode = "";
             Material.Serial = "";
-            Material.MaximumSaleAmount = null;
-            Material.MinimumSaleAmount = null;
-            Material.DazonElementsCount = null;
-            Material.FreeReferencesAmount = null;
+            Material.MaximumSaleAmount = 0;
+            Material.MinimumSaleAmount = 0;
+            Material.DazonElementsCount = 0;
+            Material.FreeReferencesAmount = 0;
         }
         
         private void ExecuteSaveCommand()

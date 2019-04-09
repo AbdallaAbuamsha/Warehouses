@@ -39,22 +39,22 @@ namespace Warehouses.UI.Wrappers
             get { return GetValue<string>(); }
             set { SetValue(value); }
         }
-        public float? MaximumSaleAmount
+        public float MaximumSaleAmount
         {
             get { return GetValue<float>(); }
             set { SetValue(value); }
         }
-        public float? MinimumSaleAmount
+        public float MinimumSaleAmount
         {
             get { return GetValue<float>(); }
             set { SetValue(value); }
         }
-        public float? DazonElementsCount
+        public float DazonElementsCount
         {
             get { return GetValue<float>(); }
             set { SetValue(value); }
         }
-        public float? FreeReferencesAmount
+        public float FreeReferencesAmount
         {
             get { return GetValue<float>(); }
             set { SetValue(value); }

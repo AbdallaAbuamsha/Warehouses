@@ -83,7 +83,7 @@ namespace Warehouses.UI.ViewModels
 
         private void InputReceiptExecute()
         {
-            Bootstrapper.Builder.Resolve<Receipt>().ShowDialog(); ;
+            Bootstrapper.Builder.Resolve<Receipt>().Show(); ;
         }
 
         public ICommand InputReceiptCommand { get; set; }

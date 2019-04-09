@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Warehouses.UI.Views.Popups"
+        xmlns:local="clr-namespace:Warehouses.UI.Views"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -11,13 +11,12 @@
         TextElement.FontSize="14"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        FontFamily="{DynamicResource MaterialDesignFont}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"        
+        Title="Receipt" Height="642.722" Width="1092.89" WindowStartupLocation="CenterScreen" WindowState="Maximized"
         xmlns:views="clr-namespace:Warehouses.UI.Views.UserControls"
         xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Background="{DynamicResource MaterialDesignPaper}"
-        ResizeMode="NoResize"
-        ShowInTaskbar="False"
-        WindowStyle="None" WindowState="Maximized" d:DesignWidth="1249.6">
+       >
     <Grid x:Name="root">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -27,11 +26,13 @@
         </Grid.RowDefinitions>
 
         <TextBlock
+            Visibility="Collapsed"
             Text="Add Receipt"
             Padding="25 14 0 0"
             Style="{DynamicResource MaterialDesignTitleTextBlock}"
             VerticalAlignment="Center" Grid.ColumnSpan="2" />
         <Button 
+            Visibility="Collapsed"
             Grid.Column="1"
             Command="{Binding Close}"
             CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 

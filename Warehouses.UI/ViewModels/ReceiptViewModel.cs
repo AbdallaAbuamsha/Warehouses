@@ -2,6 +2,7 @@
 using Prism.Events;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using Warehouses.Model;
 using Warehouses.UI.Data;
@@ -22,6 +23,7 @@ namespace Warehouses.UI.ViewModels
             ReceiptTable = receiptTable;
             Warehouses = new ObservableCollection<Warehouse>();
             AddRow = new DelegateCommand(ExecuteAddRowCommand, ExecuteCanAddRowCommand);
+            Close = new DelegateCommand<Window>(ExecuteCloesCommand);
             Date = DateTime.Now;
         }
 
@@ -48,6 +50,7 @@ namespace Warehouses.UI.ViewModels
         public DateTime Date { get; set; }
 
         public ICommand AddRow { get; set; }
+        public ICommand Close { get; set; }
 
         private bool ExecuteCanAddRowCommand()
         {
@@ -57,6 +60,11 @@ namespace Warehouses.UI.ViewModels
         private void ExecuteAddRowCommand()
         {
             _eventAggregator.GetEvent<AddReceiptRowEvent>().Publish();
+        }
+
+        private void ExecuteCloesCommand(Window window)
+        {
+            window.Close();
         }
 
     }

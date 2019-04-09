@@ -1,11 +1,5 @@
 ﻿using Prism.Events;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using Warehouses.Model;
 using Warehouses.UI.Data;
 using Warehouses.UI.Events;
@@ -15,7 +9,6 @@ namespace Warehouses.UI.ViewModels
     public class ReceiptTableItemViewModel : ViewModelBase
     {
 
-        private static int Increaser = 0;
 
         private IMaterialDataService _materialService;
         private IWarehouseDataService _warehouseService;
@@ -35,6 +28,7 @@ namespace Warehouses.UI.ViewModels
         private IEventAggregator _eventAggregator;
 
         public ReceiptTableItemViewModel(
+            int id,
             IMaterialDataService materialService,
             IWarehouseDataService warehouseService,
             IUnitDataService unitService,
@@ -53,7 +47,7 @@ namespace Warehouses.UI.ViewModels
             Warehouses = new ObservableCollection<Warehouse>();
             FillLists(Warehouses, _warehouseService.GetAll());
 
-            Id = ++Increaser;
+            Id = id;
             _eventAggregator.GetEvent<DeleteReceiptRowEvent>().Subscribe(DeleteReceiptRow);
         }
 

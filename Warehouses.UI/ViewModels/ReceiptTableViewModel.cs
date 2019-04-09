@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Prism.Commands;
 using Prism.Events;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Warehouses.UI.Events;
@@ -11,6 +10,7 @@ namespace Warehouses.UI.ViewModels
 {
     public class ReceiptTableViewModel
     {
+        private static int Increaser = 0;
         private IEventAggregator _eventAggregator;
 
         public ReceiptTableViewModel(IEventAggregator eventAggregator)
@@ -20,7 +20,7 @@ namespace Warehouses.UI.ViewModels
             Delete = new DelegateCommand<ReceiptTableItemViewModel>(ExecuteDeleteCommand, ExecuteCanDeleteCommand);
             NewLine = new DelegateCommand(AddRow);
             _eventAggregator.GetEvent<AddReceiptRowEvent>().Subscribe(AddRow);
-            RowsItems.Add(Bootstrapper.Builder.Resolve<ReceiptTableItemViewModel>());
+            RowsItems.Add(Bootstrapper.Builder.Resolve<ReceiptTableItemViewModel>(new NamedParameter("id", ++Increaser)));
         }
 
         //private void CreateNewLine()
@@ -30,11 +30,12 @@ namespace Warehouses.UI.ViewModels
 
         private void AddRow()
         {
-            RowsItems.Add(Bootstrapper.Builder.Resolve<ReceiptTableItemViewModel>());
+            RowsItems.Add(Bootstrapper.Builder.Resolve<ReceiptTableItemViewModel>(new NamedParameter("id", ++Increaser)));
         }
 
         private void ExecuteDeleteCommand(ReceiptTableItemViewModel item)
         {
+            Increaser--;
             RowsItems.Remove(item);
             _eventAggregator.GetEvent<DeleteReceiptRowEvent>().Publish(item.Id);
         }

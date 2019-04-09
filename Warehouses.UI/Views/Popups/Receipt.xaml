@@ -12,7 +12,8 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        xmlns:views="clr-namespace:Warehouses.UI.Views.UserControls"        
+        xmlns:views="clr-namespace:Warehouses.UI.Views.UserControls"
+        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         Background="{DynamicResource MaterialDesignPaper}"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
@@ -64,6 +65,12 @@
                 Width="250"
                 Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                 Margin="10 10 10 0"/>
+            <toolkit:DateTimePicker
+                Value="{Binding DateFrom,
+                        Mode=TwoWay,
+                        UpdateSourceTrigger=PropertyChanged}"
+                        Margin="10"
+                        Padding="0 4"/>
         </StackPanel>
         <Button Grid.Row="1"
                 Command="{Binding Path=AddRow}" 

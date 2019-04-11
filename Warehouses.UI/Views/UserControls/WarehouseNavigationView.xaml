@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="Warehouses.UI.Views.UserControls.WarehouseNavigationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Warehouses.UI.Views.UserControls"
+             mc:Ignorable="d" 
+             xmlns:VM   ="clr-namespace:Warehouses.UI.ViewModels"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Background="White"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--<StackPanel>
+            <ComboBox
+                        ItemsSource="{Binding Organizations}"
+                        SelectedItem="{Binding SelectedOrganization, Mode=TwoWay}"
+                        DisplayMemberPath="Organization.Name"
+                        materialDesign:HintAssist.Hint="Organization"
+                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                        Margin="10 10 10 0"/>
+            <ComboBox
+                        ItemsSource="{Binding Branches}"
+                        SelectedItem="{Binding SelectedBranch, Mode=TwoWay}"
+                        DisplayMemberPath="Branch.Name"
+                        materialDesign:HintAssist.Hint="Branch"
+                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                        Margin="10 10 10 0"/>
+            <ComboBox
+                        ItemsSource="{Binding Warehouses}"
+                        SelectedItem="{Binding SelectedWarehouse, Mode=TwoWay}"
+                        DisplayMemberPath="Warehouse.Name"                                     
+                        materialDesign:HintAssist.Hint="Warehouse"
+                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                        Margin="10 10 10 0"/>
+        </StackPanel>-->
+        <StackPanel Grid.Row="3">
+            <TreeView x:Name="MainTreeView"
+                              Margin="10"
+                              ItemsSource="{Binding Organizations,
+                                            Mode=TwoWay,
+                                            UpdateSourceTrigger=PropertyChanged}" >
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate
+                                ItemsSource="{Binding TreeItems}"
+                                DataType="{x:Type VM:OrganizationTreeViewItemViewModel}" >
+                        <Label Content="{Binding DisplayMember}"/>
+                        <!--<HierarchicalDataTemplate.ItemTemplate>
+                            <HierarchicalDataTemplate
+                                        ItemsSource="{Binding Warehouses,
+                                                      Mode=TwoWay,
+                                                      UpdateSourceTrigger=PropertyChanged}" DataType="{x:Type VM:BranchTreeViewItemViewModel}">
+                                <Label Content="{Binding Branch.Name}"/>
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type VM:WarehouseTreeViewItemViewModel}">
+                                        <Label Content="{Binding Warehouse.Name}"/>
+                                    </DataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>-->
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </StackPanel>
+    </Grid>
+
+</UserControl>

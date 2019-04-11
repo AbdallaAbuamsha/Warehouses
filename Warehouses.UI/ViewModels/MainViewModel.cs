@@ -16,34 +16,48 @@ namespace Warehouses.UI.ViewModels
         private IDetailViewModel _detailViewModel;
         private IMessageDialogService _messageDialogService;
         private IIndex<string, IDetailViewModel> _detailViewModelCreator;
+        private IIndex<string, INavigationViewModel> _navigationViewModelCreator;
+        private INavigationViewModel _navigationViewModel;
 
         public MainViewModel(IMainMenuViewModel mainMenuViewModel,
-            INavigationViewModel navigationViewModel,
           IIndex<string, IDetailViewModel> detailViewModelCreator,
+          IIndex<string, INavigationViewModel> navigationViewModelCreator,
           IEventAggregator eventAggregator,
           IMessageDialogService messageDialogService)
         {
             _eventAggregator = eventAggregator;
             _detailViewModelCreator = detailViewModelCreator;
+            _navigationViewModelCreator = navigationViewModelCreator;
             _messageDialogService = messageDialogService;
 
             _eventAggregator.GetEvent<OpenDetailViewEvent>().Subscribe(OnOpenDetailView);
+            _eventAggregator.GetEvent<SelecteNavigationType>().Subscribe(SelecteNavigationType);
             _eventAggregator.GetEvent<AfterDetailDeletedEvent>().Subscribe(AfterDetailDeleted);
 
             CreateNewDetailCommand = new DelegateCommand<Type>(OnCreateNewDetailExecute);
 
-            NavigationViewModel = navigationViewModel;
             MainMenuViewModel = mainMenuViewModel;
+            
         }
 
         public void Load()
         {
-            NavigationViewModel.Load();
+            //NavigationViewModel.Load();
         }
 
         public ICommand CreateNewDetailCommand { get; }
 
-        public INavigationViewModel NavigationViewModel { get; }
+        public INavigationViewModel NavigationViewModel {
+            get
+            {
+                return _navigationViewModel;
+            }
+            set
+            {
+                _navigationViewModel = value;
+                OnPropertyChanged();
+            }
+        }
 
         public IMainMenuViewModel MainMenuViewModel { get; set; }
 
@@ -56,8 +70,12 @@ namespace Warehouses.UI.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        private void OnOpenDetailView(OpenDetailViewEventArgs args)
+        private void SelecteNavigationType(SelecteNavigationTypeArgs args)
+        {
+            NavigationViewModel = _navigationViewModelCreator[args.NavigationTypeName];
+            NavigationViewModel.Load();
+        }
+            private void OnOpenDetailView(OpenDetailViewEventArgs args)
         {
             //if (DetailViewModel != null)
             //{
@@ -67,7 +85,6 @@ namespace Warehouses.UI.ViewModels
             //        return;
             //    }
             //}
-
             DetailViewModel = _detailViewModelCreator[args.ViewModelName];
             DetailViewModel.Load(args.Id);
         }

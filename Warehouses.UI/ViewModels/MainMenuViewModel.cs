@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Prism.Commands;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Warehouses.UI.Events;
 using Warehouses.UI.Properties;
 using Warehouses.UI.Startup;
 using Warehouses.UI.Views;
@@ -16,11 +18,14 @@ namespace Warehouses.UI.ViewModels
 {
     public class MainMenuViewModel : IMainMenuViewModel
     {
-        public MainMenuViewModel()
+        private IEventAggregator _eventAggregator;
+
+        public MainMenuViewModel(IEventAggregator eventAggregator)
         {
-            InputReceiptCommand = new DelegateCommand(InputReceiptExecute);
-            OutputReceiptCommand = new DelegateCommand(OutputReceiptExecute);
-            TransactionReceiptCommand = new DelegateCommand(TransactionReceiptExecute);
+            _eventAggregator = eventAggregator;
+            ReceiptCommand = new DelegateCommand(ReceiptExecute);
+            OpenWarehousesTree = new DelegateCommand(OpenWarehousesTreeExecute);
+            OpenMaterialsTree = new DelegateCommand(OpenMaterialsTreeExecute);
             NewOrganizationCommand = new DelegateCommand(NewOrganizationExecute);
             NewBranchCommand = new DelegateCommand(NewBranchExecute);
             NewWarehouseCommand = new DelegateCommand(NewWarehouseExecute);
@@ -71,24 +76,34 @@ namespace Warehouses.UI.ViewModels
             Bootstrapper.Builder.Resolve<AddOrganization>().ShowDialog();
         }
 
-        private void TransactionReceiptExecute()
+        private void OpenMaterialsTreeExecute()
         {
-            MessageBox.Show("TransactionReceiptExecute");
+            {
+                _eventAggregator.GetEvent<SelecteNavigationType>().Publish(
+                    new SelecteNavigationTypeArgs
+                    {
+                        NavigationTypeName = nameof(MaterialNavigationViewModel)
+                    });
+            }
         }
 
-        private void OutputReceiptExecute()
+        private void OpenWarehousesTreeExecute()
         {
-            MessageBox.Show("OutputReceiptExecute");
+            _eventAggregator.GetEvent<SelecteNavigationType>().Publish(
+                new SelecteNavigationTypeArgs
+                {
+                    NavigationTypeName = nameof(WarehousesNavigationViewModel)
+                });                
         }
 
-        private void InputReceiptExecute()
+        private void ReceiptExecute()
         {
             Bootstrapper.Builder.Resolve<Receipt>().Show(); ;
         }
 
-        public ICommand InputReceiptCommand { get; set; }
-        public ICommand OutputReceiptCommand { get; set; }
-        public ICommand TransactionReceiptCommand { get; set; }
+        public ICommand ReceiptCommand { get; set; }
+        public ICommand OpenWarehousesTree { get; set; }
+        public ICommand OpenMaterialsTree { get; set; }
         public ICommand NewOrganizationCommand { get; set; }
         public ICommand NewBranchCommand { get; set; }
         public ICommand NewWarehouseCommand { get; set; }

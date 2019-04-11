@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="Warehouses.UI.Views.UserControls.MaterialDetailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Warehouses.UI.Views.Popups"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="14"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:views="clr-namespace:Warehouses.UI.Views.UserControls" d:DesignWidth="782.7" d:DesignHeight="705.8">
+    <Grid x:Name="root">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+       
+        <Grid VerticalAlignment="Stretch" Width="2" Background="LightGray" HorizontalAlignment="Right"/>
+
+
+        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="20">
+            <!---->
+            <views:AddMaterialNameDetails DataContext="{Binding AddMaterialNameViewModel}"/>
+            <!--First Name-->
+            <StackPanel Grid.Column="0">
+                <TextBox
+                materialDesign:HintAssist.Hint="{DynamicResource material_code}"
+                Text="{Binding Material.Code}"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+            </StackPanel>
+            <ComboBox
+                materialDesign:HintAssist.Hint="{DynamicResource material_parent_name}"
+                ItemsSource="{Binding Materials}"
+                SelectedItem="{Binding SelectedParent,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                DisplayMemberPath="Name"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintComboBox}" />
+            <TextBox
+                materialDesign:HintAssist.Hint="{DynamicResource material_parent_code}"
+                Text="{Binding ParentCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox
+                materialDesign:HintAssist.Hint="{DynamicResource material_barcode}"
+                Text="{Binding Material.Barcode}"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox
+                materialDesign:HintAssist.Hint="{DynamicResource material_serial}"
+                Text="{Binding Material.Serial}"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+
+
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="20">
+            <GroupBox Header="{DynamicResource material_sale_information}">
+                <StackPanel>
+                    <TextBox
+                        materialDesign:HintAssist.Hint="{DynamicResource material_maximum_sale_amount}"
+                        Text="{Binding Material.MaximumSaleAmount}"
+                        Margin="10"
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        materialDesign:HintAssist.Hint="{DynamicResource material_minimum_sale_amount}"
+                        Text="{Binding Material.MinimumSaleAmount}"
+                        Margin="10"
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+
+                    <TextBox
+                        materialDesign:HintAssist.Hint="{DynamicResource material_dason_element_count}"
+                        Text="{Binding Material.DazonElementsCount}"
+                        Margin="10"
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        materialDesign:HintAssist.Hint="{DynamicResource material_free_references_amount}"
+                        Text="{Binding Material.FreeReferencesAmount}"
+                        Margin="10"
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+                </StackPanel>
+            </GroupBox>
+
+            <views:AddUnitToMaterial DataContext="{Binding AddMaterialUnitViewModel}"/>
+        </StackPanel>
+        <!--Login-->
+        <Button
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            Command="{Binding Save}"
+            Margin="10 18 10 60"
+            Padding="0"
+            Content="{DynamicResource material_save}"/>
+    </Grid>
+</UserControl>

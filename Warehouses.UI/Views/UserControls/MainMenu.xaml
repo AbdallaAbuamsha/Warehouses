@@ -13,23 +13,12 @@
             <!-- New -->
             <MenuItem Header="_New">
                 <!-- Input Receipt -->
-                <MenuItem Header="Input Receipt" InputGestureText="Ctrl+I" Command="{Binding InputReceiptCommand}">
+                <MenuItem Header="Receipt" InputGestureText="Ctrl+R" Command="{Binding ReceiptCommand}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Inboxes" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <!-- Output Receipt -->
-                <MenuItem Header="Output Receipt" InputGestureText="Ctrl+O" Command="{Binding OutputReceiptCommand}">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="Receipt" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <!-- Transaction Receipt -->
-                <MenuItem Header="Transaction Receipt" InputGestureText="Ctrl+T" Command="{Binding TransactionReceiptCommand}">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="ExitToApp" />
-                    </MenuItem.Icon>
-                </MenuItem>
                 <Separator />
                 <!-- Organization -->
                 <MenuItem Header="Organization" InputGestureText="Ctrl+G" Command="{Binding NewOrganizationCommand}">
@@ -63,7 +52,20 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-
+            <!-- View -->
+            <MenuItem Header="_View">
+                <MenuItem Header="Warehouses" InputGestureText="Ctrl+K" Command="{Binding OpenWarehousesTree}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="House" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Materials" InputGestureText="Ctrl+L" Command="{Binding OpenMaterialsTree}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Toolbox" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
             <!-- Edit -->
             <MenuItem Header="_Edit">
                 <MenuItem Header="_Cut" Command="Cut">

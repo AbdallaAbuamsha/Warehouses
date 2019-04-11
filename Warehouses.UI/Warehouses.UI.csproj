@@ -116,6 +116,7 @@
     <Compile Include="Events\AfterDetailSavedEvent.cs" />
     <Compile Include="Events\DeleteReceiptRowEvent.cs" />
     <Compile Include="Events\OpenDetailViewEvent.cs" />
+    <Compile Include="Events\SelecteNavigationType.cs" />
     <Compile Include="Events\SettingsEvents.cs" />
     <Compile Include="Events\WarehouseItemSelectedEvent.cs" />
     <Compile Include="MyControls\DoubleTextBox.cs" />
@@ -149,7 +150,10 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MaterialDetailViewModel.cs" />
+    <Compile Include="ViewModels\MaterialNavigationViewModel.cs" />
     <Compile Include="ViewModels\MaterialUnitListItemViewModel.cs" />
+    <Compile Include="ViewModels\NavigationItemViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\OrganizationDetailViewModel.cs" />
     <Compile Include="ViewModels\OrganizationTreeViewItemViewModel.cs" />
@@ -160,6 +164,7 @@
     <Compile Include="ViewModels\UnitRelationListItemViewModel.cs" />
     <Compile Include="ViewModels\UnitValueViewModel.cs" />
     <Compile Include="ViewModels\WarehouseDetailViewModel.cs" />
+    <Compile Include="ViewModels\WarehousesNavigationViewModel.cs" />
     <Compile Include="ViewModels\WarehouseTreeViewItemViewModel.cs" />
     <Compile Include="Views\Framework.cs" />
     <Compile Include="Views\Popups\AddUnit.xaml.cs">
@@ -207,8 +212,11 @@
     <Compile Include="Views\UserControls\AddMaterialNameDetails.xaml.cs">
       <DependentUpon>AddMaterialNameDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\MainWIndowWarehouseSelectionDropDownsView.xaml.cs">
-      <DependentUpon>MainWIndowWarehouseSelectionDropDownsView.xaml</DependentUpon>
+    <Compile Include="Views\UserControls\MaterialDetailView.xaml.cs">
+      <DependentUpon>MaterialDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\MaterialNavigationView.xaml.cs">
+      <DependentUpon>MaterialNavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\OrganizationDetailView.xaml.cs">
       <DependentUpon>OrganizationDetailView.xaml</DependentUpon>
@@ -218,6 +226,9 @@
     </Compile>
     <Compile Include="Views\UserControls\WarehouseDetailView.xaml.cs">
       <DependentUpon>WarehouseDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\WarehouseNavigationView.xaml.cs">
+      <DependentUpon>WarehouseNavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowBase.cs" />
     <Compile Include="Wrappers\MaterialWrapper.cs" />
@@ -322,7 +333,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\MainWIndowWarehouseSelectionDropDownsView.xaml">
+    <Page Include="Views\UserControls\MaterialDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\WarehouseNavigationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\MaterialNavigationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -50,26 +50,56 @@
         </Button>
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Right">
-            <ComboBox
-                ItemsSource="{Binding Warehouses}"
-                SelectedItem="{Binding SelectedFromWarehouse, Mode=TwoWay}"
-                DisplayMemberPath="Name"                                     
-                materialDesign:HintAssist.Hint="From"
-                MinWidth="250"
-                HorizontalAlignment="Stretch"
-                Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
-                Margin="10 10 10 0"/>
-            <ComboBox
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Content="Warehouse"
+                             GroupName="from_group"
+                             IsChecked="{Binding IsFromWarehouse}"
+                             Foreground="#8c8c8c"
+                             VerticalAlignment="Bottom"
+                             
+                             Margin="10 0"/>
+                <RadioButton Content="Supplier"
+                             IsChecked="{Binding IsFromSupplier}"
+                             GroupName="from_group"
+                             Foreground="#8c8c8c"
+                             VerticalAlignment="Bottom"
+                             Margin="10 0"/>
+                <ComboBox
+                    ItemsSource="{Binding Warehouses}"
+                    SelectedItem="{Binding SelectedFromWarehouse, Mode=TwoWay}"
+                    DisplayMemberPath="Name"                                     
+                    materialDesign:HintAssist.Hint="From"
+                    Width="250"
+                    HorizontalAlignment="Stretch"
+                    Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                    Margin="10 10 10 0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Content="Warehouse"
+                             IsChecked="{Binding IsToWarehouse}"
+                             GroupName="to_group"
+                             VerticalAlignment="Bottom"
+                             Foreground="#8c8c8c"
+                             Margin="10 0"/>
+                <RadioButton Content="Costumer"
+                             IsChecked="{Binding IsToCostumer}"
+                             GroupName="to_group"                             
+                             VerticalAlignment="Bottom"
+                             Foreground="#8c8c8c"
+                             Margin="10 0"/>
+                <ComboBox
                 ItemsSource="{Binding Warehouses}"
                 SelectedItem="{Binding SelectedToWarehouse, Mode=TwoWay}"
                 DisplayMemberPath="Name"                                     
                 materialDesign:HintAssist.Hint="To"
-                MinWidth="250"
+                Width="250"
                 HorizontalAlignment="Stretch"
                 Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                 Margin="10 10 10 0"/>
+            </StackPanel>
             <Label Content="Date"
-                   Margin="6 16 0 0"/>
+                   Margin="6 16 0 0"
+                   Foreground="#8c8c8c"/>
             <toolkit:DateTimePicker
                 Value="{Binding Date,
                         Mode=TwoWay,

@@ -26,6 +26,15 @@
         <DataTemplate DataType="{x:Type viewModels:WarehouseDetailViewModel}">
             <views:WarehouseDetailView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:MaterialDetailViewModel}">
+            <views:MaterialDetailView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:WarehousesNavigationViewModel}">
+            <views:WarehouseNavigationView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:MaterialNavigationViewModel}">
+            <views:MaterialNavigationView/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -40,8 +49,9 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
-            <views:MainWIndowWarehouseSelectionDropDownsView DataContext="{Binding NavigationViewModel}" />
-
+            <!--<views:MainWIndowWarehouseSelectionDropDownsView DataContext="{Binding NavigationViewModel}" />-->
+            <ContentControl Grid.Row="1"
+                            Content="{Binding NavigationViewModel}"/>
             <ContentControl Grid.Row="1"
                             Grid.Column="1"
                             Content="{Binding DetailViewModel}"/>

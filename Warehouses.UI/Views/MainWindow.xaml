@@ -35,7 +35,18 @@
         <DataTemplate DataType="{x:Type viewModels:MaterialNavigationViewModel}">
             <views:MaterialNavigationView/>
         </DataTemplate>
+
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="R" Modifiers="Ctrl" Command="{Binding MainMenuViewModel.ReceiptCommand}"/>
+        <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding MainMenuViewModel.NewWarehouseCommand}"/>
+        <KeyBinding Key="B" Modifiers="Ctrl" Command="{Binding MainMenuViewModel.NewBranchCommand}"/>
+        <KeyBinding Key="M" Modifiers="Ctrl" Command="{Binding MainMenuViewModel.NewMaterialCommand}"/>
+        <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding MainMenuViewModel.NewOrganizationCommand}"/>
+        <KeyBinding Key="U" Modifiers="Ctrl" Command="{Binding MainMenuViewModel.NewUnitCommand}"/>
+        <KeyBinding Key="K" Modifiers="Ctrl" Command="{Binding MainMenuViewModel.OpenWarehousesTree}"/>
+        <KeyBinding Key="L" Modifiers="Ctrl" Command="{Binding MainMenuViewModel.OpenMaterialsTree}"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />

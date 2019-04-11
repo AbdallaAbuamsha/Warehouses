@@ -13,7 +13,10 @@
             <!-- New -->
             <MenuItem Header="_New">
                 <!-- Input Receipt -->
-                <MenuItem Header="Receipt" InputGestureText="Ctrl+R" Command="{Binding ReceiptCommand}">
+                <MenuItem Header="Receipt"
+                          InputGestureText="Ctrl+R"                          
+                          Command="{Binding ReceiptCommand}"
+                          >
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Inboxes" />
                     </MenuItem.Icon>
@@ -21,7 +24,7 @@
                 <!-- Output Receipt -->
                 <Separator />
                 <!-- Organization -->
-                <MenuItem Header="Organization" InputGestureText="Ctrl+G" Command="{Binding NewOrganizationCommand}">
+                <MenuItem Header="Organization" InputGestureText="Ctrl+O" Command="{Binding NewOrganizationCommand}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Globe" />
                     </MenuItem.Icon>

@@ -163,6 +163,7 @@
     <Compile Include="ViewModels\TreeViewItemViewModel.cs" />
     <Compile Include="ViewModels\UnitRelationListItemViewModel.cs" />
     <Compile Include="ViewModels\UnitValueViewModel.cs" />
+    <Compile Include="ViewModels\UnrelatedUnitsViewModel.cs" />
     <Compile Include="ViewModels\WarehouseDetailViewModel.cs" />
     <Compile Include="ViewModels\WarehousesNavigationViewModel.cs" />
     <Compile Include="ViewModels\WarehouseTreeViewItemViewModel.cs" />

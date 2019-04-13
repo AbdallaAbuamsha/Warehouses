@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Warehouses.Model;
+using Warehouses.UI.ViewModels;
 
 namespace Warehouses.UI.Data
 {
@@ -14,5 +16,9 @@ namespace Warehouses.UI.Data
         bool Save(Material model);
 
         bool Delete(Material model);
+        
+        IEnumerable<Unit> GetAllUnRelatedUnits(int materailId ,int unitId);
+
+        IEnumerable<Unit> GetAllUnits(int materialId);
     }
 }

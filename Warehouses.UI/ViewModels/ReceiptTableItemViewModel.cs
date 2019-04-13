@@ -12,12 +12,11 @@ namespace Warehouses.UI.ViewModels
 
         private IMaterialDataService _materialService;
         private IWarehouseDataService _warehouseService;
-        private IUnitDataService _unitService;
 
         private int _id;
         private Material _selectedMaterial;
         private Unit _selectedMainUnit;
-        private UnitValueViewModel _selecteRelatedUnit;
+        private UnitValueViewModel _selecteUnRelatedUnit;
         private float? _quantity;
         private string _serial;
         private string _barcode;
@@ -36,14 +35,11 @@ namespace Warehouses.UI.ViewModels
         {
             _materialService = materialService;
             _warehouseService = warehouseService;
-            _unitService = unitService;
             _eventAggregator = eventAggregator;
             Materials = new ObservableCollection<Material>();
             FillLists(Materials, _materialService.GetAll());
             MainUnits = new ObservableCollection<Unit>();
-            FillLists(MainUnits, _unitService.GetAll());
-            RelatedUnits = new ObservableCollection<UnitValueViewModel>();
-            //FillLists(RelatedUnits, _unitService.GetAll());
+            UnRelatedUnits = new ObservableCollection<UnitValueViewModel>();
             Warehouses = new ObservableCollection<Warehouse>();
             FillLists(Warehouses, _warehouseService.GetAll());
 
@@ -75,6 +71,7 @@ namespace Warehouses.UI.ViewModels
             {
                 _selectedMaterial = value;
                 OnPropertyChanged();
+                FillLists(MainUnits, _materialService.GetAllUnits(SelectedMaterial.Id));
             }
         }
 
@@ -97,6 +94,7 @@ namespace Warehouses.UI.ViewModels
             {
                 _selectedMainUnit = value;
                 OnPropertyChanged();
+                LoadUnRelatedUnits();
             }
         }
 
@@ -106,14 +104,14 @@ namespace Warehouses.UI.ViewModels
             set { _quantity = value; }
         }
 
-        public ObservableCollection<UnitValueViewModel> RelatedUnits { get; set; }
+        public ObservableCollection<UnitValueViewModel> UnRelatedUnits { get; set; }
 
-        public UnitValueViewModel SelecteRelatedUnit
+        public UnitValueViewModel SelecteUnRelatedUnit
         {
-            get { return _selecteRelatedUnit; }
+            get { return _selecteUnRelatedUnit; }
             set
             {
-                _selecteRelatedUnit = value;
+                _selecteUnRelatedUnit = value;
                 OnPropertyChanged();
             }
         }
@@ -166,5 +164,15 @@ namespace Warehouses.UI.ViewModels
             }
         }
 
+        private void LoadUnRelatedUnits()
+        {
+            //FillLists(RelatedUnits, _unitService.GetAll());
+            var unRelatedUnits = _materialService.GetAllUnRelatedUnits(SelectedMaterial.Id, SelectedMainUnit.Id);
+            UnRelatedUnits.Clear();
+            foreach (Unit unit in unRelatedUnits)
+            {
+                UnRelatedUnits.Add(new UnitValueViewModel(unit.Id, unit.Name));
+            }
+        }
     }
 }

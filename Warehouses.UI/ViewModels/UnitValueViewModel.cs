@@ -9,13 +9,12 @@ namespace Warehouses.UI.ViewModels
     public class UnitValueViewModel : ViewModelBase
     {
         private string _name;
-        private float _value;
+        private float _quantity;
 
-        public UnitValueViewModel(int id, string name, float value)
+        public UnitValueViewModel(int id, string name)
         {
             this.Id = id;
             this.Name = name;
-            this.Value = value;
         }
 
         public int Id { get; set; }
@@ -29,12 +28,12 @@ namespace Warehouses.UI.ViewModels
             }
         }
 
-        public float Value
+        public float Quantity
         {
-            get { return _value; }
+            get { return _quantity; }
             set
             {
-                _value = value;
+                _quantity = value;
                 OnPropertyChanged();
             }
         }

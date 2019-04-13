@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Warehouses.Model;
+using Warehouses.UI.ViewModels;
 
 namespace Warehouses.UI.Data
 {
@@ -32,6 +35,16 @@ namespace Warehouses.UI.Data
         public bool Delete(Material model)
         {
             return true;
+        }
+
+        public IEnumerable<Unit> GetAllUnRelatedUnits(int materailId, int unitId)
+        {
+            return new UnitDataService().GetAll();
+        }
+
+        public IEnumerable<Unit> GetAllUnits(int materialId)
+        {
+            return new UnitDataService().GetAll();
         }
     }
 }

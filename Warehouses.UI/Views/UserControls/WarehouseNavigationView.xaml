@@ -10,10 +10,6 @@
              Background="White"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
         <!--<StackPanel>
             <ComboBox
                         ItemsSource="{Binding Organizations}"
@@ -37,40 +33,42 @@
                         Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                         Margin="10 10 10 0"/>
         </StackPanel>-->
-        <StackPanel Grid.Row="3">
-            <TreeView x:Name="MainTreeView"
-                              Margin="10"
-                              ItemsSource="{Binding Organizations,
-                                            Mode=TwoWay,
-                                            UpdateSourceTrigger=PropertyChanged}" >
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="IsSelected" Value="{Binding IsSelected}" />
-                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                    </Style>
-                </TreeView.ItemContainerStyle>
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate
-                                ItemsSource="{Binding TreeItems}"
-                                DataType="{x:Type VM:OrganizationTreeViewItemViewModel}" >
-                        <Label Content="{Binding DisplayMember}"/>
-                        <!--<HierarchicalDataTemplate.ItemTemplate>
-                            <HierarchicalDataTemplate
-                                        ItemsSource="{Binding Warehouses,
-                                                      Mode=TwoWay,
-                                                      UpdateSourceTrigger=PropertyChanged}" DataType="{x:Type VM:BranchTreeViewItemViewModel}">
-                                <Label Content="{Binding Branch.Name}"/>
-                                <HierarchicalDataTemplate.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type VM:WarehouseTreeViewItemViewModel}">
-                                        <Label Content="{Binding Warehouse.Name}"/>
-                                    </DataTemplate>
-                                </HierarchicalDataTemplate.ItemTemplate>
-                            </HierarchicalDataTemplate>
-                        </HierarchicalDataTemplate.ItemTemplate>-->
-                    </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
-        </StackPanel>
+        <GroupBox Header="Warehouses">
+            <StackPanel Grid.Row="3">
+                <TreeView x:Name="MainTreeView"
+                                  Margin="10"
+                                  ItemsSource="{Binding Organizations,
+                                                Mode=TwoWay,
+                                                UpdateSourceTrigger=PropertyChanged}" >
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate
+                                    ItemsSource="{Binding TreeItems}"
+                                    DataType="{x:Type VM:OrganizationTreeViewItemViewModel}" >
+                            <Label Content="{Binding DisplayMember}"/>
+                            <!--<HierarchicalDataTemplate.ItemTemplate>
+                                <HierarchicalDataTemplate
+                                            ItemsSource="{Binding Warehouses,
+                                                          Mode=TwoWay,
+                                                          UpdateSourceTrigger=PropertyChanged}" DataType="{x:Type VM:BranchTreeViewItemViewModel}">
+                                    <Label Content="{Binding Branch.Name}"/>
+                                    <HierarchicalDataTemplate.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type VM:WarehouseTreeViewItemViewModel}">
+                                            <Label Content="{Binding Warehouse.Name}"/>
+                                        </DataTemplate>
+                                    </HierarchicalDataTemplate.ItemTemplate>
+                                </HierarchicalDataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>-->
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 
 </UserControl>

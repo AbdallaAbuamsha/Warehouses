@@ -112,7 +112,7 @@
                     <TextBlock Text="Bracode" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Border>
                 <Border BorderThickness="1 2 2 2" Grid.Column="9" Grid.Row="0" Padding="8 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
-                    <TextBlock Text="Exprie date" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Expire date" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Border>
                 <Border BorderThickness="1 2 2 2" Grid.Column="10" Grid.Row="0" Padding="8 8" Height="auto" Width="auto" Background="#dfe6e9" BorderBrush="#b2bec3" CornerRadius="2">
                     <TextBlock Text="Warehouse" Foreground="#2d3436" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -155,7 +155,7 @@
                             </Border>
                             <Border BorderThickness="1 0 1 2" Grid.Column="1" Grid.Row="0" Padding="0 8" Height="auto" Width="auto" BorderBrush="#b2bec3" CornerRadius="2">
                                 <ComboBox ItemsSource="{Binding Materials}"
-                                          SelectedIndex="{Binding SelectedMaterial}"
+                                          SelectedItem="{Binding SelectedMaterial}"
                                           DisplayMemberPath="Name"
                                           IsDropDownOpen="True"
                                           Focusable="True" />
@@ -172,7 +172,7 @@
                             </Border>
                             <Border BorderThickness="1 0 1 2" Grid.Column="3" Grid.Row="0" Padding="0 8" Height="auto" Width="auto" BorderBrush="#b2bec3" CornerRadius="2">
                                 <ComboBox ItemsSource="{Binding MainUnits}"
-                                          SelectedIndex="{Binding SelectedMainUnit}"
+                                          SelectedItem="{Binding SelectedMainUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           DisplayMemberPath="Name"/>
                             </Border>
                             <Border BorderThickness="1 0 1 2" Grid.Column="4" Grid.Row="0" Padding="0 8" Height="auto" Width="auto" BorderBrush="#b2bec3" CornerRadius="2">
@@ -188,13 +188,13 @@
 
                             </Border>
                             <Border BorderThickness="1 0 1 2" Grid.Column="5" Grid.Row="0" Padding="0 8" Height="auto" Width="auto" BorderBrush="#b2bec3" CornerRadius="2">
-                                <ComboBox ItemsSource="{Binding RelatedUnits}"
-                                          SelectedIndex="{Binding SelecteRelatedUnit}"
+                                <ComboBox ItemsSource="{Binding UnRelatedUnits}"
+                                          SelectedItem="{Binding SelecteUnRelatedUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           DisplayMemberPath="Name"/>
                             </Border>
                             <Border BorderThickness="1 0 1 2" Grid.Column="6" Grid.Row="0" Padding="0 8" Height="auto" Width="auto" BorderBrush="#b2bec3" CornerRadius="2">
                                 <TextBox
-                                    Text="{Binding SelecteRelatedUnit.ِQuantity}"
+                                    Text="{Binding SelecteUnRelatedUnit.Quantity, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                     Template="{DynamicResource TableFieldTextBox}"
                                     Style="{DynamicResource TextBoxStyleTableField}">
                                     <TextBox.InputBindings>
@@ -234,7 +234,7 @@
                             </Border>
                             <Border BorderThickness="1 0 1 2" Grid.Column="10" Grid.Row="0" Padding="0 8" Height="auto" Width="auto" BorderBrush="#b2bec3" CornerRadius="2">
                                 <ComboBox ItemsSource="{Binding Warehouses}"
-                                          SelectedIndex="{Binding SelecteWarehouse}"
+                                          SelectedItem="{Binding SelecteWarehouse}"
                                           DisplayMemberPath="Name"/>
                             </Border>
                             <Border BorderThickness="1 0 1 2" Grid.Column="11" Grid.Row="0" Padding="0 8" Height="auto" Width="auto" BorderBrush="#b2bec3" CornerRadius="2">

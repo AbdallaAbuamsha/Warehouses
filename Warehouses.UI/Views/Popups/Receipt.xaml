@@ -122,6 +122,9 @@
             </StackPanel>
         </Button>
         <views:ReceiptTable x:Name="table" Grid.Row="2" Margin="10"  DataContext="{Binding ReceiptTable}"/>
-        <Button Grid.Row="3" Content="Add" Margin="40 10"/>
+        <Button Grid.Row="3"
+                Content="Add"
+                Margin="40 10"
+                Command="{Binding Save}" />
     </Grid>
 </Window>

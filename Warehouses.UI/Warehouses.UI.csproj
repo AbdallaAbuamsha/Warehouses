@@ -107,6 +107,7 @@
     <Compile Include="Data\LanguagesDataService.cs" />
     <Compile Include="Data\MaterialDataService.cs" />
     <Compile Include="Data\OrganizationDataService.cs" />
+    <Compile Include="Data\ReceiptDataService.cs" />
     <Compile Include="Data\UnitDataService.cs" />
     <Compile Include="Data\UserDataService.cs" />
     <Compile Include="Data\WarehouseDataService.cs" />

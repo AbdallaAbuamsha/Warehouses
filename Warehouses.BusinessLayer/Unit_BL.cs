@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Warehouses.BusinessLayer
 {
-    public class Unit
+    public class Unit_BL
     {
     }
 }

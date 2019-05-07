@@ -2,7 +2,7 @@
 
 namespace Warehouses.BusinessLayer
 {
-    public class User
+    public class User_BL
     {
         public void Login(string username, string password, string lang)
         {

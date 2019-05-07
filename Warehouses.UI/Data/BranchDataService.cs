@@ -23,12 +23,12 @@ namespace Warehouses.UI.Data
             yield return new Branch{ Id = 5, Name = "Branch 5 ", ParentId = 2 };
         }
 
-        public Branch GetById(int id)
+        public Branch GetById(long id)
         {
             return GetAll().First(f => f.Id == id);
         }
 
-        public IEnumerable<Branch> GetByParentId(int id)
+        public IEnumerable<Branch> GetByParentId(long id)
         {
             var branches = GetAll();
             foreach (Branch branch in branches)

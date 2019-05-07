@@ -11,13 +11,13 @@ namespace Warehouses.UI.ViewModels
         private string _name;
         private float _quantity;
 
-        public UnitValueViewModel(int id, string name)
+        public UnitValueViewModel(long id, string name)
         {
             this.Id = id;
             this.Name = name;
         }
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name
         {
             get { return _name; }

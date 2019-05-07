@@ -8,7 +8,7 @@ namespace Warehouses.UI.Wrappers
         {
 
         }
-        public int Id
+        public long Id
         {
             get { return GetValue<int>(); }
             set { SetValue(value); }

@@ -31,12 +31,12 @@ namespace Warehouses.UI.Data
             return new OrganizationDataService().GetAll();
         }
 
-        public Warehouse GetById(int id)
+        public Warehouse GetById(long id)
         {
             return GetAll().First(w => w.Id == id) ;
         }
 
-        public IEnumerable<Warehouse> GetByParentId(int id)
+        public IEnumerable<Warehouse> GetByParentId(long id)
         {
             var warehouses = GetAll();
             foreach (Warehouse warehouse in warehouses)

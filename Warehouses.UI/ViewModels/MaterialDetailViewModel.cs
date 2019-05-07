@@ -50,7 +50,7 @@ namespace Warehouses.UI.ViewModels
             }
         }
 
-        public override void Load(int id)
+        public override void Load(long id)
         {
             Material material = _materialService.GetById(id);
         }

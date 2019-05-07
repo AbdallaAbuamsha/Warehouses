@@ -5,8 +5,8 @@ namespace Warehouses.UI.Data
     public interface IWarehouseDataService
     {
         IEnumerable<Model.Warehouse> GetAll();
-        IEnumerable<Warehouse> GetByParentId(int id);
-        Warehouse GetById(int id);
+        IEnumerable<Warehouse> GetByParentId(long id);
+        Warehouse GetById(long id);
         IEnumerable<Organization> GetAllOrganizations();
         IEnumerable<Branch> GetAllBranches();
         bool HasSiblings();

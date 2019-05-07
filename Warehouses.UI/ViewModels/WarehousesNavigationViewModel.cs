@@ -93,12 +93,12 @@ namespace Warehouses.UI.ViewModels
             throw new NotImplementedException();
         }
 
-        internal IEnumerable<Branch> LoadBranches(int id)
+        internal IEnumerable<Branch> LoadBranches(long id)
         {
             return _branchDataService.GetByParentId(id);
         }
 
-        internal IEnumerable LoadWarehouses(int id)
+        internal IEnumerable LoadWarehouses(long id)
         {
             return _warehouseDataService.GetByParentId(id);
         }

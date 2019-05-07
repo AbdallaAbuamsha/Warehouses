@@ -18,7 +18,7 @@ namespace Warehouses.UI.Data
             yield return new Organization { Id = 4, Name = "Organization 4 " };
             yield return new Organization { Id = 5, Name = "Organization 5 " };
         }
-        public Organization GetById(int id)
+        public Organization GetById(long id)
         {
             var organizations = GetAll();
             return organizations.First(o => o.Id == id);

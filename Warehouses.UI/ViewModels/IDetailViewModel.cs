@@ -8,7 +8,7 @@ namespace Warehouses.UI.ViewModels
 {
     public interface IDetailViewModel
     {
-        void Load(int id);
-        int Id { get; }
+        void Load(long id);
+        long Id { get; }
     }
 }

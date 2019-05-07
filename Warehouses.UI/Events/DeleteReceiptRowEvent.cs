@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Warehouses.UI.Events
 {
-    class DeleteReceiptRowEvent : PubSubEvent<int>
+    class DeleteReceiptRowEvent : PubSubEvent<long>
     {
     }
 }

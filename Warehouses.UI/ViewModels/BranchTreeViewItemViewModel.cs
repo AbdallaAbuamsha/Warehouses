@@ -13,7 +13,7 @@ namespace Warehouses.UI.ViewModels
         private bool _isExpanded;
         private string _detailViewModelName;
 
-        public BranchTreeViewItemViewModel(int id, string displayMember, string detailViewModelName, IWarehouseDataService warehouseDataService, IEventAggregator eventAggregator)
+        public BranchTreeViewItemViewModel(long id, string displayMember, string detailViewModelName, IWarehouseDataService warehouseDataService, IEventAggregator eventAggregator)
             :base(id, displayMember)
         {
             _warehouseDataService = warehouseDataService;

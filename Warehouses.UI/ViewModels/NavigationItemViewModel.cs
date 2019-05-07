@@ -16,7 +16,7 @@ namespace Warehouses.UI.ViewModels
         private IEventAggregator _eventAggregator;
         private string _detailViewModelName;
 
-    public NavigationItemViewModel(int id, string name,
+    public NavigationItemViewModel(long id, string name,
       string detailViewModelName,
       IEventAggregator eventAggregator)
     {
@@ -27,7 +27,7 @@ namespace Warehouses.UI.ViewModels
         OpenDetailViewCommand = new DelegateCommand(OnOpenDetailViewExecute);
     }
 
-    public int Id { get; }
+    public long Id { get; }
 
     public string Name
     {

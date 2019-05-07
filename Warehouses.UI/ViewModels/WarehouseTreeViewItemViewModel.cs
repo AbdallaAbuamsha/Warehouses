@@ -16,7 +16,7 @@ namespace Warehouses.UI.ViewModels
         private string _detailViewModelName;
 
         public WarehouseTreeViewItemViewModel(
-            int id,
+            long id,
             string displayMember,
             string detailViewModelName,
             IWarehouseDataService warehouseDataService,

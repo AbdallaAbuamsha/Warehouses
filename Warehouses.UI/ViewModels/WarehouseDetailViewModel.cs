@@ -64,7 +64,7 @@ namespace Warehouses.UI.ViewModels
                 Warehouse.Model.ParentId = SelectedBranch.Id;
             }
         }
-        public override void Load(int id)
+        public override void Load(long id)
         {
             var warehouse = id > 0
               ? _warehouseService.GetById(id)

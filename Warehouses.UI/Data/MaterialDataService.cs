@@ -18,7 +18,7 @@ namespace Warehouses.UI.Data
             yield return new Material { Name = "Material 5 ", Code="555" };
         }
 
-        public Material GetById(int id)
+        public Material GetById(long id)
         {
             return GetAll().FirstOrDefault(m => m.Id == id);
         }
@@ -37,12 +37,12 @@ namespace Warehouses.UI.Data
             return true;
         }
 
-        public IEnumerable<Unit> GetAllUnRelatedUnits(int materailId, int unitId)
+        public IEnumerable<Unit> GetAllUnRelatedUnits(long materailId, long unitId)
         {
             return new UnitDataService().GetAll();
         }
 
-        public IEnumerable<Unit> GetAllUnits(int materialId)
+        public IEnumerable<Unit> GetAllUnits(long materialId)
         {
             return new UnitDataService().GetAll();
         }

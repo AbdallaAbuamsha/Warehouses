@@ -9,10 +9,10 @@ namespace Warehouses.UI.ViewModels
 {
     public class TreeViewItemViewModel : ViewModelBase
     {
-        public int Id { get; }
+        public long Id { get; }
         private string _displayMember;
 
-        public TreeViewItemViewModel(int id, string displayMember)
+        public TreeViewItemViewModel(long id, string displayMember)
         {
             Id = id;
             DisplayMember = displayMember;

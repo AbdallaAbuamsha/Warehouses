@@ -36,7 +36,7 @@ namespace Warehouses.UI.ViewModels
             }
         }
 
-        public override void Load(int id)
+        public override void Load(long id)
         {
             var org = id > 0
               ? _organizationService.GetById(id)

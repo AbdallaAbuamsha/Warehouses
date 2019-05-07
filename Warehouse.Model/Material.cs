@@ -9,7 +9,7 @@ namespace Warehouses.Model
 {
     public class Material
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         [MaxLength(50)]
         [MinLength(3)]
         [Required]
@@ -44,7 +44,7 @@ namespace Warehouses.Model
         public float FreeReferencesAmount { get; set; }
 
         public List<Unit> units;
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
         public Material Parent;
     }
 }

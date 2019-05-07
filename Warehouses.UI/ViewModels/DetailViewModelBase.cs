@@ -15,7 +15,7 @@ namespace Warehouses.UI.ViewModels
     {
         protected readonly IEventAggregator EventAggregator;
         protected readonly IMessageDialogService MessageDialogService;
-        private int _id;
+        private long _id;
         private string _title;
 
         public DetailViewModelBase(IEventAggregator eventAggregator,
@@ -28,7 +28,7 @@ namespace Warehouses.UI.ViewModels
             CloseDetailViewCommand = new DelegateCommand(OnCloseDetailViewExecute);
         }
 
-        public abstract void Load(int id);
+        public abstract void Load(long id);
 
         public ICommand SaveCommand { get; private set; }
 
@@ -36,7 +36,7 @@ namespace Warehouses.UI.ViewModels
 
         public ICommand CloseDetailViewCommand { get; }
 
-        public int Id
+        public long Id
         {
             get { return _id; }
             protected set { _id = value; }
@@ -58,7 +58,7 @@ namespace Warehouses.UI.ViewModels
 
         protected abstract void OnSaveExecute();
 
-        protected virtual void RaiseDetailDeletedEvent(int modelId)
+        protected virtual void RaiseDetailDeletedEvent(long modelId)
         {
             EventAggregator.GetEvent<AfterDetailDeletedEvent>().Publish(new
              AfterDetailDeletedEventArgs
@@ -68,7 +68,7 @@ namespace Warehouses.UI.ViewModels
             });
         }
 
-        protected virtual void RaiseDetailSavedEvent(int modelId, string displayMember)
+        protected virtual void RaiseDetailSavedEvent(long modelId, string displayMember)
         {
             EventAggregator.GetEvent<AfterDetailSavedEvent>().Publish(new AfterDetailSavedEventArgs
             {

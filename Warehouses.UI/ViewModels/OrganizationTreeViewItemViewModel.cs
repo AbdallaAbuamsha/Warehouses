@@ -16,7 +16,7 @@ namespace Warehouses.UI.ViewModels
         private bool _isExpanded;
         private string _detailViewModelName;
         public OrganizationTreeViewItemViewModel(
-            int id,
+            long id,
             string displayMember,
             string detailViewModelName,
             IBranchDataService brancheDataService,

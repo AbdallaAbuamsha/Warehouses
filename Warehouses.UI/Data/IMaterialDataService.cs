@@ -9,7 +9,7 @@ namespace Warehouses.UI.Data
     {
         IEnumerable<Material> GetAll();
 
-        Material GetById(int id);
+        Material GetById(long id);
 
         IEnumerable<Unit> GetAddedUnits(int materialId);
 
@@ -17,8 +17,8 @@ namespace Warehouses.UI.Data
 
         bool Delete(Material model);
         
-        IEnumerable<Unit> GetAllUnRelatedUnits(int materailId ,int unitId);
+        IEnumerable<Unit> GetAllUnRelatedUnits(long materailId ,long unitId);
 
-        IEnumerable<Unit> GetAllUnits(int materialId);
+        IEnumerable<Unit> GetAllUnits(long materialId);
     }
 }

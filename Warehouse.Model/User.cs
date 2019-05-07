@@ -9,7 +9,7 @@ namespace Warehouses.Model
 {
     public class User
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         [MaxLength(50)]
         [MinLength(3)]
         [Required]

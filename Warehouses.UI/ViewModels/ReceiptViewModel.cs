@@ -59,7 +59,7 @@ namespace Warehouses.UI.ViewModels
             set
             {
                 _isFromWarehouse = value;
-                OnPropertyChanged()
+                OnPropertyChanged();
             } }
         public bool IsFromSupplier { get; set; }
         public bool IsToWarehouse { get; set; }

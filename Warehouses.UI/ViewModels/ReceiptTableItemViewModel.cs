@@ -13,7 +13,7 @@ namespace Warehouses.UI.ViewModels
         private IMaterialDataService _materialService;
         private IWarehouseDataService _warehouseService;
 
-        private int _id;
+        private long _id;
         private Material _selectedMaterial;
         private Unit _selectedMainUnit;
         private UnitValueViewModel _selecteUnRelatedUnit;
@@ -27,7 +27,7 @@ namespace Warehouses.UI.ViewModels
         private IEventAggregator _eventAggregator;
 
         public ReceiptTableItemViewModel(
-            int id,
+            long id,
             IMaterialDataService materialService,
             IWarehouseDataService warehouseService,
             IUnitDataService unitService,
@@ -47,13 +47,13 @@ namespace Warehouses.UI.ViewModels
             _eventAggregator.GetEvent<DeleteReceiptRowEvent>().Subscribe(DeleteReceiptRow);
         }
 
-        private void DeleteReceiptRow(int id)
+        private void DeleteReceiptRow(long id)
         {
             if (Id > id)
                 Id--;
         }
 
-        public int Id
+        public long Id
         {
             get { return _id; }
             set

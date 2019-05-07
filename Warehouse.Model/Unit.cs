@@ -9,7 +9,7 @@ namespace Warehouses.Model
 {
     public class Unit
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         [MaxLength(50)]
         [MinLength(3)]
         [Required]

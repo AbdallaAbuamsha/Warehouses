@@ -4,6 +4,7 @@ using Warehouses.UI.Startup;
 using Warehouses.UI.Views;
 using Warehouses.UI.Properties;
 using Warehouses.UI.Data;
+using System;
 
 namespace Warehouses.UI
 {
@@ -30,6 +31,13 @@ namespace Warehouses.UI
                 LoginWindow login = Bootstrapper.Builder.Resolve<LoginWindow>();
                 login.Show();
             }
+        }
+        private void Application_DispatcherUnhandledException(object sender,
+          System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(Application.Current.FindResource("server_error").ToString()
+              + Environment.NewLine + e.Exception.Message, "Unexpected error");
+            e.Handled = true;
         }
     }
 }

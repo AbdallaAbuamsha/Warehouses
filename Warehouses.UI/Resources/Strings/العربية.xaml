@@ -65,4 +65,7 @@
     <system:String x:Key="add_warehouse_code">Warehouse Code</system:String>
     <system:String x:Key="add_warehouse_location">Location</system:String>
     <system:String x:Key="add_warehouse_save">Save</system:String>
+
+    <system:String x:Key="server_error_title">خطأ غير متوقع</system:String>
+    <system:String x:Key="server_error">خطأ غير متوقع, الرجاء إعلام قسم الدعم الفني.</system:String>
 </ResourceDictionary>

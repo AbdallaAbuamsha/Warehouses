@@ -70,4 +70,9 @@
     <system:String x:Key="add_organization_name">Organization Name</system:String>
     <system:String x:Key="add_organization_location">Location</system:String>
     <system:String x:Key="add_organization_save">Save</system:String>
+
+    <system:String x:Key="server_error_title">Unexpected error</system:String>
+    <system:String x:Key="server_error">Unexpected error occured. Please inform the admin.</system:String>
+    <system:String x:Key="no_organizations_available">No organizations available.</system:String>
+
 </ResourceDictionary>

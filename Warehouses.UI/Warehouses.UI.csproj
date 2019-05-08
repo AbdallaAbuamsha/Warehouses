@@ -46,6 +46,12 @@
     <Reference Include="Autofac, Version=4.9.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.9.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.0.0.14576, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.1\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -120,6 +126,7 @@
     <Compile Include="Events\SelecteNavigationType.cs" />
     <Compile Include="Events\SettingsEvents.cs" />
     <Compile Include="Events\WarehouseItemSelectedEvent.cs" />
+    <Compile Include="Helper\AppConstants.cs" />
     <Compile Include="MyControls\DoubleTextBox.cs" />
     <Compile Include="MyControls\PasswordBoxAssistant.cs" />
     <Compile Include="MyControls\PasswordHelper.cs" />
@@ -368,6 +375,10 @@
     <ProjectReference Include="..\Warehouse.Model\Warehouses.Model.csproj">
       <Project>{323a73ce-9dc5-47b2-9e19-ba45d191da29}</Project>
       <Name>Warehouses.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Warehouses.BusinessLayer\Warehouses.BusinessLayer.csproj">
+      <Project>{608914c8-fa77-4110-9be1-9aab2716d3ca}</Project>
+      <Name>Warehouses.BusinessLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

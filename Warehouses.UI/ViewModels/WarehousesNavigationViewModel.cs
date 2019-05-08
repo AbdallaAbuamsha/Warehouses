@@ -9,6 +9,9 @@ using Warehouses.UI.Events;
 using Warehouses.UI.Data;
 using Warehouses.Model;
 using System.Collections;
+using Warehouses.UI.Views.Services;
+using System.Windows;
+using Warehouses.UI.Helper;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -21,12 +24,13 @@ namespace Warehouses.UI.ViewModels
         private OrganizationTreeViewItemViewModel _selectedOrganization;
         private BranchTreeViewItemViewModel _selectedBranch;
         private WarehouseTreeViewItemViewModel _selectedWarehouse;
-
+        IMessageDialogService _messageDialogService;
         public WarehousesNavigationViewModel(
                 IOrganizationDataService organizationDataService,
                 IBranchDataService branchDataService,
                 IWarehouseDataService warehouseDataService,
-                IEventAggregator eventAggregator)
+                IEventAggregator eventAggregator,
+                IMessageDialogService messageDialogService)
             :base(eventAggregator)
         {
 
@@ -34,6 +38,7 @@ namespace Warehouses.UI.ViewModels
             _branchDataService = branchDataService;
             _warehouseDataService = warehouseDataService;
             _eventAggregator = eventAggregator;
+            _messageDialogService = messageDialogService;
 
             Organizations = new ObservableCollection<TreeViewItemViewModel>();
             Branches = new ObservableCollection<BranchTreeViewItemViewModel>();
@@ -48,7 +53,19 @@ namespace Warehouses.UI.ViewModels
 
         public override void Load()
         {
-            var organizations = _organizationDataService.GetAll();
+            Model.ResultList<Organization> organizationResult = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
+            if (organizationResult == null)
+            {
+                _messageDialogService.ShowInfoDialog(Application.Current.FindResource("server_error").ToString());
+                return;
+            }
+            //var organizations = _organizationDataService.GetAll();
+            var organizations = organizationResult.List;
+            if(organizations.Count == 0)
+            {
+                _messageDialogService.ShowInfoDialog(Application.Current.FindResource("no_organizations_available").ToString());
+                return;
+            }
             foreach (Organization organization in organizations)
             {
                 var orgItem = new OrganizationTreeViewItemViewModel(

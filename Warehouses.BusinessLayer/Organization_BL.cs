@@ -1,15 +1,20 @@
 ﻿using Exceptions;
 using System.Collections.Generic;
-using WarehousesManagementEF;
 using Warehouses.Model;
 using WarehousesManagementEF.Model;
+using System.Reflection;
+
 namespace Warehouses.BusinessLayer
 {
     public class Organization_BL
     {
-        public static ResultList<Model.Organization> GetAll(string language)
+        public static ResultObject GetAll(string language)
         {
             BusinessException exception = null;
+            ResultObject resultObject = new ResultObject();
+            ResultList<Model.Organization> resultList = null;
+            MethodBase methodInfo = MethodBase.GetCurrentMethod();
+            string functionFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
             try
             {
                 List<WAR_ORGANIZATION> resultDal = WarehousesManagementEF.Organization.GetAll(out exception, language);
@@ -22,11 +27,18 @@ namespace Warehouses.BusinessLayer
                     temp.Location = org.ADDRESS;
                     resultBusiness.Add(temp);
                 }
-                return new ResultList<Model.Organization>(resultBusiness, resultBusiness.Count);
+                resultList = new ResultList<Model.Organization>(resultBusiness, resultBusiness.Count);
+                resultObject.Data = resultList;
+                resultObject.Code = exception.code;
+                resultObject.Message = exception.Message;
+                return resultObject;
             }
             catch
             {
-                return null;
+                resultObject.Data = resultList;
+                resultObject.Code = exception.code;
+                resultObject.Message = exception.Message;
+                return resultObject;
             }
         }
     }

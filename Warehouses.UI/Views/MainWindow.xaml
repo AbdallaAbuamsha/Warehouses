@@ -15,7 +15,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"        
         xmlns:views="clr-namespace:Warehouses.UI.Views.UserControls"
         xmlns:viewModels="clr-namespace:Warehouses.UI.ViewModels"
-        Title="LoginWindow" Height="642.722" Width="1092.89" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        Title="Warehouses" Height="642.722" Width="1092.89" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModels:OrganizationDetailViewModel}">
             <views:OrganizationDetailView/>

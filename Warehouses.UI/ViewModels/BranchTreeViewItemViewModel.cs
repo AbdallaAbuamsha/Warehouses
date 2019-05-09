@@ -1,24 +1,33 @@
 ﻿using Prism.Events;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Warehouses.Model;
 using Warehouses.UI.Data;
 using Warehouses.UI.Events;
+using Warehouses.UI.Helper;
+using Warehouses.UI.Views.Services;
 
 namespace Warehouses.UI.ViewModels
 {
-    public class BranchTreeViewItemViewModel : TreeViewItemViewModel
+    public class WarehouseTreeViewItemVIewModel : TreeViewItemViewModel
     {
         IWarehouseDataService _warehouseDataService;
         IEventAggregator _eventAggregator;
+        IMessageDialogService _messageDialogService;
         private bool _isSelected;
         private bool _isExpanded;
         private string _detailViewModelName;
 
-        public BranchTreeViewItemViewModel(long id, string displayMember, string detailViewModelName, IWarehouseDataService warehouseDataService, IEventAggregator eventAggregator)
+        public WarehouseTreeViewItemVIewModel(long id, string displayMember, string detailViewModelName, 
+            IWarehouseDataService warehouseDataService, 
+            IEventAggregator eventAggregator,
+            IMessageDialogService messageDialogService)
             :base(id, displayMember)
         {
             _warehouseDataService = warehouseDataService;
             _eventAggregator = eventAggregator;
             _detailViewModelName = detailViewModelName;
+            _messageDialogService = messageDialogService;
             TreeItems = new ObservableCollection<TreeViewItemViewModel>();
             TreeItems.Add(null);
         }
@@ -55,11 +64,19 @@ namespace Warehouses.UI.ViewModels
                     OnPropertyChanged();
                     if (_isExpanded)
                     {
-                        var warehouses = _warehouseDataService.GetByParentId(Id);
+                        //var warehouses = _warehouseDataService.GetByParentId(Id);
+                        ResultObject warehouseResult = BusinessLayer.Warehouse_BL.GetAllByBranchId(Id, AppConstants.ARABIC);
+                        if (warehouseResult.Code == 0)
+                        {
+                            _messageDialogService.ShowInfoDialog(warehouseResult.Message);
+                            return;
+                        }
+                        ResultList<Warehouse> warehouseListResult = (ResultList<Warehouse>)warehouseResult.Data;
+                        List<Warehouse> warehouses = warehouseListResult.List;
                         TreeItems.Clear();
                         foreach (var warehouse in warehouses)
                         {
-                            var warehouseItem = new WarehouseTreeViewItemViewModel(warehouse.Id, warehouse.Name, nameof(WarehouseDetailViewModel), new WarehouseDataService(), _eventAggregator);                            
+                            var warehouseItem = new WarehouseTreeViewItemViewModel(warehouse.Id, warehouse.Name, nameof(WarehouseDetailViewModel), new WarehouseDataService(), _eventAggregator, _messageDialogService);
                             TreeItems.Add(warehouseItem);
                             /////////Warehouses.Add(new WarehouseTreeViewItemViewModel { Id = branch.Id, Name = branch.Name });
                         }

@@ -23,5 +23,7 @@ namespace Warehouses.Model
         [Required]
         public string Location { get; set; }
         public long ParentId { get; set; }
+        public bool IsVoid { get; set; }
+        public string VoidReason { get; set; }
     }
 }

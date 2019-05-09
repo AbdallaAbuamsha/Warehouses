@@ -22,7 +22,7 @@ namespace Warehouses.UI.ViewModels
         private IWarehouseDataService _warehouseDataService;
         IEventAggregator _eventAggregator;
         private OrganizationTreeViewItemViewModel _selectedOrganization;
-        private BranchTreeViewItemViewModel _selectedBranch;
+        private WarehouseTreeViewItemVIewModel _selectedBranch;
         private WarehouseTreeViewItemViewModel _selectedWarehouse;
         IMessageDialogService _messageDialogService;
         public WarehousesNavigationViewModel(
@@ -41,7 +41,7 @@ namespace Warehouses.UI.ViewModels
             _messageDialogService = messageDialogService;
 
             Organizations = new ObservableCollection<TreeViewItemViewModel>();
-            Branches = new ObservableCollection<BranchTreeViewItemViewModel>();
+            Branches = new ObservableCollection<WarehouseTreeViewItemVIewModel>();
             Warehouses = new ObservableCollection<WarehouseTreeViewItemViewModel>();
 
             _eventAggregator.GetEvent<AfterDetailSavedEvent>().Subscribe(AfterDetailSaved);
@@ -53,19 +53,20 @@ namespace Warehouses.UI.ViewModels
 
         public override void Load()
         {
-            Model.ResultList<Organization> organizationResult = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
-            if (organizationResult == null)
+            ResultObject resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
+            if(resultObject.Code == 0)
             {
-                _messageDialogService.ShowInfoDialog(Application.Current.FindResource("server_error").ToString());
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
             }
-            //var organizations = _organizationDataService.GetAll();
-            var organizations = organizationResult.List;
-            if(organizations.Count == 0)
+            ResultList<Organization> organizationResultList = (ResultList<Organization>)resultObject.Data;
+            if(organizationResultList.TotalCount == 0)
             {
                 _messageDialogService.ShowInfoDialog(Application.Current.FindResource("no_organizations_available").ToString());
                 return;
             }
+            var organizations = organizationResultList.List;
+            //var organizations = _organizationDataService.GetAll();
             foreach (Organization organization in organizations)
             {
                 var orgItem = new OrganizationTreeViewItemViewModel(
@@ -73,7 +74,8 @@ namespace Warehouses.UI.ViewModels
                     organization.Name,
                     nameof(OrganizationDetailViewModel),
                     _branchDataService,
-                    _eventAggregator);
+                    _eventAggregator,
+                    _messageDialogService);
                 Organizations.Add(orgItem);
             }
         }
@@ -144,7 +146,7 @@ namespace Warehouses.UI.ViewModels
         //    }
         //}
 
-        public ObservableCollection<BranchTreeViewItemViewModel> Branches { get; set; }
+        public ObservableCollection<WarehouseTreeViewItemVIewModel> Branches { get; set; }
         //public BranchTreeViewItemViewModel SelectedBranch
         //{
         //    get
@@ -219,7 +221,8 @@ namespace Warehouses.UI.ViewModels
                     args.DisplayMember,
                     args.ViewModelName,
                     _branchDataService,
-                  _eventAggregator));
+                  _eventAggregator,
+                  _messageDialogService));
             }
             else
             {

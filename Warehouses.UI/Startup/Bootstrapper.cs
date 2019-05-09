@@ -29,7 +29,7 @@ namespace Warehouses.UI.Startup
             builder.RegisterType<ReceiptTableItemViewModel>().AsSelf();
 
             builder.RegisterType<OrganizationTreeViewItemViewModel>().AsSelf();
-            builder.RegisterType<BranchTreeViewItemViewModel>().AsSelf();
+            builder.RegisterType<WarehouseTreeViewItemVIewModel>().AsSelf();
             builder.RegisterType<WarehouseTreeViewItemViewModel>().AsSelf();
 
             builder.RegisterType<AddUnit>().AsSelf();

@@ -7,6 +7,7 @@ using Warehouses.UI.Data;
 using Warehouses.UI.Events;
 using Warehouses.UI.Helper;
 using Warehouses.UI.Startup;
+using Warehouses.UI.Views.Services;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -14,6 +15,7 @@ namespace Warehouses.UI.ViewModels
     {
         IBranchDataService _brancheDataService;
         IEventAggregator _eventAggregator;
+        IMessageDialogService _messageDialogService;
         private bool _isSelected;
         private bool _isExpanded;
         private string _detailViewModelName;
@@ -22,12 +24,14 @@ namespace Warehouses.UI.ViewModels
             string displayMember,
             string detailViewModelName,
             IBranchDataService brancheDataService,
-            IEventAggregator eventAggregator)
+            IEventAggregator eventAggregator,
+            IMessageDialogService messageDialogService)
             :base(id, displayMember)
         {
             _brancheDataService = brancheDataService;
             _eventAggregator = eventAggregator;
             _detailViewModelName = detailViewModelName;
+            _messageDialogService = messageDialogService;
             TreeItems = new ObservableCollection<TreeViewItemViewModel>();
             TreeItems.Add(null);
         }
@@ -81,19 +85,34 @@ namespace Warehouses.UI.ViewModels
                         //var branches = _brancheDataService.GetByParentId(Id);
                         ResultObject branchResult = BusinessLayer.Branch_BL.GetAllByOrganizationId(Id, AppConstants.ARABIC);
                         if (branchResult.Code == 0)
+                        {
+                            _messageDialogService.ShowInfoDialog(branchResult.Message);
                             return;
-                        //List<Branch> branches = new List<Branch>();
+                        }
                         ResultList<Branch> branchListResult = (ResultList<Branch>)branchResult.Data;
                         List<Branch> branches = branchListResult.List;
-                        //foreach (var item in objectList)
-                        //{
-                        //    branches.Add((Branch)item);
-                        //}
+
+                        ResultObject warehouseResult = BusinessLayer.Warehouse_BL.GetAllByOrganizationId(Id, AppConstants.ARABIC);
+                        if (warehouseResult.Code == 0)
+                        {
+                            _messageDialogService.ShowInfoDialog(warehouseResult.Message);
+                            return;
+                        }
+                        ResultList<Warehouse> warehouseListResult = (ResultList<Warehouse>)warehouseResult.Data;
+                        List<Warehouse> warehouses = warehouseListResult.List;
+
+
                         TreeItems.Clear();
                         foreach (var branch in branches)
                         {
-                            var branchItem = new BranchTreeViewItemViewModel(branch.Id, branch.Name, nameof(BranchDetailViewModel), new WarehouseDataService(), _eventAggregator);
+                            var branchItem = new WarehouseTreeViewItemVIewModel(branch.Id, branch.Name, nameof(BranchDetailViewModel), new WarehouseDataService(), _eventAggregator, _messageDialogService);
                             TreeItems.Add(branchItem);   
+                        }
+
+                        foreach (var warehouse in warehouses)
+                        {
+                            var branchItem = new WarehouseTreeViewItemVIewModel(warehouse.Id, warehouse.Name, nameof(WarehouseDetailViewModel), new WarehouseDataService(), _eventAggregator, _messageDialogService);
+                            TreeItems.Add(branchItem);
                         }
                     }
                 }

@@ -1,9 +1,11 @@
 ﻿using Autofac;
 using Prism.Events;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Warehouses.Model;
 using Warehouses.UI.Data;
 using Warehouses.UI.Events;
+using Warehouses.UI.Helper;
 using Warehouses.UI.Startup;
 
 namespace Warehouses.UI.ViewModels
@@ -76,7 +78,17 @@ namespace Warehouses.UI.ViewModels
                     OnPropertyChanged();
                     if (_isExpanded)
                     {
-                        var branches = _brancheDataService.GetByParentId(Id);
+                        //var branches = _brancheDataService.GetByParentId(Id);
+                        ResultObject branchResult = BusinessLayer.Branch_BL.GetAllByOrganizationId(Id, AppConstants.ARABIC);
+                        if (branchResult.Code == 0)
+                            return;
+                        //List<Branch> branches = new List<Branch>();
+                        ResultList<Branch> branchListResult = (ResultList<Branch>)branchResult.Data;
+                        List<Branch> branches = branchListResult.List;
+                        //foreach (var item in objectList)
+                        //{
+                        //    branches.Add((Branch)item);
+                        //}
                         TreeItems.Clear();
                         foreach (var branch in branches)
                         {

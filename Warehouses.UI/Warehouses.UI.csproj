@@ -127,6 +127,7 @@
     <Compile Include="Events\SettingsEvents.cs" />
     <Compile Include="Events\WarehouseItemSelectedEvent.cs" />
     <Compile Include="Helper\AppConstants.cs" />
+    <Compile Include="Helper\ObjectToClassConverter.cs" />
     <Compile Include="MyControls\DoubleTextBox.cs" />
     <Compile Include="MyControls\PasswordBoxAssistant.cs" />
     <Compile Include="MyControls\PasswordHelper.cs" />

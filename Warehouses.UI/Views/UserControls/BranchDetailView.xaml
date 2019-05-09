@@ -28,7 +28,7 @@
             />
 
         <StackPanel Grid.Row="1" Orientation="Vertical" Margin="20">
-
+            <!--Organization-->
             <ComboBox
                 ItemsSource="{Binding Organizations}"
                 SelectedItem="{Binding SelectedOrganization}"
@@ -37,7 +37,7 @@
                 Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                 Margin="10 10 10 0"/>
 
-            <!--First Name-->
+            <!--Branch Name-->
             <TextBox
                 Grid.Row="2"
                 x:Name="Username1"
@@ -46,15 +46,7 @@
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 
-            <!--First Name-->
-            <TextBox
-                Grid.Row="2"
-                materialDesign:HintAssist.Hint="Branch Code"
-                Text="{Binding Branch.Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Margin="10"
-                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
-
-            <!--First Name-->
+            <!--Location-->
             <TextBox
                 Grid.Row="2"
                 materialDesign:HintAssist.Hint="Location"

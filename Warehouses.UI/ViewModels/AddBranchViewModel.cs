@@ -41,7 +41,6 @@ namespace Warehouses.UI.ViewModels
             };
             ((DelegateCommand)Save).RaiseCanExecuteChanged();
             Branch.Name = "";
-            Branch.Code = "";
             Branch.Location = "";
         }
 
@@ -66,7 +65,6 @@ namespace Warehouses.UI.ViewModels
             MessageBox.Show(
                 SelectedOrganization.Name + "\n" +
                 Branch.Name + "\n" +
-                Branch.Code + "\n" +
                 Branch.Location + "\n"
                 );
         }

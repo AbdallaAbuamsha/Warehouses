@@ -8,6 +8,7 @@ namespace Warehouses.UI.Helper
 {
     public static class AppConstants
     {
+        public const int ERROR_CODE = 0;
         public const string ARABIC = "ar";
     }
 }

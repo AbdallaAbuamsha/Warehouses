@@ -84,7 +84,7 @@ namespace Warehouses.UI.ViewModels
                     {
                         //var branches = _brancheDataService.GetByParentId(Id);
                         ResultObject branchResult = BusinessLayer.Branch_BL.GetAllByOrganizationId(Id, AppConstants.ARABIC);
-                        if (branchResult.Code == 0)
+                        if (branchResult.Code == AppConstants.ERROR_CODE)
                         {
                             _messageDialogService.ShowInfoDialog(branchResult.Message);
                             return;
@@ -93,7 +93,7 @@ namespace Warehouses.UI.ViewModels
                         List<Branch> branches = branchListResult.List;
 
                         ResultObject warehouseResult = BusinessLayer.Warehouse_BL.GetAllByOrganizationId(Id, AppConstants.ARABIC);
-                        if (warehouseResult.Code == 0)
+                        if (warehouseResult.Code == AppConstants.ERROR_CODE)
                         {
                             _messageDialogService.ShowInfoDialog(warehouseResult.Message);
                             return;
@@ -105,13 +105,13 @@ namespace Warehouses.UI.ViewModels
                         TreeItems.Clear();
                         foreach (var branch in branches)
                         {
-                            var branchItem = new WarehouseTreeViewItemVIewModel(branch.Id, branch.Name, nameof(BranchDetailViewModel), new WarehouseDataService(), _eventAggregator, _messageDialogService);
+                            var branchItem = new BranchTreeViewItemViewModel(branch.Id, branch.Name, nameof(BranchDetailViewModel), new WarehouseDataService(), _eventAggregator, _messageDialogService);
                             TreeItems.Add(branchItem);   
                         }
 
                         foreach (var warehouse in warehouses)
                         {
-                            var branchItem = new WarehouseTreeViewItemVIewModel(warehouse.Id, warehouse.Name, nameof(WarehouseDetailViewModel), new WarehouseDataService(), _eventAggregator, _messageDialogService);
+                            var branchItem = new WarehouseTreeViewItemViewModel(warehouse.Id, warehouse.Name, nameof(WarehouseDetailViewModel), new WarehouseDataService(), _eventAggregator, _messageDialogService);
                             TreeItems.Add(branchItem);
                         }
                     }

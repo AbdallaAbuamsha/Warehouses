@@ -48,5 +48,36 @@ namespace Warehouses.BusinessLayer
                 return resultObject;
             }
         }
+
+        public static ResultObject GetById(long branchId, string language)
+        {
+            BusinessException exception = null;
+            ResultObject resultObject = new ResultObject();
+            MethodBase methodInfo = MethodBase.GetCurrentMethod();
+            string functionFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
+            try
+            {
+                WAR_BRANCH resultDal = WarehousesManagementEF.Branch.GetById(branchId, out exception, language);
+                Branch resultBusiness = new Model.Branch();
+
+                Model.Branch data = new Model.Branch();
+                data.Id = resultDal.ID;
+                data.Name = resultDal.NAME;
+                data.Location = resultDal.ADDRESS;
+                data.ParentId = resultDal.ORGANIZATION_ID;
+
+                resultObject.Data = data;
+                resultObject.Code = exception.code;
+                resultObject.Message = exception.Message;
+                return resultObject;
+            }
+            catch
+            {
+                resultObject.Data = null;
+                resultObject.Code = exception.code;
+                resultObject.Message = exception.Message;
+                return resultObject;
+            }
+        }
     }
 }

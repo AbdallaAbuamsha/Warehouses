@@ -37,7 +37,7 @@ namespace Warehouses.UI.ViewModels
             CreateNewDetailCommand = new DelegateCommand<Type>(OnCreateNewDetailExecute);
 
             MainMenuViewModel = mainMenuViewModel;
-            
+
         }
 
         public void Load()
@@ -47,7 +47,8 @@ namespace Warehouses.UI.ViewModels
 
         public ICommand CreateNewDetailCommand { get; }
 
-        public INavigationViewModel NavigationViewModel {
+        public INavigationViewModel NavigationViewModel
+        {
             get
             {
                 return _navigationViewModel;
@@ -75,7 +76,7 @@ namespace Warehouses.UI.ViewModels
             NavigationViewModel = _navigationViewModelCreator[args.NavigationTypeName];
             NavigationViewModel.Load();
         }
-            private void OnOpenDetailView(OpenDetailViewEventArgs args)
+        private void OnOpenDetailView(OpenDetailViewEventArgs args)
         {
             //if (DetailViewModel != null)
             //{

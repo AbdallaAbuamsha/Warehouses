@@ -9,6 +9,8 @@ using Warehouses.UI.Data;
 using Warehouses.UI.Wrappers;
 using Warehouses.Model;
 using Prism.Commands;
+using Warehouses.BusinessLayer;
+using Warehouses.UI.Helper;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -38,10 +40,24 @@ namespace Warehouses.UI.ViewModels
 
         public override void Load(long id)
         {
-            var org = id > 0
-              ? _organizationService.GetById(id)
-              : CreateNewOrganization();
-            InitializeOrganization(org);
+            //var org = id > 0
+            //  ? _organizationService.GetById(id)
+            //  : CreateNewOrganization();
+            //InitializeOrganization(org);
+            Organization organization;
+            if (id > 0)
+            {
+                ResultObject resultObject = Organization_BL.GetById(id, AppConstants.ARABIC);
+                if (resultObject.Code == AppConstants.ERROR_CODE)
+                {
+                    _messageDialogService.ShowInfoDialog(resultObject.Message);
+                    return;
+                }
+                organization = (Organization)resultObject.Data;
+            }
+            else
+                organization = new Organization();
+            InitializeOrganization(organization);
         }
         private void InitializeOrganization(Organization organization)
         {

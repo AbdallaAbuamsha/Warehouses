@@ -6,8 +6,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using Warehouses.BusinessLayer;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using Warehouses.UI.Helper;
 using Warehouses.UI.Views.Services;
 using Warehouses.UI.Wrappers;
 
@@ -54,11 +57,40 @@ namespace Warehouses.UI.ViewModels
 
         public override void Load(long id)
         {
-            var branch = id > 0
-              ? _branchService.GetById(id)
-              : CreateNewBranch();
+            //var branch = id > 0
+            //  ? _branchService.GetById(id)
+            //  : CreateNewBranch();
+            //InitializeBranch(branch);
+            ResultObject resultObject;
+            Branch branch;
+            if (id > 0)
+            {
+                resultObject = Branch_BL.GetById(id, AppConstants.ARABIC);
+                if (resultObject.Code == AppConstants.ERROR_CODE)
+                {
+                    _messageDialogService.ShowInfoDialog(resultObject.Message);
+                    return;
+                }
+                branch = (Branch)resultObject.Data;
+            }
+            else
+                branch = new Model.Branch();
             InitializeBranch(branch);
-            var organizations = _branchService.GetAllOrganizations();
+
+            //var organizations = _branchService.GetAllOrganizations();
+            resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Organization> organizationResultList = (ResultList<Organization>)resultObject.Data;
+            if (organizationResultList.TotalCount == 0)
+            {
+                _messageDialogService.ShowInfoDialog(Application.Current.FindResource("no_organizations_available").ToString());
+                return;
+            }
+            var organizations = organizationResultList.List;
             Organizations.Clear();
             FillLists(Organizations, organizations);
             SelectedOrganization = Organizations.FirstOrDefault(o => o.Id == branch.ParentId);

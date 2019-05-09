@@ -9,7 +9,7 @@ using Warehouses.UI.Views.Services;
 
 namespace Warehouses.UI.ViewModels
 {
-    public class WarehouseTreeViewItemVIewModel : TreeViewItemViewModel
+    public class BranchTreeViewItemViewModel : TreeViewItemViewModel
     {
         IWarehouseDataService _warehouseDataService;
         IEventAggregator _eventAggregator;
@@ -18,7 +18,7 @@ namespace Warehouses.UI.ViewModels
         private bool _isExpanded;
         private string _detailViewModelName;
 
-        public WarehouseTreeViewItemVIewModel(long id, string displayMember, string detailViewModelName, 
+        public BranchTreeViewItemViewModel(long id, string displayMember, string detailViewModelName, 
             IWarehouseDataService warehouseDataService, 
             IEventAggregator eventAggregator,
             IMessageDialogService messageDialogService)
@@ -66,7 +66,7 @@ namespace Warehouses.UI.ViewModels
                     {
                         //var warehouses = _warehouseDataService.GetByParentId(Id);
                         ResultObject warehouseResult = BusinessLayer.Warehouse_BL.GetAllByBranchId(Id, AppConstants.ARABIC);
-                        if (warehouseResult.Code == 0)
+                        if (warehouseResult.Code == AppConstants.ERROR_CODE)
                         {
                             _messageDialogService.ShowInfoDialog(warehouseResult.Message);
                             return;

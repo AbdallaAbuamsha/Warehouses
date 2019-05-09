@@ -22,7 +22,7 @@ namespace Warehouses.UI.ViewModels
         private IWarehouseDataService _warehouseDataService;
         IEventAggregator _eventAggregator;
         private OrganizationTreeViewItemViewModel _selectedOrganization;
-        private WarehouseTreeViewItemVIewModel _selectedBranch;
+        private BranchTreeViewItemViewModel _selectedBranch;
         private WarehouseTreeViewItemViewModel _selectedWarehouse;
         IMessageDialogService _messageDialogService;
         public WarehousesNavigationViewModel(
@@ -41,7 +41,7 @@ namespace Warehouses.UI.ViewModels
             _messageDialogService = messageDialogService;
 
             Organizations = new ObservableCollection<TreeViewItemViewModel>();
-            Branches = new ObservableCollection<WarehouseTreeViewItemVIewModel>();
+            Branches = new ObservableCollection<BranchTreeViewItemViewModel>();
             Warehouses = new ObservableCollection<WarehouseTreeViewItemViewModel>();
 
             _eventAggregator.GetEvent<AfterDetailSavedEvent>().Subscribe(AfterDetailSaved);
@@ -54,7 +54,7 @@ namespace Warehouses.UI.ViewModels
         public override void Load()
         {
             ResultObject resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
-            if(resultObject.Code == 0)
+            if(resultObject.Code == AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
@@ -146,7 +146,7 @@ namespace Warehouses.UI.ViewModels
         //    }
         //}
 
-        public ObservableCollection<WarehouseTreeViewItemVIewModel> Branches { get; set; }
+        public ObservableCollection<BranchTreeViewItemViewModel> Branches { get; set; }
         //public BranchTreeViewItemViewModel SelectedBranch
         //{
         //    get

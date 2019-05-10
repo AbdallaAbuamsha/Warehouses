@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Prism.Events;
+﻿using Prism.Events;
 using Warehouses.UI.Views.Services;
 using Warehouses.UI.Data;
 using Warehouses.UI.Wrappers;
@@ -11,6 +6,8 @@ using Warehouses.Model;
 using Prism.Commands;
 using Warehouses.BusinessLayer;
 using Warehouses.UI.Helper;
+using Warehouses.UI.Views.Popups;
+using Warehouses.UI.Events;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -26,8 +23,27 @@ namespace Warehouses.UI.ViewModels
         {
             _organizationService = organizationService;
             _messageDialogService = messageDialogService;
+            EventAggregator.GetEvent<GetVoidReasonEvent>().Subscribe(OnGetVoidReason);
         }
-
+        private void OnGetVoidReason(string voidReason)
+        {
+            ResultObject resultObject = Organization_BL.Delete(OrganizationWrapper.Id, voidReason, AppConstants.ARABIC);
+            if(resultObject.Code < AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            bool res = (bool)resultObject.Data;
+            if (res == true)
+            {
+                MessageDialogService.ShowInfoDialog("Deleted Seccessfully");
+                RaiseDetailDeletedEvent(OrganizationWrapper.Id);
+            }
+            else
+            {
+                MessageDialogService.ShowInfoDialog("Delete Failed");
+            }
+        }
         public OrganizationWrapper OrganizationWrapper
         {
             get { return _organizationWrapper; }
@@ -79,25 +95,11 @@ namespace Warehouses.UI.ViewModels
 
         protected override void OnDeleteExecute()
         {
-            if (_organizationService.HasSiblings())
-            {
-                _messageDialogService.ShowInfoDialog($"{OrganizationWrapper.Name}  can't be deleted, as this Organization has at least one branch or warehouse.");
-                return;
-            }
             var result = _messageDialogService.ShowOkCancelDialog($"Do you really want to delete the Organization {OrganizationWrapper.Name}?","Question");
 
             if (result == MessageDialogResult.Cancel)
                 return;
-            bool res = _organizationService.Delete(_organizationWrapper.Model);
-            if(res == true)
-            {
-                MessageDialogService.ShowInfoDialog("Deleted Seccessfully");
-                RaiseDetailDeletedEvent(OrganizationWrapper.Id);
-            }
-            else
-            {
-                MessageDialogService.ShowInfoDialog("Delete Failed");
-            }
+            new GetReasonWindow(EventAggregator).ShowDialog();
         }
 
         protected override bool OnSaveCanExecute()

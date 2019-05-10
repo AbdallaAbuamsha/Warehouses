@@ -76,4 +76,9 @@
     <system:String x:Key="server_error">Unexpected error occured. Please inform the admin.</system:String>
     <system:String x:Key="no_organizations_available">No organizations available.</system:String>
 
+    <system:String x:Key="get_void_reason_title">Void Reason</system:String>
+    <system:String x:Key="get_void_reason_hint">Type here why do you want to delete this item</system:String>
+    <system:String x:Key="get_void_reason_done">Done</system:String>
+    <system:String x:Key="get_void_reason_cancel">Cancel</system:String>
+
 </ResourceDictionary>

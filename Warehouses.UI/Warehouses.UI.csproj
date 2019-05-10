@@ -123,6 +123,7 @@
     <Compile Include="Events\AfterDetailSavedEvent.cs" />
     <Compile Include="Events\DeleteReceiptRowEvent.cs" />
     <Compile Include="Events\ExpandTreeItemEvent.cs" />
+    <Compile Include="Events\GetVoidReasonEvent.cs" />
     <Compile Include="Events\OpenDetailViewEvent.cs" />
     <Compile Include="Events\SelecteNavigationType.cs" />
     <Compile Include="Events\SettingsEvents.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="ViewModels\BranchDetailViewModel.cs" />
     <Compile Include="ViewModels\BranchTreeViewItemViewModel.cs" />
     <Compile Include="ViewModels\DetailViewModelBase.cs" />
+    <Compile Include="ViewModels\GetVoidReasonViewModel.cs" />
     <Compile Include="ViewModels\IAddBranchViewModel.cs" />
     <Compile Include="ViewModels\IAddMaterialNameDetailsViewModel.cs" />
     <Compile Include="ViewModels\IAddMaterialUnitDetailsViewModel.cs" />
@@ -200,6 +202,9 @@
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Popups\GetReasonWindow.xaml.cs">
+      <DependentUpon>GetReasonWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Popups\Receipt.xaml.cs">
       <DependentUpon>Receipt.xaml</DependentUpon>
@@ -314,6 +319,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Popups\GetReasonWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

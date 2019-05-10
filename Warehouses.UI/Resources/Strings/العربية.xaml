@@ -58,13 +58,14 @@
     <system:String x:Key="add_branch_location">الموقع</system:String>
     <system:String x:Key="add_branch_save_button">حفظ</system:String>
 
-    <system:String x:Key="add_warehouse_title">Add Warehouse</system:String>
-    <system:String x:Key="add_warehouse_organization">Organization</system:String>
-    <system:String x:Key="add_warehouse_branch">Branch</system:String>
-    <system:String x:Key="add_warehouse_name">Warehouse Name</system:String>
-    <system:String x:Key="add_warehouse_code">Warehouse Code</system:String>
-    <system:String x:Key="add_warehouse_location">Location</system:String>
-    <system:String x:Key="add_warehouse_save">Save</system:String>
+    <system:String x:Key="add_warehouse_title">إضافة مستودع</system:String>
+    <system:String x:Key="add_warehouse_organization">المنظمة</system:String>
+    <system:String x:Key="add_warehouse_branch">الفرع</system:String>
+    <system:String x:Key="add_warehouse_parent_warehouse">المستودع الاب</system:String>
+    <system:String x:Key="add_warehouse_name">اسم المستودع</system:String>
+    <system:String x:Key="add_warehouse_code">رمز المستودع</system:String>
+    <system:String x:Key="add_warehouse_location">موقع المستودع</system:String>
+    <system:String x:Key="add_warehouse_save">حفظ</system:String>
 
     <system:String x:Key="server_error_title">خطأ غير متوقع</system:String>
     <system:String x:Key="server_error">خطأ غير متوقع, الرجاء إعلام قسم الدعم الفني.</system:String>

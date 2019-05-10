@@ -14,7 +14,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
-        Title="AddOrganization" Height="450" Width="550"
+        Title="AddOrganization" Height="510" Width="550"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         WindowStyle="None">
@@ -73,6 +73,13 @@
                     DisplayMemberPath="Name"
                     materialDesign:HintAssist.Hint="{DynamicResource add_warehouse_branch}"
                     Margin="10 10 10 0"/>
+            <ComboBox
+                    Grid.Row="1"
+                    ItemsSource="{Binding Warehouses}"
+                    SelectedItem="{Binding SelectedWarehouse}"
+                    DisplayMemberPath="Name"
+                    materialDesign:HintAssist.Hint="{DynamicResource add_warehouse_parent_warehouse}"
+                    Margin="10 10 10 0"/>
             <!--First Name-->
             <TextBox
                 Grid.Row="2"
@@ -102,6 +109,8 @@
             <Button
                 Grid.Row="5"
                 Command="{Binding Save}"
+                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                   AncestorType={x:Type Window}}}"
                 Margin="10 18 10 10"
                 Padding="0"
                 Content="{DynamicResource add_warehouse_save}"/>

@@ -41,6 +41,8 @@ namespace Warehouses.UI.ViewModels
         {
             if (args.ViewModelName.Equals(_detailViewModelName) && args.Id == Id)
             {
+                if ((IsExpanded == true) && (TreeItems.Count == 0))
+                    IsExpanded = false;
                 IsExpanded = true;
             }
         }

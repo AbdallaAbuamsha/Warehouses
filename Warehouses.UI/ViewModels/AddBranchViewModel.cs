@@ -52,8 +52,21 @@ namespace Warehouses.UI.ViewModels
 
         public void Load()
         {
-            var organizations = _organizationDataService.GetAll();
-
+            //var organizations = _organizationDataService.GetAll();
+            ResultObject resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Organization> organizationResultList = (ResultList<Organization>)resultObject.Data;
+            if (organizationResultList.TotalCount == 0)
+            {
+                _messageDialogService.ShowInfoDialog(Application.Current.FindResource("no_organizations_available").ToString());
+                return;
+            }
+            var organizations = organizationResultList.List;
+            //var organizations = _organizationDataService.GetAll();
             FillLists(Organizations, organizations);
         }
 

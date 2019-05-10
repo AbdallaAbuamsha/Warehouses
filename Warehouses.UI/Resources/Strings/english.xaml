@@ -61,6 +61,7 @@
     <system:String x:Key="add_warehouse_title">Add Warehouse</system:String>
     <system:String x:Key="add_warehouse_organization">Organization</system:String>
     <system:String x:Key="add_warehouse_branch">Branch</system:String>
+    <system:String x:Key="add_warehouse_parent_warehouse">Warehouse Parent</system:String>
     <system:String x:Key="add_warehouse_name">Warehouse Name</system:String>
     <system:String x:Key="add_warehouse_code">Warehouse Code</system:String>
     <system:String x:Key="add_warehouse_location">Location</system:String>

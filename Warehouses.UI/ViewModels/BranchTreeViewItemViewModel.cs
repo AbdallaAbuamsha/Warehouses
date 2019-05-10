@@ -29,12 +29,23 @@ namespace Warehouses.UI.ViewModels
             _detailViewModelName = detailViewModelName;
             _messageDialogService = messageDialogService;
             _eventAggregator.GetEvent<AfterDetailSavedEvent>().Subscribe(AfterDetailSaved);
+            _eventAggregator.GetEvent<ExpandTreeItemEvent>().Subscribe(OnExpandTreeItem);
+
             TreeItems = new ObservableCollection<TreeViewItemViewModel>();
             TreeItems.Add(null);
         }
+        private void OnExpandTreeItem(ExpandTreeItemEventArgs args)
+        {
+            if (args.ViewModelName.Equals(_detailViewModelName) && args.Id == Id)
+            {
+                if ((IsExpanded == true) && (TreeItems.Count == 0))
+                    IsExpanded = false;
+                IsExpanded = true;
+            }
+        }
         protected void AfterDetailSaved(AfterDetailSavedEventArgs args)
         {
-            if (args.ViewModelName.Equals(nameof(BranchDetailViewModel)) && args.Id == Id)
+            if (args.ViewModelName.Equals(_detailViewModelName) && args.Id == Id)
                 IsSelected = true;
         }
         public ObservableCollection<TreeViewItemViewModel> TreeItems { get; set; }

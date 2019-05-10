@@ -122,6 +122,7 @@
     <Compile Include="Events\AfterDetailDeletedEvent.cs" />
     <Compile Include="Events\AfterDetailSavedEvent.cs" />
     <Compile Include="Events\DeleteReceiptRowEvent.cs" />
+    <Compile Include="Events\ExpandTreeItemEvent.cs" />
     <Compile Include="Events\OpenDetailViewEvent.cs" />
     <Compile Include="Events\SelecteNavigationType.cs" />
     <Compile Include="Events\SettingsEvents.cs" />

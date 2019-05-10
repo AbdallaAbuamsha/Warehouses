@@ -13,7 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
-        Title="AddOrganization" Height="400" Width="550"
+        Title="AddOrganization" Height="360" Width="550"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         WindowStyle="None">
@@ -77,14 +77,6 @@
             <!--First Name-->
             <TextBox
                 Grid.Row="2"
-                materialDesign:HintAssist.Hint="{DynamicResource add_branch_code}"
-                Text="{Binding Branch.Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Margin="10"
-                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
-
-            <!--First Name-->
-            <TextBox
-                Grid.Row="2"
                 materialDesign:HintAssist.Hint="{DynamicResource add_branch_location}"
                 Text="{Binding Branch.Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
@@ -94,6 +86,7 @@
             <Button
                 Grid.Row="5"
                 Command="{Binding Save}"
+                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                 Margin="10 18 10 10"
                 Padding="0"
                 Content="{DynamicResource add_branch_save_button}"/>

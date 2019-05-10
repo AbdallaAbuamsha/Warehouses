@@ -28,10 +28,15 @@ namespace Warehouses.UI.ViewModels
             _eventAggregator = eventAggregator;
             _detailViewModelName = detailViewModelName;
             _messageDialogService = messageDialogService;
+            _eventAggregator.GetEvent<AfterDetailSavedEvent>().Subscribe(AfterDetailSaved);
             TreeItems = new ObservableCollection<TreeViewItemViewModel>();
             TreeItems.Add(null);
         }
-
+        protected void AfterDetailSaved(AfterDetailSavedEventArgs args)
+        {
+            if (args.ViewModelName.Equals(nameof(BranchDetailViewModel)) && args.Id == Id)
+                IsSelected = true;
+        }
         public ObservableCollection<TreeViewItemViewModel> TreeItems { get; set; }
         public bool IsSelected
         {

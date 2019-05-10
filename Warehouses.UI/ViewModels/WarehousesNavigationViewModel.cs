@@ -51,6 +51,7 @@ namespace Warehouses.UI.ViewModels
             //eventAggregator.GetEvent<WarehouseItemSelectedEvent>().Subscribe(WarehouseSelected);
         }
 
+
         public override void Load()
         {
             ResultObject resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
@@ -221,8 +222,8 @@ namespace Warehouses.UI.ViewModels
                     args.DisplayMember,
                     args.ViewModelName,
                     _branchDataService,
-                  _eventAggregator,
-                  _messageDialogService);
+                    _eventAggregator,
+                    _messageDialogService);
                 newItem.IsSelected = true;
                 items.Add(newItem);
             }

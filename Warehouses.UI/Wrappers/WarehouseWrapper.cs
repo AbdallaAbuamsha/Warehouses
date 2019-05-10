@@ -10,7 +10,7 @@ namespace Warehouses.UI.Wrappers
         }
         public long Id
         {
-            get { return GetValue<int>(); }
+            get { return GetValue<long>(); }
             set { SetValue(value); }
         }
         public string Name

@@ -6,8 +6,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using Warehouses.BusinessLayer;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using Warehouses.UI.Helper;
 using Warehouses.UI.Views.Services;
 using Warehouses.UI.Wrappers;
 
@@ -66,12 +69,53 @@ namespace Warehouses.UI.ViewModels
         }
         public override void Load(long id)
         {
-            var warehouse = id > 0
-              ? _warehouseService.GetById(id)
-              : CreateNewWarehouse();
+            //var warehouse = id > 0
+            //  ? _warehouseService.GetById(id)
+            //  : CreateNewWarehouse();
+            //InitializeWarehouse(warehouse);
+            ResultObject resultObject;
+            Warehouse warehouse;
+            if (id > 0)
+            {
+                resultObject = Warehouse_BL.GetById(id, AppConstants.ARABIC);
+                if (resultObject.Code == AppConstants.ERROR_CODE)
+                {
+                    _messageDialogService.ShowInfoDialog(resultObject.Message);
+                    return;
+                }
+                warehouse = (Warehouse)resultObject.Data;
+            }
+            else
+                warehouse = new Model.Warehouse();
             InitializeWarehouse(warehouse);
-            var organizations = _warehouseService.GetAllOrganizations();
-            var branches = _warehouseService.GetAllBranches();
+
+            resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Organization> organizationResultList = (ResultList<Organization>)resultObject.Data;
+            if (organizationResultList.TotalCount == 0)
+            {
+                _messageDialogService.ShowInfoDialog(Application.Current.FindResource("no_organizations_available").ToString());
+                return;
+            }
+            var organizations = organizationResultList.List;
+
+            resultObject = BusinessLayer.Branch_BL.GetAll(AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Branch> branchResultList = (ResultList<Branch>)resultObject.Data;
+            if (branchResultList.TotalCount == 0)
+            {
+                return;
+            }
+            var branches = branchResultList.List;
+
             Organizations.Clear();
             Branches.Clear();
             FillLists(Organizations, organizations);

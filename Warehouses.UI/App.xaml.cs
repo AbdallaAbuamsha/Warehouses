@@ -5,6 +5,8 @@ using Warehouses.UI.Views;
 using Warehouses.UI.Properties;
 using Warehouses.UI.Data;
 using System;
+using Warehouses.Model;
+using Warehouses.UI.Helper;
 
 namespace Warehouses.UI
 {
@@ -19,12 +21,26 @@ namespace Warehouses.UI
             {
                 string username = Settings.Default.Username;
                 string password = Settings.Default.Password;
-                var user = new UserDataService().Login(username, password);
-                if (user != null)
+                //var user = new UserDataService().Login(username, password);
+                //if (user != null)
+                //{
+                //    MainWindow mainWindow = Bootstrapper.Builder.Resolve<MainWindow>();
+                //    mainWindow.Show();
+                //}
+                ResultObject resultObject = BusinessLayer.User_BL.Login(username, password, AppConstants.ARABIC);
+                if (resultObject.Code < AppConstants.ERROR_CODE)
                 {
-                    MainWindow mainWindow = Bootstrapper.Builder.Resolve<MainWindow>();
-                    mainWindow.Show();
+                    Settings.Default.RememberMe = false;
+                    Settings.Default.Username = "";
+                    Settings.Default.Password = "";
+                    LoginWindow login = Bootstrapper.Builder.Resolve<LoginWindow>();
+                    login.Show();
+                    return;
                 }
+                var user = (User)resultObject.Data;
+                UserSingleton.GetUser().User = user;
+                MainWindow mainWindow = Bootstrapper.Builder.Resolve<MainWindow>();
+                mainWindow.Show();
             }
             else
             {

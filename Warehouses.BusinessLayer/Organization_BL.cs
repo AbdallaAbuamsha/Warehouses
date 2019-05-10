@@ -71,5 +71,30 @@ namespace Warehouses.BusinessLayer
                 return resultObject;
             }
         }
+
+        public static ResultObject Create(string name, string address, long userId, string language)
+        {
+            BusinessException exception = null;
+            ResultObject resultObject = new ResultObject();
+            MethodBase methodInfo = MethodBase.GetCurrentMethod();
+            string functionFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
+            try
+            {
+                long id = WarehousesManagementEF.Organization.Create(name, address, userId, out exception, language);
+                Organization resultBusiness = new Model.Organization();
+
+                resultObject.Data = id;
+                resultObject.Code = exception.code;
+                resultObject.Message = exception.Message;
+                return resultObject;
+            }
+            catch
+            {
+                resultObject.Data = null;
+                resultObject.Code = exception.code;
+                resultObject.Message = exception.Message;
+                return resultObject;
+            }
+        }
     }
 }

@@ -216,13 +216,15 @@ namespace Warehouses.UI.ViewModels
             var lookupItem = items.SingleOrDefault(l => l.Id == args.Id);
             if (lookupItem == null)
             {
-                items.Add(new OrganizationTreeViewItemViewModel(
+                var newItem = new OrganizationTreeViewItemViewModel(
                     args.Id,
                     args.DisplayMember,
                     args.ViewModelName,
                     _branchDataService,
                   _eventAggregator,
-                  _messageDialogService));
+                  _messageDialogService);
+                newItem.IsSelected = true;
+                items.Add(newItem);
             }
             else
             {

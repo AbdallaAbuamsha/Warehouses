@@ -9,6 +9,8 @@ using Warehouses.UI.Data;
 using Warehouses.UI.Views.Services;
 using Warehouses.UI.Views.Popups;
 using Warehouses.UI.Properties;
+using Warehouses.Model;
+using Warehouses.UI.Helper;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -31,12 +33,15 @@ namespace Warehouses.UI.ViewModels
         private void OnLoginExecute(Window window)
         {
             var user = _userService.Login(Username, Password);
-            if(user == null)
-            {                
-                _messageService.ShowInfoDialog(Application.Current.FindResource("login_failed").ToString());
-                return;
-            }
-            if(RememberMe)
+            //ResultObject resultObject = BusinessLayer.User_BL.Login(Username, Password, AppConstants.ARABIC);
+            //if (resultObject.Code <= AppConstants.ERROR_CODE)
+            //{
+            //    _messageService.ShowInfoDialog(resultObject.Message);
+            //    return;
+            //}
+            //var user = (User)resultObject.Data;
+            UserSingleton.GetUser().User = user;
+            if (RememberMe)
             {
                 Settings.Default.RememberMe = true;
                 Settings.Default.Username = Username;

@@ -33,5 +33,13 @@ namespace Warehouses.Model
         [MaxLength(50)]
         [MinLength(6)]
         public string Password { get; set; }
+        [Range(0, 100)]
+        public byte? Age { get; set; }
+        [MaxLength(50)]
+        public string Address { get; set; }
+        [MaxLength(50)]
+        public string VoidReason { get; set; }
+        public bool IsVoid { get; set; }
+        public long TypeId { get; set; }
     }
 }

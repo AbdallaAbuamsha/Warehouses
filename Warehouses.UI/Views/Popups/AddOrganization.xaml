@@ -69,6 +69,8 @@
             <Button
                 Grid.Row="5"
                 Command="{Binding Save}"
+                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                    AncestorType={x:Type Window}}}"
                 Margin="10 18 10 10"
                 Padding="0"
                 Content="{DynamicResource add_organization_save}"/>

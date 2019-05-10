@@ -6,7 +6,7 @@ using WarehousesManagementEF.Model;
 
 namespace Warehouses.BusinessLayer
 {
-    public class Branch_BL
+    public class Branch_BL : BusinessBase
     {
         public static ResultObject GetAll(string language)
         {
@@ -22,30 +22,15 @@ namespace Warehouses.BusinessLayer
                 List<Model.Branch> resultBusiness = new List<Model.Branch>();
                 foreach (var branch in resultDal)
                 {
-                    Model.Branch temp = new Model.Branch();
-                    temp.Id = branch.ID;
-                    temp.Name = branch.NAME;
-                    temp.Location = branch.ADDRESS;
-                    temp.ParentId = branch.ORGANIZATION_ID;
-                    temp.IsVoid = branch.IS_VOID;
-                    temp.VoidReason = branch.VOID_REASON;
-
+                    Branch temp = ConvertBranch(branch);
                     resultBusiness.Add(temp);
                 }
                 resultList = new ResultList<Model.Branch>(resultBusiness, resultBusiness.Count);
-                resultObject.Data = resultList;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-
-                return resultObject;
+                return ReturnResultObject(resultList, exception.code, exception.Message);
             }
             catch
             {
-                resultObject.Data = resultList;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-
-                return resultObject;
+                return ReturnResultObject(null, exception.code, exception.Message);
             }
         }
         public static ResultObject GetAllByOrganizationId(long organizationId, string language)
@@ -62,30 +47,15 @@ namespace Warehouses.BusinessLayer
                 List<Model.Branch> resultBusiness = new List<Model.Branch>();
                 foreach (var branch in resultDal)
                 {
-                    Model.Branch temp = new Model.Branch();
-                    temp.Id = branch.ID;
-                    temp.Name = branch.NAME;
-                    temp.Location = branch.ADDRESS;
-                    temp.ParentId = branch.ORGANIZATION_ID;
-                    temp.IsVoid = branch.IS_VOID;
-                    temp.VoidReason = branch.VOID_REASON;
-
+                    Branch temp = ConvertBranch(branch);
                     resultBusiness.Add(temp);
                 }
                 resultList = new ResultList<Model.Branch>(resultBusiness, resultBusiness.Count);
-                resultObject.Data = resultList;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-
-                return resultObject;
+                return ReturnResultObject(resultList, exception.code, exception.Message);
             }
             catch
             {
-                resultObject.Data = resultList;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-
-                return resultObject;
+                return ReturnResultObject(null, exception.code, exception.Message);
             }
         }
 
@@ -98,25 +68,12 @@ namespace Warehouses.BusinessLayer
             try
             {
                 WAR_BRANCH resultDal = WarehousesManagementEF.Branch.GetById(branchId, out exception, language);
-                Branch resultBusiness = new Model.Branch();
-
-                Model.Branch data = new Model.Branch();
-                data.Id = resultDal.ID;
-                data.Name = resultDal.NAME;
-                data.Location = resultDal.ADDRESS;
-                data.ParentId = resultDal.ORGANIZATION_ID;
-
-                resultObject.Data = data;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-                return resultObject;
+                Branch data = ConvertBranch(resultDal);
+                return ReturnResultObject(data, exception.code, exception.Message);
             }
             catch
             {
-                resultObject.Data = null;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-                return resultObject;
+                return ReturnResultObject(null, exception.code, exception.Message);
             }
         }
         public static ResultObject Create(string name, string address, long organizationId, string language)
@@ -128,17 +85,11 @@ namespace Warehouses.BusinessLayer
             try
             {
                 long id = WarehousesManagementEF.Branch.Create(name, address, organizationId, out exception, language);
-                resultObject.Data = id;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-                return resultObject;
+                return ReturnResultObject(id, exception.code, exception.Message);
             }
             catch
             {
-                resultObject.Data = null;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-                return resultObject;
+                return ReturnResultObject(null, exception.code, exception.Message);
             }
         }
     }

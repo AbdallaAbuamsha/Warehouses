@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Branch_BL.cs" />
+    <Compile Include="BusinessBase.cs" />
     <Compile Include="Material_BL.cs" />
     <Compile Include="Organization_BL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

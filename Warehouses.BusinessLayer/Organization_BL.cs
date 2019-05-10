@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Warehouses.BusinessLayer
 {
-    public class Organization_BL
+    public class Organization_BL : BusinessBase
     {
         public static ResultObject GetAll(string language)
         {
@@ -21,24 +21,15 @@ namespace Warehouses.BusinessLayer
                 List<Model.Organization> resultBusiness = new List<Model.Organization>();
                 foreach (var org in resultDal)
                 {
-                    Model.Organization temp = new Model.Organization();
-                    temp.Id = org.ID;
-                    temp.Name = org.NAME;
-                    temp.Location = org.ADDRESS;
+                    Organization temp = ConvertOrganization(org);
                     resultBusiness.Add(temp);
                 }
                 resultList = new ResultList<Model.Organization>(resultBusiness, resultBusiness.Count);
-                resultObject.Data = resultList;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-                return resultObject;
+                return ReturnResultObject(resultList, exception.code, exception.Message);
             }
             catch
             {
-                resultObject.Data = resultList;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-                return resultObject;
+                return ReturnResultObject(null, exception.code, exception.Message);
             }
         }
 
@@ -51,24 +42,12 @@ namespace Warehouses.BusinessLayer
             try
             {
                 WAR_ORGANIZATION resultDal = WarehousesManagementEF.Organization.GetById(organizationId, out exception, language);
-                Organization resultBusiness = new Model.Organization();
-
-                Model.Organization data = new Model.Organization();
-                data.Id = resultDal.ID;
-                data.Name = resultDal.NAME;
-                data.Location = resultDal.ADDRESS;
-                
-                resultObject.Data = data;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-                return resultObject;
+                Organization data = ConvertOrganization(resultDal);
+                return ReturnResultObject(data, exception.code, exception.Message);
             }
             catch
             {
-                resultObject.Data = null;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-                return resultObject;
+                return ReturnResultObject(null, exception.code, exception.Message);
             }
         }
 
@@ -83,17 +62,11 @@ namespace Warehouses.BusinessLayer
                 long id = WarehousesManagementEF.Organization.Create(name, address, userId, out exception, language);
                 Organization resultBusiness = new Model.Organization();
 
-                resultObject.Data = id;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-                return resultObject;
+                return ReturnResultObject(id, exception.code, exception.Message);
             }
             catch
             {
-                resultObject.Data = null;
-                resultObject.Code = exception.code;
-                resultObject.Message = exception.Message;
-                return resultObject;
+                return ReturnResultObject(null, exception.code, exception.Message);
             }
         }
     }

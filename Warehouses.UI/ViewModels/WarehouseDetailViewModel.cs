@@ -1,11 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Events;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Warehouses.BusinessLayer;
 using Warehouses.Model;
@@ -54,7 +50,7 @@ namespace Warehouses.UI.ViewModels
             {
                 _selectedOrganization = value;
                 OnPropertyChanged();
-                Warehouse.Model.ParentId = SelectedOrganization.Id;
+                Warehouse.Model.OrganizationID = SelectedOrganization.Id;
             }
         }
         public Branch SelectedBranch
@@ -64,7 +60,8 @@ namespace Warehouses.UI.ViewModels
             {
                 _selectedBranch = value;
                 OnPropertyChanged();
-                Warehouse.Model.ParentId = SelectedBranch.Id;
+                if(Warehouse.Model.BranchId.HasValue)
+                    Warehouse.Model.BranchId = SelectedBranch.Id;
             }
         }
         public override void Load(long id)
@@ -102,34 +99,21 @@ namespace Warehouses.UI.ViewModels
                 return;
             }
             var organizations = organizationResultList.List;
-
-            resultObject = BusinessLayer.Branch_BL.GetAll(AppConstants.ARABIC);
+            Organizations.Clear();
+            FillLists(Organizations, organizations);
+            SelectedOrganization =  Organizations.FirstOrDefault(o => o.Id == warehouse.OrganizationID);
+           
+            resultObject = BusinessLayer.Branch_BL.GetAllByOrganizationId(warehouse.OrganizationID,AppConstants.ARABIC);
             if (resultObject.Code == AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
             }
             ResultList<Branch> branchResultList = (ResultList<Branch>)resultObject.Data;
-            if (branchResultList.TotalCount == 0)
-            {
-                return;
-            }
             var branches = branchResultList.List;
-
-            Organizations.Clear();
             Branches.Clear();
-            FillLists(Organizations, organizations);
             FillLists(Branches, branches);
-            var branch = Branches.FirstOrDefault(o => o.Id == warehouse.ParentId);
-            if (branch != null)
-            {
-                SelectedBranch = branch;
-                var organization = Organizations.FirstOrDefault(o => o.Id == SelectedBranch.ParentId);
-                if (organization != null)
-                {
-                    SelectedOrganization = organization;
-                }
-            }
+            SelectedBranch = (warehouse.BranchId.HasValue) ? Branches.FirstOrDefault(o => o.Id == warehouse.BranchId) : null;
  
         }
 

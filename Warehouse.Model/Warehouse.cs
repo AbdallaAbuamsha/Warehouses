@@ -22,7 +22,11 @@ namespace Warehouses.Model
         [MinLength(3)]
         [Required]
         public string Location { get; set; }
-        public long ParentId { get; set; }
+        public long? ParentWarehouseId { get; set; }
+        public long? BranchId { get; set; }
+        public long OrganizationID { get; set; }
+        public byte ParentType { get; set; }
+
         public bool IsVoid { get; set; }
         public string VoidReason { get; set; }
     }

@@ -30,10 +30,13 @@ namespace Warehouses.BusinessLayer
                     temp.Id = warehouse.ID;
                     temp.Name = warehouse.NAME;
                     temp.Location = warehouse.ADDRESS;
-                    temp.ParentId = warehouse.ORGANIZATION_ID;
+                    temp.OrganizationID = warehouse.ORGANIZATION_ID;
+                    temp.BranchId = warehouse.BRANCH_ID;
+                    temp.ParentWarehouseId = warehouse.PARENT_WAREHOUSE_ID;
+                    temp.ParentType = warehouse.PARENT_TYPE;
+                    temp.Code = warehouse.CODE;
                     temp.IsVoid = warehouse.IS_VOID;
                     temp.VoidReason = warehouse.VOID_REASON;
-
                     resultBusiness.Add(temp);
                 }
                 resultList = new ResultList<Model.Warehouse>(resultBusiness, resultBusiness.Count);
@@ -71,10 +74,13 @@ namespace Warehouses.BusinessLayer
                     temp.Id = warehouse.ID;
                     temp.Name = warehouse.NAME;
                     temp.Location = warehouse.ADDRESS;
-                    temp.ParentId = warehouse.ORGANIZATION_ID;
+                    temp.OrganizationID = warehouse.ORGANIZATION_ID;
+                    temp.BranchId = warehouse.BRANCH_ID;
+                    temp.ParentWarehouseId = warehouse.PARENT_WAREHOUSE_ID;
+                    temp.ParentType = warehouse.PARENT_TYPE;
+                    temp.Code = warehouse.CODE;
                     temp.IsVoid = warehouse.IS_VOID;
                     temp.VoidReason = warehouse.VOID_REASON;
-
                     resultBusiness.Add(temp);
                 }
                 resultList = new ResultList<Model.Warehouse>(resultBusiness, resultBusiness.Count);
@@ -112,10 +118,13 @@ namespace Warehouses.BusinessLayer
                     temp.Id = warehouse.ID;
                     temp.Name = warehouse.NAME;
                     temp.Location = warehouse.ADDRESS;
-                    temp.ParentId = warehouse.ORGANIZATION_ID;
+                    temp.OrganizationID = warehouse.ORGANIZATION_ID;
+                    temp.BranchId = warehouse.BRANCH_ID;
+                    temp.ParentWarehouseId = warehouse.PARENT_WAREHOUSE_ID;
+                    temp.ParentType = warehouse.PARENT_TYPE;
+                    temp.Code = warehouse.CODE;
                     temp.IsVoid = warehouse.IS_VOID;
                     temp.VoidReason = warehouse.VOID_REASON;
-
                     resultBusiness.Add(temp);
                 }
                 resultList = new ResultList<Model.Warehouse>(resultBusiness, resultBusiness.Count);
@@ -142,16 +151,22 @@ namespace Warehouses.BusinessLayer
             string functionFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
             try
             {
-                WAR_WAREHOUSE resultDal = WarehousesManagementEF.Warehouse.GetById(warehouseId, out exception, language);
+                WAR_WAREHOUSE warehouse = WarehousesManagementEF.Warehouse.GetById(warehouseId, out exception, language);
                 Warehouse resultBusiness = new Model.Warehouse();
 
-                Model.Warehouse data = new Model.Warehouse();
-                data.Id = resultDal.ID;
-                data.Name = resultDal.NAME;
-                data.Location = resultDal.ADDRESS;
-                data.ParentId = resultDal.ORGANIZATION_ID;
-                data.Code = resultDal.CODE;                
-                resultObject.Data = data;
+                Model.Warehouse temp = new Model.Warehouse();
+                temp.Id = warehouse.ID;
+                temp.Name = warehouse.NAME;
+                temp.Location = warehouse.ADDRESS;
+                temp.OrganizationID = warehouse.ORGANIZATION_ID;
+                temp.BranchId = warehouse.BRANCH_ID;
+                temp.ParentWarehouseId = warehouse.PARENT_WAREHOUSE_ID;
+                temp.ParentType = warehouse.PARENT_TYPE;
+                temp.Code = warehouse.CODE;
+                temp.IsVoid = warehouse.IS_VOID;
+                temp.VoidReason = warehouse.VOID_REASON;
+
+                resultObject.Data = temp;
                 resultObject.Code = exception.code;
                 resultObject.Message = exception.Message;
                 return resultObject;

@@ -32,14 +32,14 @@ namespace Warehouses.UI.ViewModels
 
         private void OnLoginExecute(Window window)
         {
-            var user = _userService.Login(Username, Password);
-            //ResultObject resultObject = BusinessLayer.User_BL.Login(Username, Password, AppConstants.ARABIC);
-            //if (resultObject.Code <= AppConstants.ERROR_CODE)
-            //{
-            //    _messageService.ShowInfoDialog(resultObject.Message);
-            //    return;
-            //}
-            //var user = (User)resultObject.Data;
+            //var user = _userService.Login(Username, Password);
+            ResultObject resultObject = BusinessLayer.User_BL.Login(Username, Password, AppConstants.ARABIC);
+            if (resultObject.Code <= AppConstants.ERROR_CODE)
+            {
+                _messageService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            var user = (User)resultObject.Data;
             UserSingleton.GetUser().User = user;
             if (RememberMe)
             {

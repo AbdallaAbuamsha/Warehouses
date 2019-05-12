@@ -19,11 +19,11 @@ namespace Warehouses.UI.Wrappers
             get { return GetValue<int>(); }
             set { SetValue(value); }
         }
-        public string Name
-        {
-            get { return GetValue<string>(); }
-            set { SetValue(value); }
-        }
+        //public string Name
+        //{
+        //    get { return GetValue<string>(); }
+        //    set { SetValue(value); }
+        //}
         public string Code
         {
             get { return GetValue<string>(); }
@@ -34,30 +34,55 @@ namespace Warehouses.UI.Wrappers
             get { return GetValue<string>(); }
             set { SetValue(value); }
         }
-        public string Serial
+        //public string Serial
+        //{
+        //    get { return GetValue<string>(); }
+        //    set { SetValue(value); }
+        //}
+        public decimal? MaximumSaleAmount
         {
-            get { return GetValue<string>(); }
+            get { return GetValue<decimal?>(); }
             set { SetValue(value); }
         }
-        public float MaximumSaleAmount
+        public decimal? MinimumSaleAmount
         {
-            get { return GetValue<float>(); }
+            get { return GetValue<decimal?>(); }
             set { SetValue(value); }
         }
-        public float MinimumSaleAmount
+        //public decimal? DazonElementsCount
+        //{
+        //    get { return GetValue<decimal?>(); }
+        //    set { SetValue(value); }
+        //}
+        public decimal? FreeReferencesAmount
         {
-            get { return GetValue<float>(); }
+            get { return GetValue<decimal?>(); }
             set { SetValue(value); }
         }
-        public float DazonElementsCount
+
+        public Organization SelectedOrganization
         {
-            get { return GetValue<float>(); }
+            get { return GetValue<Organization>(); }
             set { SetValue(value); }
         }
-        public float FreeReferencesAmount
+
+        public bool Serializable
         {
-            get { return GetValue<float>(); }
+            get { return GetValue<bool>(); }
             set { SetValue(value); }
         }
+        protected override IEnumerable<string> ValidateProperty(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case nameof(SelectedOrganization):
+                    if (SelectedOrganization == null)
+                    {
+                        yield return "Organization is required";
+                    }
+                    break;
+            }
+        }
+
     }
 }

@@ -10,7 +10,9 @@ using System.Windows;
 using Warehouses.BusinessLayer;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using Warehouses.UI.Events;
 using Warehouses.UI.Helper;
+using Warehouses.UI.Views.Popups;
 using Warehouses.UI.Views.Services;
 using Warehouses.UI.Wrappers;
 
@@ -29,6 +31,7 @@ namespace Warehouses.UI.ViewModels
         {
             _branchService = branchService;
             _messageDialogService = messageDialogService;
+            EventAggregator.GetEvent<GetVoidReasonEvent>().Subscribe(OnGetVoidReason);
             Organizations = new ObservableCollection<Organization>();
         }
 
@@ -117,16 +120,21 @@ namespace Warehouses.UI.ViewModels
 
         protected override void OnDeleteExecute()
         {
-            if (_branchService.HasSiblings())
+            //var result = _messageDialogService.ShowOkCancelDialog($"Do you really want to delete the Branch {Branch.Name}?", "Question");
+
+            //if (result == MessageDialogResult.Cancel)
+            //    return;
+            new GetReasonWindow(EventAggregator).ShowDialog();
+        }
+        private void OnGetVoidReason(string voidReason)
+        {
+            ResultObject resultObject = Branch_BL.Delete(Branch.Id, voidReason, AppConstants.ARABIC);
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
-                _messageDialogService.ShowInfoDialog($"{Branch.Name}  can't be deleted, as this Branch has at least one branch or warehouse.");
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
             }
-            var result = _messageDialogService.ShowOkCancelDialog($"Do you really want to delete the Branch {Branch.Name}?", "Question");
-
-            if (result == MessageDialogResult.Cancel)
-                return;
-            bool res = _branchService.Delete(_branchWrapper.Model);
+            bool res = (bool)resultObject.Data;
             if (res == true)
             {
                 MessageDialogService.ShowInfoDialog("Deleted Seccessfully");

@@ -44,7 +44,8 @@
     <system:String x:Key="material_free_references_amount">عدد العينات المجانية</system:String>
     <system:String x:Key="material_save">حفظ</system:String>
 
-    <system:String x:Key="material_units_information">معلومات الواحدات</system:String>
+    <system:String x:Key="material__related_units_information">معلومات الواحدات المترابطة</system:String>
+    <system:String x:Key="material_un_retlated_units_information">معلومات الواحدات الغير مترابطة</system:String>
     <system:String x:Key="material_unit_selection_hint">الواحدة</system:String>
     <system:String x:Key="material_unit_add">إضافة</system:String>
     <system:String x:Key="material_unit_table_name">اسم</system:String>
@@ -67,11 +68,18 @@
     <system:String x:Key="add_warehouse_location">موقع المستودع</system:String>
     <system:String x:Key="add_warehouse_save">حفظ</system:String>
 
+    <system:String x:Key="add_organization_title">إضافة شركة</system:String>
+    <system:String x:Key="add_organization_name">اسم الشركة</system:String>
+    <system:String x:Key="add_organization_location">الموقع</system:String>
+    <system:String x:Key="add_organization_save">حفظ</system:String>
+    
     <system:String x:Key="server_error_title">خطأ غير متوقع</system:String>
     <system:String x:Key="server_error">خطأ غير متوقع, الرجاء إعلام قسم الدعم الفني.</system:String>
-
+    <system:String x:Key="no_organizations_available">لا يوجد منظمات </system:String>
+    
     <system:String x:Key="get_void_reason_title">سبب الحذق</system:String>
     <system:String x:Key="get_void_reason_hint">اكتب هنا لماذا تريد حذف هذا العنصر ...</system:String>
     <system:String x:Key="get_void_reason_done">تم</system:String>
     <system:String x:Key="get_void_reason_cancel">إلغاء</system:String>
+    
 </ResourceDictionary>

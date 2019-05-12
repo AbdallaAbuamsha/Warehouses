@@ -3,6 +3,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -87,5 +90,10 @@ namespace Warehouses.UI.ViewModels
                 && SelectedLanguage != null ;
         }
 
+        public ObservableCollection<MaterialName> GetNames()
+        {
+            return MaterialsNames;
+            
+        }
     }
 }

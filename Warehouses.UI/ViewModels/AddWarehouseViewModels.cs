@@ -56,7 +56,7 @@ namespace Warehouses.UI.ViewModels
 
         private bool ExecuteCanSaveOrganizationCommand(Window window)
         {
-            return SelectedOrganization != null && SelectedBranch != null && !Warehouse.HasErrors;
+            return SelectedOrganization != null && !Warehouse.HasErrors;
         }
 
         public void Load()

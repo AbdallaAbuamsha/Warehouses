@@ -1,4 +1,6 @@
-﻿namespace Warehouses.UI.ViewModels
+﻿using System.Collections.Generic;
+
+namespace Warehouses.UI.ViewModels
 {
     public interface IAddUnitRelationViewModel
     {

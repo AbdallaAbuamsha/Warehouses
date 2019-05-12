@@ -92,5 +92,22 @@ namespace Warehouses.BusinessLayer
                 return ReturnResultObject(null, exception.code, exception.Message);
             }
         }
+
+        public static ResultObject Delete(long branchId, string voidReason, string language)
+        {
+            BusinessException exception = null;
+            ResultObject resultObject = new ResultObject();
+            MethodBase methodInfo = MethodBase.GetCurrentMethod();
+            string functionFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
+            try
+            {
+                bool deleteStatus = WarehousesManagementEF.Branch.Delete(branchId, voidReason, out exception, language);
+                return ReturnResultObject(deleteStatus, exception.code, exception.Message);
+            }
+            catch
+            {
+                return ReturnResultObject(null, exception.code, exception.Message);
+            }
+        }
     }
 }

@@ -25,26 +25,34 @@ namespace Warehouses.Model
         [MaxLength(50)]
         [MinLength(3)]
         [Required]
-        public string Serial { get; set; }
+        public bool Serializable { get; set; }
         [Required]
-        [RegularExpression(@"^\d+\.\d{0,2}$")]
+        //[RegularExpression(@"^\d+\.\d{0,2}$")]
+        [RegularExpression(@"^[1-9]\d*(\.\d+)?$")]
         [Range(0, 99999999.99)]
-        public float MaximumSaleAmount { get; set; }
+        public decimal? MaximumSaleAmount { get; set; }
         [Required]
-        [RegularExpression(@"^\d+\.\d{0,2}$")]
+        //[RegularExpression(@"^\d+\.\d{0,2}$")]
+        [RegularExpression(@"^[1-9]\d*(\.\d+)?$")]
         [Range(0, 99999999.99)]
-        public float MinimumSaleAmount { get; set; }
+        public decimal? MinimumSaleAmount { get; set; }
         [Required]
-        [RegularExpression(@"^\d+\.\d{0,2}$")]
+        //[RegularExpression(@"^\d+\.\d{0,2}$")]
+        [RegularExpression(@"^[1-9]\d*(\.\d+)?$")]
         [Range(0, 99999999.99)]
-        public float DazonElementsCount { get; set; }
+        public decimal? DazonElementsCount { get; set; }
         [Required]
-        [RegularExpression(@"^\d+\.\d{0,2}$")]
+        //[RegularExpression(@"^\d+\.\d{0,2}$")]
+        [RegularExpression(@"^[1-9]\d*(\.\d+)?$")]  
         [Range(0, 99999999.99)]
-        public float FreeReferencesAmount { get; set; }
+        public decimal? FreeReferencesAmount { get; set; }
 
         public List<Unit> units;
-        public long ParentId { get; set; }
-        public Material Parent;
+        public long? ParentId { get; set; }
+        public long OrganizationId { get; set; }
+        public string VoidReason { get; set; }
+        public bool IsVoid { get; set; }
+
+        public Organization SelectedOrganization { get; set; }
     }
 }

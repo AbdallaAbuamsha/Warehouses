@@ -33,10 +33,8 @@ namespace Warehouses.UI.ViewModels
 
             Branch.PropertyChanged += (s, e) =>
             {
-                if (e.PropertyName.Equals(nameof(OrganizationWrapper.HasErrors)))
+                if (e.PropertyName.Equals(nameof(Branch.HasErrors)))
                 {
-
-
                     ((DelegateCommand<Window>)Save).RaiseCanExecuteChanged();
                 }
             };

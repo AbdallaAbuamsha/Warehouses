@@ -1,7 +1,11 @@
-﻿namespace Warehouses.UI.ViewModels
+﻿using System.Collections.ObjectModel;
+using Warehouses.Model;
+
+namespace Warehouses.UI.ViewModels
 {
     public interface IAddMaterialUnitDetailsViewModel
     {
-        void Load();
+        ObservableCollection<MaterialUnitListItemViewModel> GetUnits();
+        void Load(bool isRelated);
     }
 }

@@ -2,6 +2,7 @@
 using Prism.Events;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Warehouses.Model;
 using Warehouses.UI.Data;
 using Warehouses.UI.Events;
@@ -26,17 +27,49 @@ namespace Warehouses.UI.ViewModels
             IBranchDataService brancheDataService,
             IEventAggregator eventAggregator,
             IMessageDialogService messageDialogService)
-            :base(id, displayMember)
+            : base(id, displayMember)
         {
             _brancheDataService = brancheDataService;
             _eventAggregator = eventAggregator;
             _detailViewModelName = detailViewModelName;
             _messageDialogService = messageDialogService;
             _eventAggregator.GetEvent<ExpandTreeItemEvent>().Subscribe(OnExpandTreeItem);
+            _eventAggregator.GetEvent<AfterDetailDeletedEvent>().Subscribe(AfterDetailDeleted);
             TreeItems = new ObservableCollection<TreeViewItemViewModel>();
             TreeItems.Add(null);
         }
-
+        protected void AfterDetailDeleted(AfterDetailDeletedEventArgs args)
+        {
+            if (TreeItems.Count == 1 && TreeItems[0] == null)
+                return;
+            switch (args.ViewModelName)
+            {
+                case nameof(BranchDetailViewModel):
+                    AfterBranchDetailDeleted(TreeItems, args);
+                    break;
+                case nameof(WarehouseDetailViewModel):
+                    AfterWarehouseDetailDeleted(TreeItems, args);
+                    break;
+            }
+        }
+        protected void AfterBranchDetailDeleted(ObservableCollection<TreeViewItemViewModel> items,
+                                            AfterDetailDeletedEventArgs args)
+        {
+            var item = items.SingleOrDefault(f => f.Id == args.Id && f is BranchTreeViewItemViewModel);
+            if (item != null)
+            {
+                items.Remove(item);
+            }
+        }
+        protected void AfterWarehouseDetailDeleted(ObservableCollection<TreeViewItemViewModel> items,
+                                    AfterDetailDeletedEventArgs args)
+        {
+            var item = items.SingleOrDefault(f => f.Id == args.Id && f is WarehouseTreeViewItemViewModel);
+            if (item != null)
+            {
+                items.Remove(item);
+            }
+        }
         private void OnExpandTreeItem(ExpandTreeItemEventArgs args)
         {
             if (args.ViewModelName.Equals(_detailViewModelName) && args.Id == Id)
@@ -46,6 +79,7 @@ namespace Warehouses.UI.ViewModels
                 IsExpanded = true;
             }
         }
+    
         private void OrganizationSelected(OrganizationTreeViewItemViewModel organization)
         {
             if(organization.Id == Id)

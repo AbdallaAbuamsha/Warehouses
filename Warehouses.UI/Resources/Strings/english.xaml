@@ -44,7 +44,8 @@
     <system:String x:Key="material_free_references_amount">Free references amount</system:String>
     <system:String x:Key="material_save">Save</system:String>
 
-    <system:String x:Key="material_units_information">Units Informations</system:String>
+    <system:String x:Key="material__related_units_information">Related Units Informations</system:String>
+    <system:String x:Key="material_un_retlated_units_information">Unrelated Units Informations</system:String>
     <system:String x:Key="material_unit_selection_hint">Unit</system:String>
     <system:String x:Key="material_unit_add">Add</system:String>
     <system:String x:Key="material_unit_table_name">Name</system:String>

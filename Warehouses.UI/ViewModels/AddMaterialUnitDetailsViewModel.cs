@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using System;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -41,8 +42,12 @@ namespace Warehouses.UI.ViewModels
 
         }
 
-        public void Load()
+        public void Load(bool isRelated)
         {
+
+            //Todo: Change the get method
+            //Todo: Change the groupbox data
+            //Todo: Change the hint data
             var units = _unitDataService.GetAll();
             FillLists(Units, units);
         }
@@ -64,6 +69,11 @@ namespace Warehouses.UI.ViewModels
         private bool ExecuteCanAddCommand()
         {
             return true;// SelectedLanguage != null && !string.IsNullOrEmpty(MaterialName);
+        }
+
+        public ObservableCollection<MaterialUnitListItemViewModel> GetUnits()
+        {
+            return MaterialUnits;
         }
 
         public ObservableCollection<Unit> Units { get; set; }

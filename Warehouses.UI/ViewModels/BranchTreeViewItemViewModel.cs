@@ -1,6 +1,7 @@
 ﻿using Prism.Events;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Warehouses.Model;
 using Warehouses.UI.Data;
 using Warehouses.UI.Events;
@@ -30,9 +31,33 @@ namespace Warehouses.UI.ViewModels
             _messageDialogService = messageDialogService;
             _eventAggregator.GetEvent<AfterDetailSavedEvent>().Subscribe(AfterDetailSaved);
             _eventAggregator.GetEvent<ExpandTreeItemEvent>().Subscribe(OnExpandTreeItem);
+            _eventAggregator.GetEvent<AfterDetailDeletedEvent>().Subscribe(AfterDetailDeleted);
 
             TreeItems = new ObservableCollection<TreeViewItemViewModel>();
             TreeItems.Add(null);
+        }
+        protected void AfterDetailDeleted(AfterDetailDeletedEventArgs args)
+        {
+            switch (args.ViewModelName)
+            {
+                case nameof(WarehouseDetailViewModel):
+                    AfterDetailDeleted(TreeItems, args);
+                    break;
+            }
+        }
+        protected void AfterDetailDeleted(ObservableCollection<TreeViewItemViewModel> items,
+                                            AfterDetailDeletedEventArgs args)
+        {
+            int count = items.Count;
+            string dispMemnber = DisplayMember;
+
+            if (items.Count == 1 && items[0] == null)
+                return;
+            var item = items.SingleOrDefault(f => f.Id == args.Id && f is WarehouseTreeViewItemViewModel);
+            if (item != null)
+            {
+                items.Remove(item);
+            }
         }
         private void OnExpandTreeItem(ExpandTreeItemEventArgs args)
         {

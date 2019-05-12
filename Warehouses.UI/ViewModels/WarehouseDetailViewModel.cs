@@ -6,7 +6,9 @@ using System.Windows;
 using Warehouses.BusinessLayer;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using Warehouses.UI.Events;
 using Warehouses.UI.Helper;
+using Warehouses.UI.Views.Popups;
 using Warehouses.UI.Views.Services;
 using Warehouses.UI.Wrappers;
 
@@ -27,6 +29,8 @@ namespace Warehouses.UI.ViewModels
         {
             _warehouseService = warehouseService;
             _messageDialogService = messageDialogService;
+            EventAggregator.GetEvent<GetVoidReasonEvent>().Subscribe(OnGetVoidReason);
+
             Organizations = new ObservableCollection<Organization>();
             Branches = new ObservableCollection<Branch>();
         }
@@ -137,16 +141,17 @@ namespace Warehouses.UI.ViewModels
 
         protected override void OnDeleteExecute()
         {
-            if (_warehouseService.HasSiblings())
+            new GetReasonWindow(EventAggregator).ShowDialog();
+        }
+        private void OnGetVoidReason(string voidReason)
+        {
+            ResultObject resultObject = Warehouse_BL.Delete(Warehouse.Id, voidReason, AppConstants.ARABIC);
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
-                _messageDialogService.ShowInfoDialog($"{Warehouse.Name}  can't be deleted, as this Warehouse has at least one warehouse or warehouse.");
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
             }
-            var result = _messageDialogService.ShowOkCancelDialog($"Do you really want to delete the Warehouse {Warehouse.Name}?", "Question");
-
-            if (result == MessageDialogResult.Cancel)
-                return;
-            bool res = _warehouseService.Delete(_warehouseWrapper.Model);
+            bool res = (bool)resultObject.Data;
             if (res == true)
             {
                 MessageDialogService.ShowInfoDialog("Deleted Seccessfully");

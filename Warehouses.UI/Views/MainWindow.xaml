@@ -29,11 +29,17 @@
         <DataTemplate DataType="{x:Type viewModels:MaterialDetailViewModel}">
             <views:MaterialDetailView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:UnitDetailViewModel}">
+            <views:UnitDetailView/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type viewModels:WarehousesNavigationViewModel}">
             <views:WarehouseNavigationView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModels:MaterialNavigationViewModel}">
             <views:MaterialNavigationView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:UnitNavigationViewModel}">
+            <views:UnitNavigationView/>
         </DataTemplate>
 
     </Window.Resources>
@@ -46,6 +52,7 @@
         <KeyBinding Key="U" Modifiers="Ctrl" Command="{Binding MainMenuViewModel.NewUnitCommand}"/>
         <KeyBinding Key="K" Modifiers="Ctrl" Command="{Binding MainMenuViewModel.OpenWarehousesTree}"/>
         <KeyBinding Key="L" Modifiers="Ctrl" Command="{Binding MainMenuViewModel.OpenMaterialsTree}"/>
+        <KeyBinding Key="P" Modifiers="Ctrl" Command="{Binding MainMenuViewModel.OpenUnitsTree}"/>
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>

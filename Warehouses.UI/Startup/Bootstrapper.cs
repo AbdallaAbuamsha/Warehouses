@@ -67,15 +67,20 @@ namespace Warehouses.UI.Startup
                 .Keyed<IDetailViewModel>(nameof(WarehouseDetailViewModel));
             builder.RegisterType<MaterialDetailViewModel>()
                 .Keyed<IDetailViewModel>(nameof(MaterialDetailViewModel));
+            builder.RegisterType<UnitDetailViewModel>()
+                .Keyed<IDetailViewModel>(nameof(UnitDetailViewModel));
             builder.RegisterType<WarehousesNavigationViewModel>()
                 .Keyed<INavigationViewModel>(nameof(WarehousesNavigationViewModel));
             builder.RegisterType<MaterialNavigationViewModel>()
                 .Keyed<INavigationViewModel>(nameof(MaterialNavigationViewModel));
+            builder.RegisterType<UnitNavigationViewModel>()
+                .Keyed<INavigationViewModel>(nameof(UnitNavigationViewModel));
             builder.RegisterType<MainWindow>().AsSelf();
             builder.RegisterType<MainViewModel>().As<IMainViewModel>();
             builder.RegisterType<NavigationViewModel>().As<INavigationViewModel>();
             builder.RegisterType<MainMenuViewModel>().As<IMainMenuViewModel>();
             builder.RegisterType<MaterialDetailViewModel>().AsSelf();
+            builder.RegisterType<UnitDetailViewModel>().AsSelf();
 
             builder.RegisterType<LoginWindow>().AsSelf();
             builder.RegisterType<LoginViewModel>().AsSelf();

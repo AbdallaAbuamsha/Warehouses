@@ -26,6 +26,7 @@ namespace Warehouses.UI.ViewModels
             ReceiptCommand = new DelegateCommand(ReceiptExecute);
             OpenWarehousesTree = new DelegateCommand(OpenWarehousesTreeExecute);
             OpenMaterialsTree = new DelegateCommand(OpenMaterialsTreeExecute);
+            OpenUnitsTree = new DelegateCommand(OpenUnitTreeExecute);
             NewOrganizationCommand = new DelegateCommand(NewOrganizationExecute);
             NewBranchCommand = new DelegateCommand(NewBranchExecute);
             NewWarehouseCommand = new DelegateCommand(NewWarehouseExecute);
@@ -33,6 +34,15 @@ namespace Warehouses.UI.ViewModels
             NewUnitCommand = new DelegateCommand(NewUnitExecute);
             SettingsCommand = new DelegateCommand(SettingsCommandExecute);
             LogoutCommand = new DelegateCommand<Window>(OnLogoutCommandExecute);
+        }
+
+        private void OpenUnitTreeExecute()
+        {
+            _eventAggregator.GetEvent<SelecteNavigationType>().Publish(
+            new SelecteNavigationTypeArgs
+            {
+                NavigationTypeName = nameof(UnitNavigationViewModel)
+            });
         }
 
         private void OnLogoutCommandExecute(Window window)
@@ -103,7 +113,8 @@ namespace Warehouses.UI.ViewModels
 
         public ICommand ReceiptCommand { get; set; }
         public ICommand OpenWarehousesTree { get; set; }
-        public ICommand OpenMaterialsTree { get; set; }
+        public ICommand OpenMaterialsTree { get; set; }    
+        public ICommand OpenUnitsTree { get; set; }
         public ICommand NewOrganizationCommand { get; set; }
         public ICommand NewBranchCommand { get; set; }
         public ICommand NewWarehouseCommand { get; set; }

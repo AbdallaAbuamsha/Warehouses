@@ -68,6 +68,12 @@
                         <materialDesign:PackIcon Kind="Toolbox" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator/>
+                <MenuItem Header="Units" InputGestureText="Ctrl+P" Command="{Binding OpenUnitsTree}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Toolbox" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <!-- Edit -->
             <MenuItem Header="_Edit">

@@ -21,9 +21,6 @@ namespace Warehouses.UI.ViewModels
         private IBranchDataService _branchDataService;
         private IWarehouseDataService _warehouseDataService;
         IEventAggregator _eventAggregator;
-        private OrganizationTreeViewItemViewModel _selectedOrganization;
-        private BranchTreeViewItemViewModel _selectedBranch;
-        private WarehouseTreeViewItemViewModel _selectedWarehouse;
         IMessageDialogService _messageDialogService;
         public WarehousesNavigationViewModel(
                 IOrganizationDataService organizationDataService,
@@ -41,14 +38,7 @@ namespace Warehouses.UI.ViewModels
             _messageDialogService = messageDialogService;
 
             Organizations = new ObservableCollection<TreeViewItemViewModel>();
-            Branches = new ObservableCollection<BranchTreeViewItemViewModel>();
-            Warehouses = new ObservableCollection<WarehouseTreeViewItemViewModel>();
 
-            _eventAggregator.GetEvent<AfterDetailSavedEvent>().Subscribe(AfterDetailSaved);
-            _eventAggregator.GetEvent<AfterDetailDeletedEvent>().Subscribe(AfterDetailDeleted);
-            //eventAggregator.GetEvent<OrganizationTreeItemSelectedEvent>().Subscribe(OrganizationSelected);
-            //eventAggregator.GetEvent<BranchTreeItemSelectedEvent>().Subscribe(BranchSelected);
-            //eventAggregator.GetEvent<WarehouseItemSelectedEvent>().Subscribe(WarehouseSelected);
         }
 
 
@@ -126,60 +116,6 @@ namespace Warehouses.UI.ViewModels
         public IMainMenuViewModel MainMenuViewModel { get; }
 
         public ObservableCollection<TreeViewItemViewModel> Organizations { get; set; }
-
-        //public OrganizationTreeViewItemViewModel SelectedOrganization
-        //{
-        //    get { return _selectedOrganization; }
-        //    set
-        //    {
-        //        if (_selectedOrganization == value)
-        //            return;
-        //        _selectedOrganization = value;
-        //        OnPropertyChanged();
-        //        var branches = _branchDataService.GetByParentId(SelectedOrganization.Organization.Id);
-        //        Branches.Clear();
-        //        foreach (var branch in branches)
-        //        {
-        //            var temp = Bootstrapper.Builder.Resolve<BranchTreeViewItemViewModel>(new NamedParameter("branch", branch));
-        //            Branches.Add(temp);
-        //        }
-        //        _eventAggregator.GetEvent<OrganizationComboBoxItemSelectedEvent>().Publish(SelectedOrganization);
-        //    }
-        //}
-
-        public ObservableCollection<BranchTreeViewItemViewModel> Branches { get; set; }
-        //public BranchTreeViewItemViewModel SelectedBranch
-        //{
-        //    get
-        //    {
-        //        return _selectedBranch;
-        //    }
-        //    set
-        //    {
-        //        if (_selectedBranch == value)
-        //            return;
-        //        _selectedBranch = value;
-        //        OnPropertyChanged();
-        //        var warehouses = _warehouseDataService.GetByParentId(SelectedOrganization.Organization.Id);
-        //        Warehouses.Clear();
-        //        foreach (var warehouse in warehouses)
-        //        {
-        //            var temp = Bootstrapper.Builder.Resolve<WarehouseTreeViewItemViewModel>(new NamedParameter("warehouse", warehouse));
-        //            Warehouses.Add(temp);
-        //        }
-        //        SelectedOrganization.IsSelected = false;
-        //        _eventAggregator.GetEvent<BranchComboBoxItemSelectedEvent>().Publish(SelectedBranch);
-
-        //    }
-        //}
-
-        public ObservableCollection<WarehouseTreeViewItemViewModel> Warehouses { get; set; }
-
-        public WarehouseTreeViewItemViewModel SelectedWarehouse
-        {
-            get { return _selectedWarehouse; }
-            set { _selectedWarehouse = value; }
-        }
 
         protected override void AfterDetailDeleted(AfterDetailDeletedEventArgs args)
         {

@@ -14,7 +14,7 @@ namespace Warehouses.BusinessLayer
             return resultObject;
         }
 
-        public static Model.Warehouse ConvertWarehouse(WAR_WAREHOUSE warehouse)
+        protected static Model.Warehouse ConvertWarehouse(WAR_WAREHOUSE warehouse)
         {
             Model.Warehouse temp = new Model.Warehouse();
             temp.Id = warehouse.ID;
@@ -29,7 +29,7 @@ namespace Warehouses.BusinessLayer
             temp.VoidReason = warehouse.VOID_REASON;
             return temp;
         }
-        public static Model.Branch ConvertBranch(WAR_BRANCH branch)
+        protected static Model.Branch ConvertBranch(WAR_BRANCH branch)
         {
             Model.Branch temp = new Model.Branch();
             temp.Id = branch.ID;
@@ -40,12 +40,23 @@ namespace Warehouses.BusinessLayer
             temp.VoidReason = branch.VOID_REASON;
             return temp;
         }
-        public static Model.Organization ConvertOrganization(WAR_ORGANIZATION organization)
+        protected static Model.Organization ConvertOrganization(WAR_ORGANIZATION organization)
         {
             Model.Organization temp = new Model.Organization();
             temp.Id = organization.ID;
             temp.Name = organization.NAME;
             temp.Location = organization.ADDRESS;
+            return temp;
+        }
+        protected static Model.Unit ConvertUnit(WAR_UNIT unit)
+        {
+            Unit temp = new Unit();
+            temp.Id = unit.ID;
+            temp.Name = unit.NAME;
+            temp.ParentUnitId = unit.PARENT_UNIT_ID;
+            temp.Factor = unit.FACTOR;
+            temp.IsVoid = unit.IS_VOID;
+            temp.VoidReason = unit.VOID_REASON;
             return temp;
         }
     }

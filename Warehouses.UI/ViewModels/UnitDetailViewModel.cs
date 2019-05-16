@@ -6,8 +6,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Warehouses.BusinessLayer;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using Warehouses.UI.Helper;
+using Warehouses.UI.Views.Popups;
 using Warehouses.UI.Views.Services;
 using Warehouses.UI.Wrappers;
 
@@ -16,7 +19,11 @@ namespace Warehouses.UI.ViewModels
     public class UnitDetailViewModel : DetailViewModelBase
     {
         private IUnitDataService _unitService;
-        private UnitWrapper _unit;
+        IMessageDialogService _messageDialogService;
+        private UnitWrapper _unitWrapper;
+        private bool _systemHasOneParentAtLeast;
+        private Unit _parentUnit;
+        public bool _parentSelected;
 
         public UnitDetailViewModel(
             IUnitDataService unitService,
@@ -25,45 +32,153 @@ namespace Warehouses.UI.ViewModels
             : base(eventAggregator, messageDialogService)
         {
             _unitService = unitService;
+            _messageDialogService = messageDialogService;
             Names = new ObservableCollection<string>();
+            Units = new ObservableCollection<Unit>();
+
         }
 
         public ObservableCollection<String> Names { get; set; }
-
-
-
-        public UnitWrapper Unit
+        public ObservableCollection<Unit> Units { get; set; }
+        public bool SystemHasOneParentAtLeast
+        {
+            get { return _systemHasOneParentAtLeast; }
+            set
+            {
+                _systemHasOneParentAtLeast = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool ParentSelected
         {
             get
             {
-                return _unit;
+                return _parentSelected;
             }
             set
             {
-                _unit= value;
+                _parentSelected = value;
                 OnPropertyChanged();
-                ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
             }
         }
-
+        public Unit ParentUnit
+        {
+            get
+            {
+                return _parentUnit;
+            }
+            set
+            {
+                _parentUnit = value;
+                if (_parentUnit != null)
+                    ParentSelected = true;
+                else
+                    ParentSelected = false;
+                OnPropertyChanged();
+            }
+        }
+        public UnitWrapper UnitWrapper
+        {
+            get { return _unitWrapper; }
+            set
+            {
+                _unitWrapper = value;
+                OnPropertyChanged();
+            }
+        }
         public override void Load(long id)
         {
-            //Unit unit = _unitService.GetById(id);
+            ResultObject resultObject = BusinessLayer.Unit_BL.GetAll(AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Unit> unitResultList = (ResultList<Unit>)resultObject.Data;
+            if (unitResultList.TotalCount == 0)
+            {
+                SystemHasOneParentAtLeast = false;
+                //_messageDialogService.ShowInfoDialog(Application.Current.FindResource("no_organizations_available").ToString());
+                //return;
+            }
+            else
+            {
+                SystemHasOneParentAtLeast = true;
+            }
+            var units = unitResultList.List;
+            //var organizations = _organizationDataService.GetAll();
+            resultObject = Unit_BL.GetById(id, AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            Unit unit = (Unit)resultObject.Data;
+            // Remove un wanted items from the parents list (the same item and it's children)
+            foreach (var item in units.ToList())
+            {
+                if (item.ParentUnitId == unit.Id || item.Id == unit.Id)
+                    units.Remove(item);
+
+            }
+            Units.Clear();
+            FillLists(Units, units);            
+            InitializeUnit(unit);
+        }
+
+        private void InitializeUnit(Unit unit)
+        {
+            UnitWrapper = new UnitWrapper(unit);
+            UnitWrapper.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(UnitWrapper.HasErrors))
+                {
+                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                }
+            };
+            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            if (UnitWrapper.Id == 0)
+            {
+                // Little trick to trigger the validation
+                UnitWrapper.Name = "";
+            }
+            if(unit.ParentUnitId.HasValue)
+            {
+                foreach (var item in Units)
+                {
+                    if(item.Id.Equals(unit.ParentUnitId))
+                    {
+                        ParentUnit = item;
+                        break;
+                    }
+                }
+            }
         }
 
         protected override void OnDeleteExecute()
         {
-            throw new NotImplementedException();
+            var result = _messageDialogService.ShowOkCancelDialog($"Do you really want to delete the Unit {UnitWrapper.Name}?", "Question");
+
+            if (result == MessageDialogResult.Cancel)
+                return;
+            new GetReasonWindow(EventAggregator).ShowDialog();
         }
 
         protected override bool OnSaveCanExecute()
         {
-            throw new NotImplementedException();
+            return UnitWrapper != null && !UnitWrapper.HasErrors;
         }
 
         protected override void OnSaveExecute()
         {
-            throw new NotImplementedException();
         }
+        private Unit CreateNewUnit()
+        {
+            var unit = new Unit();
+            return unit;
+        }
+
+
+        
     }
 }

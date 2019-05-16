@@ -47,6 +47,7 @@ namespace Warehouses.UI.ViewModels
                   .Publish(
               new OpenDetailViewEventArgs
               {
+                  Id = this.Id,
                   ViewModelName = _detailViewModelName
           });
     }

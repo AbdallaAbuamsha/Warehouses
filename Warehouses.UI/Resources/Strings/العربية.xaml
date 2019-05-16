@@ -13,7 +13,8 @@
 
     <system:String x:Key="add_unit_title">إضافة واحدة</system:String>
     <system:String x:Key="unit_name">اسم الواحدة</system:String>
-    <system:String x:Key="unit_symbol">الرمز</system:String>
+    <system:String x:Key="unit_symbol">معامل التحويل</system:String>
+    <system:String x:Key="unit_select_parent">الواحدة الأب</system:String>
     <system:String x:Key="unit_save">حفظ</system:String>
 
     <system:String x:Key="unit_relations">علاقات الواحدات</system:String>
@@ -76,7 +77,8 @@
     <system:String x:Key="server_error_title">خطأ غير متوقع</system:String>
     <system:String x:Key="server_error">خطأ غير متوقع, الرجاء إعلام قسم الدعم الفني.</system:String>
     <system:String x:Key="no_organizations_available">لا يوجد منظمات </system:String>
-    
+    <system:String x:Key="no_units_available">لا يوجد واحدات</system:String>
+
     <system:String x:Key="get_void_reason_title">سبب الحذق</system:String>
     <system:String x:Key="get_void_reason_hint">اكتب هنا لماذا تريد حذف هذا العنصر ...</system:String>
     <system:String x:Key="get_void_reason_done">تم</system:String>

@@ -36,7 +36,7 @@
                         Grid.Column="0"
                         ItemsSource="{Binding Units}"
                         SelectedItem="{Binding SelectedUnit}"
-                        DisplayMemberPath="{DynamicResource unit_relation_selecte_unit}"
+                        DisplayMemberPath="Name"
                         materialDesign:HintAssist.Hint="Unit"                        
                         Padding="0 0 0 5"
                         Margin="10 10 10 0"

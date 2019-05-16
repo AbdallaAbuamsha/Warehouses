@@ -16,7 +16,7 @@ namespace Warehouses.UI.Wrappers
         }
         public long Id
         {
-            get { return GetValue<int>(); }
+            get { return GetValue<long>(); }
             set { SetValue(value); }
         }
         public string Name
@@ -25,9 +25,9 @@ namespace Warehouses.UI.Wrappers
             set { SetValue(value); }
         }
 
-        public string Symbol
+        public decimal? Factor
         {
-            get { return GetValue<string>(); }
+            get { return GetValue<decimal?>(); }
             set { SetValue(value); }
         }
     }

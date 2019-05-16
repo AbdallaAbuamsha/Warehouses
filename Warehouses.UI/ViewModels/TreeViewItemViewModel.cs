@@ -27,6 +27,9 @@ namespace Warehouses.UI.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        public override string ToString()
+        {
+            return DisplayMember;
+        }
     }
 }

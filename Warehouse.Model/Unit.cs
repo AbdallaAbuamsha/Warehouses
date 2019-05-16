@@ -11,11 +11,12 @@ namespace Warehouses.Model
     {
         public long Id { get; set; }
         [MaxLength(50)]
-        [MinLength(3)]
         [Required]
         public string Name { get; set; }
-        [MaxLength(50)]
-        [Required]
-        public string Symbol { get; set; }
+        public decimal? Factor { get; set; }
+        public long? ParentUnitId { get; set; }
+        public Unit ParentUnit { get; set; }
+        public bool IsVoid { get; set; }
+        public string VoidReason { get; set; }
     }
 }

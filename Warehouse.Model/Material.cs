@@ -10,6 +10,14 @@ namespace Warehouses.Model
     public class Material
     {
         public long Id { get; set; }
+        //[MaxLength(50)]
+        //[MinLength(3)]
+        //[Required]
+        //public string Name { get; set; }
+        [MaxLength(50)]
+        [MinLength(3)]
+        [Required]
+        public string LatinName { get; set; }
         [MaxLength(50)]
         [MinLength(3)]
         [Required]

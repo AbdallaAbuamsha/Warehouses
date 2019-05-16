@@ -15,7 +15,7 @@
         xmlns:views="clr-namespace:Warehouses.UI.Views.UserControls"
         xmlns:mycontrols="clr-namespace:Warehouses.UI.MyControls"
         WindowStartupLocation="CenterScreen"
-        Title="AddOrganization" Height="850" Width="1050"
+        Title="AddOrganization" Height="780" Width="1050"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         WindowStyle="None">
@@ -57,16 +57,26 @@
 
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="20">
             <!---->
-            <views:AddMaterialNameDetails DataContext="{Binding AddMaterialNameViewModel}"/>
+            <!--<views:AddMaterialNameDetails DataContext="{Binding AddMaterialNameViewModel}"/>-->
             <!--First Name-->
             <StackPanel Grid.Column="0">
+            <TextBox
+                materialDesign:HintAssist.Hint="{DynamicResource material_name}"
+                Text="{Binding Material.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox
+                materialDesign:HintAssist.Hint="{DynamicResource material_latin}"
+                Text="{Binding Material.LatinName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
             <ComboBox
                 ItemsSource="{Binding Organizations}"
                 SelectedItem="{Binding Material.SelectedOrganization}"
                 DisplayMemberPath="Name"
                 materialDesign:HintAssist.Hint="Organization"
                 Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
-                Margin="10 30 10 10"/>
+                Margin="10 10 10 10"/>
             <TextBox
                 materialDesign:HintAssist.Hint="{DynamicResource material_code}"
                 Text="{Binding Material.Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -90,23 +100,14 @@
                 Text="{Binding Material.Barcode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
-            <CheckBox
-                Margin="10 20 10 10"
-                Content="Serializable"
-                IsChecked="{Binding Serializable}"/>
             <!--<TextBox
                 materialDesign:HintAssist.Hint="{DynamicResource material_serial}"
                 Text="{Binding Material.Serial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />-->
 
-
-
-        </StackPanel>
-
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="20">
-            <GroupBox Header="{DynamicResource material_sale_information}">
-                <StackPanel>
+            <!--<GroupBox Header="{DynamicResource material_sale_information}">-->
+                <!--<StackPanel>-->
                     <mycontrols:DoubleTextBox
                         materialDesign:HintAssist.Hint="{DynamicResource material_maximum_sale_amount}"
                         Text="{Binding Material.MaximumSaleAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=2000}"
@@ -128,12 +129,22 @@
                         Text="{Binding Material.FreeReferencesAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=2000}"
                         Margin="10"
                         Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
-                </StackPanel>
-            </GroupBox>
+                <!--</StackPanel>-->
+            <!--</GroupBox>-->
+                <CheckBox
+                    Margin="10 20 10 0"
+                    Content="Serializable"
+                    IsChecked="{Binding Serializable}"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="20">
+            
             <GroupBox Header="{DynamicResource material__related_units_information}" >
                 <views:AddUnitToMaterial DataContext="{Binding AddRelatedMaterialUnitViewModel}"/>
             </GroupBox>
-            <GroupBox Header="{DynamicResource material_un_retlated_units_information}" >
+            <GroupBox Header="{DynamicResource material_un_retlated_units_information}"
+                      Margin="0 30">
                 <views:AddUnitToMaterial DataContext="{Binding AddUnRelatedMaterialUnitViewModel}"/>
             </GroupBox>
         </StackPanel>

@@ -4,26 +4,43 @@ using Prism.Events;
 using Warehouses.UI.Events;
 using Warehouses.UI.Data;
 using Warehouses.Model;
+using Warehouses.UI.Helper;
+using Warehouses.UI.Views.Services;
+using System.Windows;
 
 namespace Warehouses.UI.ViewModels
 {
     public class MaterialNavigationViewModel : NavigationViewModel
     {
-        private IMaterialDataService _materialService;
+        private IMessageDialogService _messageDialogService;
         private ObservableCollection<NavigationItemViewModel> _materials;
 
         public MaterialNavigationViewModel(
             IEventAggregator eventAggregator,
-            IMaterialDataService materialService)
+            IMessageDialogService messageDialogService)
             : base(eventAggregator)
         {
-            _materialService = materialService;
+            _messageDialogService = messageDialogService;
             Materials = new ObservableCollection<NavigationItemViewModel>();
         }
 
         public override void Load()
         {
-            var materials = _materialService.GetAll();
+            //var materials = _materialService.GetAll();
+            ResultObject resultObject = BusinessLayer.Material_BL.GetAll(AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Material> materialResultList = (ResultList<Material>)resultObject.Data;
+            if (materialResultList.TotalCount == 0)
+            {
+                _messageDialogService.ShowInfoDialog(Application.Current.FindResource("no_materials_available").ToString());
+                return;
+            }
+
+            var materials = materialResultList.List;
             Materials.Clear();
             foreach (var mat in materials)
             {

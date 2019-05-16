@@ -11,6 +11,7 @@ using System.Windows.Input;
 using Warehouses.BusinessLayer;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using Warehouses.UI.Events;
 using Warehouses.UI.Helper;
 using Warehouses.UI.Views.Services;
 using Warehouses.UI.Wrappers;
@@ -37,7 +38,8 @@ namespace Warehouses.UI.ViewModels
             _materialDataService = materialDataService;
             _eventAggregator = eventAggregator;
             _messageDialogService = messageDialogService;
-            AddMaterialNameViewModel = addMaterialNameViewModel;
+            // commented because the data access layer doesn't support mutli names yet .... please dont delete this
+            //AddMaterialNameViewModel = addMaterialNameViewModel; 
             this.AddRelatedMaterialUnitViewModel = addRelatedMaterialUnitViewModel;
             this.AddUnRelatedMaterialUnitViewModel = addUnRelatedMaterialUnitViewModel;
 
@@ -66,7 +68,7 @@ namespace Warehouses.UI.ViewModels
         public void Load()
         {
             var materials = _materialDataService.GetAll();
-            AddMaterialNameViewModel.Load();
+            //AddMaterialNameViewModel.Load();
             AddRelatedMaterialUnitViewModel.Load(true);
             AddUnRelatedMaterialUnitViewModel.Load(false);
             FillLists<Material>(Materials, materials);
@@ -89,12 +91,12 @@ namespace Warehouses.UI.ViewModels
 
         private bool ExecuteCanSaveCommand(Window window)
         {
-           return Material != null && !Material.HasErrors && AddMaterialNameViewModel.GetNames().Count > 0 && Material.SelectedOrganization != null;
+           return Material != null && !Material.HasErrors && /*AddMaterialNameViewModel.GetNames().Count > 0 &&*/ Material.SelectedOrganization != null;
         }
 
         private void ExecuteSaveCommand(Window window)
         {
-            ObservableCollection<MaterialName> listOfNames = AddMaterialNameViewModel.GetNames();
+            //ObservableCollection<MaterialName> listOfNames = AddMaterialNameViewModel.GetNames();
             ObservableCollection<MaterialUnitListItemViewModel> listOfRelatedUnits = AddRelatedMaterialUnitViewModel.GetUnits();
             ObservableCollection<MaterialUnitListItemViewModel> listOfUnRelatedUnits = AddUnRelatedMaterialUnitViewModel.GetUnits();
             StringBuilder materialNames = new StringBuilder();
@@ -102,23 +104,26 @@ namespace Warehouses.UI.ViewModels
             StringBuilder unRelatedUnitNames = new StringBuilder();
             string name, latinName;
             long unitId = 0;
-            if (listOfNames.Count == 0)
-            {
-                _messageDialogService.ShowInfoDialog("Please add one name at least");
-                return;
-            }
+            long? parentId = null;
+            // commented because the data access layer doesn't support mutli names yet .... please dont delete this
+            //if (listOfNames.Count == 0)
+            //{
+            //    _messageDialogService.ShowInfoDialog("Please add one name at least");
+            //    return;
+            //}
             if (listOfRelatedUnits.Count == 0)
             {
                 _messageDialogService.ShowInfoDialog("Please add one unit at least");
                 return;
             }
-            name = listOfNames[0].Name;
-            latinName = (listOfNames.Count > 1) ? listOfNames[1].Name : "";
+            // commented because the data access layer doesn't support mutli names yet .... please dont delete this
+            //name = listOfNames[0].Name;
+            //latinName = (listOfNames.Count > 1) ? listOfNames[1].Name : "";
+            //foreach (var item in listOfNames)
+            //{
+            //    materialNames.Append(item.Name + "\n");
+            //}
             unitId = listOfRelatedUnits[0].Unit.Id;
-            foreach (var item in listOfNames)
-            {
-                materialNames.Append(item.Name + "\n");
-            }
             foreach (var item in listOfRelatedUnits)
             {
                 relatedUnitName.Append(item.Unit.Name + "\n");
@@ -127,25 +132,34 @@ namespace Warehouses.UI.ViewModels
             {
                 unRelatedUnitNames.Append(item.Unit.Name + "\n");
             }
-            //ResultObject resultObject = Material_BL.Create(name, latinName, Material.Code, Material.Barcode, true, unitId, Material.MinimumSaleAmount, Material.MaximumSaleAmount, Material.FreeReferencesAmount, 1, null);
-            MessageBox.Show(
-                ""+materialNames.ToString()+
-                "code "+Material.Code + "\n" +
-                "barcode "+Material.Barcode + "\n" +
-                "max sale"+Material.MaximumSaleAmount + "\n" +
-                "min sale"+Material.MinimumSaleAmount + "\n" +
-                //"dazon "+Material.DazonElementsCount + "\n" +
-                "free "+Material.FreeReferencesAmount + "\n" +
-                "serializable "+Serializable.ToString() + "\n" +
-                "relateds "+relatedUnitName.ToString() +
-                "unrelateds"+unRelatedUnitNames
-                );
+            if (SelectedParent != null) parentId = SelectedParent.Id;
+            ResultObject resultObject = Material_BL.Create(Material.Name, Material.LatinName, Material.Code, Material.Barcode, Serializable, unitId, Material.MinimumSaleAmount, Material.MaximumSaleAmount, Material.FreeReferencesAmount, Material.SelectedOrganization.Id, parentId, AppConstants.ARABIC);
+            _eventAggregator.GetEvent<AfterDetailSavedEvent>().Publish(
+            new AfterDetailSavedEventArgs
+            {
+                Id = Material.Id,
+                DisplayMember = Material.Name,
+                ViewModelName = nameof(MaterialDetailViewModel)
+            });
+            //MessageBox.Show(
+            //    ""+materialNames.ToString()+
+            //    "code "+Material.Code + "\n" +
+            //    "barcode "+Material.Barcode + "\n" +
+            //    "max sale"+Material.MaximumSaleAmount + "\n" +
+            //    "min sale"+Material.MinimumSaleAmount + "\n" +
+            //    //"dazon "+Material.DazonElementsCount + "\n" +
+            //    "free "+Material.FreeReferencesAmount + "\n" +
+            //    "serializable "+Serializable.ToString() + "\n" +
+            //    "relateds "+relatedUnitName.ToString() +
+            //    "unrelateds"+unRelatedUnitNames
+            //    );
         }
         private void ExecuteCloseOrganizationCommand(Window window)
         {
             window.Close();
         }
-        public IAddMaterialNameDetailsViewModel AddMaterialNameViewModel { get; set; }
+        // commented because the data access layer doesn't support mutli names yet .... please dont delete this
+        //public IAddMaterialNameDetailsViewModel AddMaterialNameViewModel { get; set; }
 
         public IAddMaterialUnitDetailsViewModel AddRelatedMaterialUnitViewModel { get; set; }
         public IAddMaterialUnitDetailsViewModel AddUnRelatedMaterialUnitViewModel { get; set; }

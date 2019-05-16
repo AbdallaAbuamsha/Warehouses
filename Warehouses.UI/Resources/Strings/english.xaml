@@ -33,6 +33,9 @@
     <system:String x:Key="material_name_table_language">Language</system:String>
     <system:String x:Key="material_name_table_delete">Delete</system:String>
 
+    <system:String x:Key="material_name">Material Name</system:String>
+    <system:String x:Key="material_latin">Material Latin Name</system:String>
+
     <system:String x:Key="material_code">Material Code</system:String>
     <system:String x:Key="material_parent_name">Parent Name</system:String>
     <system:String x:Key="material_parent_code">Parent Code</system:String>

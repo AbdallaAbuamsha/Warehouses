@@ -4,20 +4,26 @@ using System.Windows.Input;
 using Warehouses.Model;
 using Warehouses.UI.Data;
 using System;
+using Prism.Events;
+using Warehouses.UI.Views.Services;
+using Warehouses.UI.Helper;
+using System.Windows;
 
 namespace Warehouses.UI.ViewModels
 {
     class AddMaterialUnitDetailsViewModel : ViewModelBase, IAddMaterialUnitDetailsViewModel
     {
-        IUnitDataService _unitDataService;
         private Unit _selecteUnit;
         private MaterialUnitListItemViewModel _defaultUnit;
         private ObservableCollection<MaterialUnitListItemViewModel> _materialUnits;
+        IMessageDialogService _messageDialogService;
+        IEventAggregator _eventAggregator;
 
-
-        public AddMaterialUnitDetailsViewModel(IUnitDataService unitDataService)
+        public AddMaterialUnitDetailsViewModel(IMessageDialogService messageDialogService,
+            IEventAggregator eventAggregator)
         {
-            this._unitDataService = unitDataService;
+            _messageDialogService = messageDialogService;
+            _eventAggregator = eventAggregator;
             Units = new ObservableCollection<Unit>();
             MaterialUnits = new ObservableCollection<MaterialUnitListItemViewModel>();
             Add = new DelegateCommand(ExecuteAddCommand, ExecuteCanAddCommand);
@@ -48,7 +54,20 @@ namespace Warehouses.UI.ViewModels
             //Todo: Change the get method
             //Todo: Change the groupbox data
             //Todo: Change the hint data
-            var units = _unitDataService.GetAll();
+            //var units = _unitDataService.GetAll();
+            ResultObject resultObject = BusinessLayer.Unit_BL.GetAll(AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Unit> unitResultList = (ResultList<Unit>)resultObject.Data;
+            if (unitResultList.TotalCount == 0)
+            {
+                _messageDialogService.ShowInfoDialog(Application.Current.FindResource("no_units_available").ToString());
+                return;
+            }
+            var units = unitResultList.List;
             FillLists(Units, units);
         }
 

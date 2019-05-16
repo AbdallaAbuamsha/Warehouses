@@ -59,5 +59,23 @@ namespace Warehouses.BusinessLayer
             temp.VoidReason = unit.VOID_REASON;
             return temp;
         }
+        protected static Material ConvertMaterial(WAR_MATERIAL material)
+        {
+            Material temp = new Material();
+            temp.Id = material.ID;
+            temp.Name = material.NAME;
+            temp.LatinName = material.LATIN_NAME;
+            temp.Code = material.CODE;
+            temp.Barcode = material.BARCODE;
+            temp.Serializable = material.SERIALIZABLE;
+            temp.MinimumSaleAmount = material.MIN_QUANTITY;
+            temp.MaximumSaleAmount = material.MAX_QUANTITY;
+            temp.FreeReferencesAmount = material.FREE_QUANTITY;
+            temp.OrganizationId = material.ORGANIZATION_ID;
+            temp.ParentId = material.PARENT_MATERIAL_ID;
+            temp.IsVoid = material.IS_VOID;
+            temp.VoidReason = material.VOID_REASON;
+            return temp;
+        }
     }
 }

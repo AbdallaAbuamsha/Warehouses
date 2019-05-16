@@ -16,7 +16,7 @@ namespace Warehouses.UI.Wrappers
 
         public long Id
         {
-            get { return GetValue<int>(); }
+            get { return GetValue<long>(); }
             set { SetValue(value); }
         }
         //public string Name
@@ -24,6 +24,16 @@ namespace Warehouses.UI.Wrappers
         //    get { return GetValue<string>(); }
         //    set { SetValue(value); }
         //}
+        public string Name
+        {
+            get { return GetValue<string>(); }
+            set { SetValue(value); }
+        }
+        public string LatinName
+        {
+            get { return GetValue<string>(); }
+            set { SetValue(value); }
+        }
         public string Code
         {
             get { return GetValue<string>(); }

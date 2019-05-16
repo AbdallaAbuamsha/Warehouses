@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Warehouses.BusinessLayer;
 using Warehouses.Model;
 using Warehouses.UI.Data;
+using Warehouses.UI.Events;
 using Warehouses.UI.Helper;
 using Warehouses.UI.Views.Popups;
 using Warehouses.UI.Views.Services;
@@ -35,6 +36,7 @@ namespace Warehouses.UI.ViewModels
             _messageDialogService = messageDialogService;
             Names = new ObservableCollection<string>();
             Units = new ObservableCollection<Unit>();
+            EventAggregator.GetEvent<GetVoidReasonEvent>().Subscribe(OnGetVoidReason);
 
         }
 
@@ -157,11 +159,26 @@ namespace Warehouses.UI.ViewModels
 
         protected override void OnDeleteExecute()
         {
-            var result = _messageDialogService.ShowOkCancelDialog($"Do you really want to delete the Unit {UnitWrapper.Name}?", "Question");
-
-            if (result == MessageDialogResult.Cancel)
-                return;
             new GetReasonWindow(EventAggregator).ShowDialog();
+        }
+        private void OnGetVoidReason(string voidReason)
+        {
+            ResultObject resultObject = Unit_BL.Delete(UnitWrapper.Id, voidReason, AppConstants.ARABIC);
+            if (resultObject.Code < AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            bool res = (bool)resultObject.Data;
+            if (res == true)
+            {
+                MessageDialogService.ShowInfoDialog("Deleted Seccessfully");
+                RaiseDetailDeletedEvent(UnitWrapper.Id);
+            }
+            else
+            {
+                MessageDialogService.ShowInfoDialog("Delete Failed");
+            }
         }
 
         protected override bool OnSaveCanExecute()

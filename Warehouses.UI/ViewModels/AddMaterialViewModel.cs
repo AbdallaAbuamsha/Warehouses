@@ -119,7 +119,6 @@ namespace Warehouses.UI.ViewModels
             StringBuilder materialNames = new StringBuilder();
             StringBuilder relatedUnitName = new StringBuilder();
             StringBuilder unRelatedUnitNames = new StringBuilder();
-            string name, latinName;
             long unitId = 0;
             long? parentId = null;
             // commented because the data access layer doesn't support mutli names yet .... please dont delete this
@@ -158,18 +157,6 @@ namespace Warehouses.UI.ViewModels
                 DisplayMember = Material.Name,
                 ViewModelName = nameof(MaterialDetailViewModel)
             });
-            //MessageBox.Show(
-            //    ""+materialNames.ToString()+
-            //    "code "+Material.Code + "\n" +
-            //    "barcode "+Material.Barcode + "\n" +
-            //    "max sale"+Material.MaximumSaleAmount + "\n" +
-            //    "min sale"+Material.MinimumSaleAmount + "\n" +
-            //    //"dazon "+Material.DazonElementsCount + "\n" +
-            //    "free "+Material.FreeReferencesAmount + "\n" +
-            //    "serializable "+Serializable.ToString() + "\n" +
-            //    "relateds "+relatedUnitName.ToString() +
-            //    "unrelateds"+unRelatedUnitNames
-            //    );
         }
         private void ExecuteCloseOrganizationCommand(Window window)
         {

@@ -70,16 +70,17 @@ namespace Warehouses.UI.ViewModels
             }
             var units = unitResultList.List;
             FillLists(Units, units);
-            foreach (var item in alreadyAddedUnits)
-            {
-                SelectedUnit = item;
-                ExecuteAddCommand();
-                if(item.Id == defaultUnitId)
-                {
-                    
-                }
 
-            }
+            //foreach (var item in alreadyAddedUnits)
+            //{
+            //    SelectedUnit = item;
+            //    ExecuteAddCommand();
+            //    if(item.Id == defaultUnitId)
+            //    {
+                    
+            //    }
+
+            //}
         }
 
         private void ExecuteAddCommand()

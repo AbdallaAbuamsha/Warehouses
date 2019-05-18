@@ -51,6 +51,11 @@
     <Compile Include="Material_BL.cs" />
     <Compile Include="Organization_BL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Unit_BL.cs" />
     <Compile Include="User_BL.cs" />
     <Compile Include="Warehouse_BL.cs" />
@@ -60,6 +65,12 @@
       <Project>{323a73ce-9dc5-47b2-9e19-ba45d191da29}</Project>
       <Name>Warehouses.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

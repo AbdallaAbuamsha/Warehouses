@@ -37,7 +37,23 @@ namespace Warehouses.BusinessLayer
             }
         }
 
-
+        public static ResultObject GetById(long materialId, string language)
+        {
+            BusinessException exception = null;
+            ResultObject resultObject = new ResultObject();
+            MethodBase methodInfo = MethodBase.GetCurrentMethod();
+            string functionFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
+            try
+            {
+                WAR_MATERIAL resultDal = WarehousesManagementEF.Material.GetById(materialId, out exception, language);
+                Material data = ConvertMaterial(resultDal);
+                return ReturnResultObject(data, exception.code, exception.Message);
+            }
+            catch
+            {
+                return ReturnResultObject(null, exception.code, exception.Message);
+            }
+        }
 
         public static ResultObject Create(string name, string latinName, string code, string barcode, bool serializable, long basicUnitId, decimal? minQuantity, decimal? maxQuantity, decimal? freeQuantity, long organizationId, long? parentMaterialId, string lang)
         {           
@@ -49,6 +65,23 @@ namespace Warehouses.BusinessLayer
             {                
                 long id = WarehousesManagementEF.Material.Create(name, latinName, code, barcode, serializable, basicUnitId,  minQuantity, maxQuantity, freeQuantity, organizationId, parentMaterialId, out exception, lang);
                 return ReturnResultObject(id, exception.code, exception.Message);
+            }
+            catch
+            {
+                return ReturnResultObject(null, exception.code, exception.Message);
+            }
+        }
+
+        public static ResultObject Delete(long materialId, string voidReason, string language)
+        {
+            BusinessException exception = null;
+            ResultObject resultObject = new ResultObject();
+            MethodBase methodInfo = MethodBase.GetCurrentMethod();
+            string functionFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
+            try
+            {
+                bool deleteStatus = WarehousesManagementEF.Organization.Delete(materialId, voidReason, out exception, language);
+                return ReturnResultObject(deleteStatus, exception.code, exception.Message);
             }
             catch
             {

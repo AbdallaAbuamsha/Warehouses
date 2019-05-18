@@ -52,7 +52,7 @@ namespace Warehouses.BusinessLayer
             string functionFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
             try
             {
-                long resultDal = WarehousesManagementEF.User.Create("Abdalla", "Abuamsha", "abd", "12345", 1, 23, "Rukn Al-deen", "09366180200", out exception, "ar");
+                long resultDal = WarehousesManagementEF.User.Create("admin", "admin", "admin", "admin", 1, 23, "admin", "0900000000", out exception, "ar");
 
                 Model.User data = new Model.User();
 

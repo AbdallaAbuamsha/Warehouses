@@ -22,6 +22,8 @@ namespace Warehouses.UI.ViewModels
     {
         IEventAggregator _eventAggregator;
         IMessageDialogService _messageDialogService;
+        private bool _serializable;
+        private MaterialWrapper _material;
 
         private Material _selectedParent;
         private IMaterialDataService _materialDataService;
@@ -67,12 +69,27 @@ namespace Warehouses.UI.ViewModels
         }
         public void Load()
         {
-            var materials = _materialDataService.GetAll();
+            //var materials = _materialDataService.GetAll();
             //AddMaterialNameViewModel.Load();
+            ResultObject resultObject = BusinessLayer.Material_BL.GetAll(AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Material> materialResultList = (ResultList<Material>)resultObject.Data;
+            if (materialResultList.TotalCount == 0)
+            {
+                _messageDialogService.ShowInfoDialog(Application.Current.FindResource("no_materials_available").ToString());
+                return;
+            }
+
+            var materials = materialResultList.List;
             AddRelatedMaterialUnitViewModel.Load(true);
             AddUnRelatedMaterialUnitViewModel.Load(false);
-            FillLists<Material>(Materials, materials);
-            ResultObject resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
+
+            FillLists(Materials, materials);
+            resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
             if (resultObject.Code == AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
@@ -196,8 +213,6 @@ namespace Warehouses.UI.ViewModels
                 }
             }
         }
-        private MaterialWrapper _material;
-        private bool _serializable;
 
         public MaterialWrapper Material
         {

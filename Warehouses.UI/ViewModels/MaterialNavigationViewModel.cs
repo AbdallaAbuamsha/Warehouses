@@ -74,7 +74,7 @@ namespace Warehouses.UI.ViewModels
 
         protected override void AfterDetailSaved(AfterDetailSavedEventArgs args)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         protected override void AfterDetailSaved(ObservableCollection<TreeViewItemViewModel> items, AfterDetailSavedEventArgs args)

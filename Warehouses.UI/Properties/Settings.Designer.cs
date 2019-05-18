@@ -70,5 +70,17 @@ namespace Warehouses.UI.Properties {
                 this["Password"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsFirstUse {
+            get {
+                return ((bool)(this["IsFirstUse"]));
+            }
+            set {
+                this["IsFirstUse"] = value;
+            }
+        }
     }
 }

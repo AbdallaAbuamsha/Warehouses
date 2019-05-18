@@ -8,6 +8,7 @@ using Prism.Events;
 using Warehouses.UI.Views.Services;
 using Warehouses.UI.Helper;
 using System.Windows;
+using System.Collections.Generic;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -48,7 +49,7 @@ namespace Warehouses.UI.ViewModels
 
         }
 
-        public void Load(bool isRelated)
+        public void Load(bool isRelated, List<Unit> alreadyAddedUnits = null, long defaultUnitId = -1)
         {
 
             //Todo: Change the get method
@@ -69,6 +70,16 @@ namespace Warehouses.UI.ViewModels
             }
             var units = unitResultList.List;
             FillLists(Units, units);
+            foreach (var item in alreadyAddedUnits)
+            {
+                SelectedUnit = item;
+                ExecuteAddCommand();
+                if(item.Id == defaultUnitId)
+                {
+                    
+                }
+
+            }
         }
 
         private void ExecuteAddCommand()

@@ -17,6 +17,15 @@ namespace Warehouses.UI
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            //Settings.Default.IsFirstUse = false;
+            //Settings.Default.Save();
+
+            if (Settings.Default.IsFirstUse == false)
+            {
+                Settings.Default.IsFirstUse = true;
+                BusinessLayer.User_BL.CreateUser();
+                Settings.Default.Save();
+            }
             if (Settings.Default.RememberMe == true)
             {
                 string username = Settings.Default.Username;
@@ -33,6 +42,7 @@ namespace Warehouses.UI
                     Settings.Default.RememberMe = false;
                     Settings.Default.Username = "";
                     Settings.Default.Password = "";
+                    Settings.Default.Save();
                     LoginWindow login = Bootstrapper.Builder.Resolve<LoginWindow>();
                     login.Show();
                     return;

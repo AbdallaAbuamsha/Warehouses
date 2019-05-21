@@ -109,8 +109,14 @@ namespace Warehouses.UI.ViewModels
 
         protected override void OnSaveExecute()
         {
-            bool res = _organizationService.Save(_organizationWrapper.Model);
-            if (res == true)
+            ResultObject resultObject = BusinessLayer.Organization_BL.Edit(OrganizationWrapper.Id, OrganizationWrapper.Name, OrganizationWrapper.Location, UserSingleton.GetUserId(), AppConstants.ARABIC);
+            if (resultObject.Code <= AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            bool editStatus = (bool)resultObject.Data;
+            if (editStatus == true)
             {
                 MessageDialogService.ShowInfoDialog("Saved Seccessfully");
                 RaiseDetailSavedEvent(OrganizationWrapper.Id, $"{OrganizationWrapper.Name}");
@@ -119,6 +125,14 @@ namespace Warehouses.UI.ViewModels
             {
                 MessageDialogService.ShowInfoDialog("Saved Failed");
             }
+
+            EventAggregator.GetEvent<AfterDetailSavedEvent>().Publish(
+                new AfterDetailSavedEventArgs
+                {
+                    Id = OrganizationWrapper.Id,
+                    DisplayMember = OrganizationWrapper.Name,
+                    ViewModelName = nameof(OrganizationDetailViewModel)
+                });
         }
         private Organization CreateNewOrganization()
         {

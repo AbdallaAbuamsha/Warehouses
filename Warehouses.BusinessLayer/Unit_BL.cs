@@ -12,6 +12,7 @@ namespace Warehouses.BusinessLayer
 {
     public class Unit_BL : BusinessBase
     {
+
         public static ResultObject GetAll(string language)
         {
             BusinessException exception = null;

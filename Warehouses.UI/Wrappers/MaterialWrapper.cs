@@ -65,7 +65,7 @@ namespace Warehouses.UI.Wrappers
         //    set { SetValue(value); }
         //}
         public decimal? FreeReferencesAmount
-        {
+        { 
             get { return GetValue<decimal?>(); }
             set { SetValue(value); }
         }
@@ -81,6 +81,11 @@ namespace Warehouses.UI.Wrappers
             get { return GetValue<bool>(); }
             set { SetValue(value); }
         }
+        public Unit SelectedUnit
+        {
+            get { return GetValue<Unit>(); }
+            set { SetValue(value); }
+        }
         protected override IEnumerable<string> ValidateProperty(string propertyName)
         {
             switch (propertyName)
@@ -89,6 +94,12 @@ namespace Warehouses.UI.Wrappers
                     if (SelectedOrganization == null)
                     {
                         yield return "Organization is required";
+                    }
+                    break;
+                case nameof(SelectedUnit):
+                    if (SelectedUnit == null)
+                    {
+                        yield return "Basic unit is required";
                     }
                     break;
             }

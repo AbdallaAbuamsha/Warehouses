@@ -42,7 +42,7 @@
                         Padding="24 0"
                         Content="{DynamicResource material_unit_add}"
                         VerticalAlignment="Center"/>
-            <ScrollViewer Grid.Row="1" Height="180"  Margin="0 10 0 0"  Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Grid.Row="1" Height="140"  Margin="0 10 0 0"  Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Vertical">
                     <Grid x:Name="dataHeader">
                         <Grid.ColumnDefinitions>

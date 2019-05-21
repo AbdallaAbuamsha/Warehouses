@@ -24,31 +24,32 @@ namespace Warehouses.UI.ViewModels
         IMessageDialogService _messageDialogService;
         private bool _serializable;
         private MaterialWrapper _material;
-
         private Material _selectedParent;
-        private IMaterialDataService _materialDataService;
         private string _parentCode;
+        private Unit _selectedUnit;
 
         public AddMaterialViewModel(
             IEventAggregator eventAggregator,
-            IMaterialDataService materialDataService, 
             IAddMaterialNameDetailsViewModel addMaterialNameViewModel,
-            IAddMaterialUnitDetailsViewModel addRelatedMaterialUnitViewModel,
-            IAddMaterialUnitDetailsViewModel addUnRelatedMaterialUnitViewModel,
+            // commented because unrelated materials has been bended and not GetRelatedUnitsByUnitId exist in data access layer
+            //IAddMaterialUnitDetailsViewModel addRelatedMaterialUnitViewModel,
+            //IAddMaterialUnitDetailsViewModel addUnRelatedMaterialUnitViewModel,
             IMessageDialogService messageDialogService)
         {
-            _materialDataService = materialDataService;
             _eventAggregator = eventAggregator;
             _messageDialogService = messageDialogService;
             // commented because the data access layer doesn't support mutli names yet .... please dont delete this
             //AddMaterialNameViewModel = addMaterialNameViewModel; 
-            this.AddRelatedMaterialUnitViewModel = addRelatedMaterialUnitViewModel;
-            this.AddUnRelatedMaterialUnitViewModel = addUnRelatedMaterialUnitViewModel;
+
+            // commented because unrelated materials has been bended and not GetRelatedUnitsByUnitId exist in data access layer
+            //this.AddRelatedMaterialUnitViewModel = addRelatedMaterialUnitViewModel;
+            //this.AddUnRelatedMaterialUnitViewModel = addUnRelatedMaterialUnitViewModel;
 
             Materials = new ObservableCollection<Material>();
             Save = new DelegateCommand<Window>(ExecuteSaveCommand, ExecuteCanSaveCommand);
             Close = new DelegateCommand<Window>(ExecuteCloseOrganizationCommand);
             Organizations = new ObservableCollection<Organization>();
+            Units = new ObservableCollection<Unit>();
             Material = new MaterialWrapper(new Material());
             Material.PropertyChanged += (s, e) =>
             {
@@ -58,19 +59,70 @@ namespace Warehouses.UI.ViewModels
                 }
             };
             ((DelegateCommand<Window>)Save).RaiseCanExecuteChanged();
+            Material.Name = "";
+            Material.LatinName = "";
             Material.Code = "";
             Material.Barcode = "";
-            //Material.Serial = "";
             Material.MaximumSaleAmount = null;
             Material.MinimumSaleAmount = null;
             //Material.DazonElementsCount = null;
             Material.FreeReferencesAmount = null;
             Material.SelectedOrganization = null;
+            Material.SelectedUnit = null;
         }
+
         public void Load()
         {
-            //var materials = _materialDataService.GetAll();
             //AddMaterialNameViewModel.Load();
+            //Get all materials to select material parent
+            LoadMaterials();
+            LoadOrganizations();
+            LoadUnits();
+            
+            // commented because unrelated materials has been bended and not GetRelatedUnitsByUnitId exist in data access layer
+            //AddRelatedMaterialUnitViewModel.Load(true);
+            //AddUnRelatedMaterialUnitViewModel.Load(false);
+
+        }
+
+        private void LoadUnits()
+        {
+            ResultObject resultObject = BusinessLayer.Unit_BL.GetAll(AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Unit> unitResultList = (ResultList<Unit>)resultObject.Data;
+            if (unitResultList.TotalCount == 0)
+            {
+                _messageDialogService.ShowInfoDialog(Application.Current.FindResource("no_units_available").ToString());
+                return;
+            }
+            var units = unitResultList.List;
+            FillLists(Units, units);
+        }
+
+        private void LoadOrganizations()
+        {
+            ResultObject resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Organization> organizationResultList = (ResultList<Organization>)resultObject.Data;
+            if (organizationResultList.TotalCount == 0)
+            {
+                _messageDialogService.ShowInfoDialog(Application.Current.FindResource("no_organizations_available").ToString());
+                return;
+            }
+            var organizations = organizationResultList.List;
+            FillLists(Organizations, organizations);
+        }
+
+        private void LoadMaterials()
+        {
             ResultObject resultObject = BusinessLayer.Material_BL.GetAll(AppConstants.ARABIC);
             if (resultObject.Code == AppConstants.ERROR_CODE)
             {
@@ -85,25 +137,7 @@ namespace Warehouses.UI.ViewModels
             }
 
             var materials = materialResultList.List;
-            AddRelatedMaterialUnitViewModel.Load(true);
-            AddUnRelatedMaterialUnitViewModel.Load(false);
-
             FillLists(Materials, materials);
-            resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
-            {
-                _messageDialogService.ShowInfoDialog(resultObject.Message);
-                return;
-            }
-            ResultList<Organization> organizationResultList = (ResultList<Organization>)resultObject.Data;
-            if (organizationResultList.TotalCount == 0)
-            {
-                _messageDialogService.ShowInfoDialog(Application.Current.FindResource("no_organizations_available").ToString());
-                return;
-            }
-            var organizations = organizationResultList.List;
-            //var organizations = _organizationDataService.GetAll();
-            FillLists(Organizations, organizations);
         }
 
         private bool ExecuteCanSaveCommand(Window window)
@@ -114,8 +148,8 @@ namespace Warehouses.UI.ViewModels
         private void ExecuteSaveCommand(Window window)
         {
             //ObservableCollection<MaterialName> listOfNames = AddMaterialNameViewModel.GetNames();
-            ObservableCollection<MaterialUnitListItemViewModel> listOfRelatedUnits = AddRelatedMaterialUnitViewModel.GetUnits();
-            ObservableCollection<MaterialUnitListItemViewModel> listOfUnRelatedUnits = AddUnRelatedMaterialUnitViewModel.GetUnits();
+            //ObservableCollection<MaterialUnitListItemViewModel> listOfRelatedUnits = AddRelatedMaterialUnitViewModel.GetUnits();
+            //ObservableCollection<MaterialUnitListItemViewModel> listOfUnRelatedUnits = AddUnRelatedMaterialUnitViewModel.GetUnits();
             StringBuilder materialNames = new StringBuilder();
             StringBuilder relatedUnitName = new StringBuilder();
             StringBuilder unRelatedUnitNames = new StringBuilder();
@@ -127,11 +161,11 @@ namespace Warehouses.UI.ViewModels
             //    _messageDialogService.ShowInfoDialog("Please add one name at least");
             //    return;
             //}
-            if (listOfRelatedUnits.Count == 0)
-            {
-                _messageDialogService.ShowInfoDialog("Please add one unit at least");
-                return;
-            }
+            //if (listOfRelatedUnits.Count == 0)
+            //{
+            //    _messageDialogService.ShowInfoDialog("Please add one unit at least");
+            //    return;
+            //}
             // commented because the data access layer doesn't support mutli names yet .... please dont delete this
             //name = listOfNames[0].Name;
             //latinName = (listOfNames.Count > 1) ? listOfNames[1].Name : "";
@@ -139,17 +173,20 @@ namespace Warehouses.UI.ViewModels
             //{
             //    materialNames.Append(item.Name + "\n");
             //}
-            unitId = listOfRelatedUnits[0].Unit.Id;
-            foreach (var item in listOfRelatedUnits)
-            {
-                relatedUnitName.Append(item.Unit.Name + "\n");
-            }
-            foreach (var item in listOfUnRelatedUnits)
-            {
-                unRelatedUnitNames.Append(item.Unit.Name + "\n");
-            }
+
+            // commented because unrelated materials has been bended and not GetRelatedUnitsByUnitId exist in data access layer
+            //unitId = listOfRelatedUnits[0].Unit.Id;
+            //foreach (var item in listOfRelatedUnits)
+            //{
+            //    relatedUnitName.Append(item.Unit.Name + "\n");
+            //}
+            //foreach (var item in listOfUnRelatedUnits)
+            //{
+            //    unRelatedUnitNames.Append(item.Unit.Name + "\n");
+            //}
+            unitId = SelectedUnit.Id;
             if (SelectedParent != null) parentId = SelectedParent.Id;
-            ResultObject resultObject = Material_BL.Create(Material.Name, Material.LatinName, Material.Code, Material.Barcode, Serializable, unitId, Material.MinimumSaleAmount, Material.MaximumSaleAmount, Material.FreeReferencesAmount, Material.SelectedOrganization.Id, parentId, AppConstants.ARABIC);
+            ResultObject resultObject = Material_BL.Create(Material.Name, Material.LatinName, Material.Code, Material.Barcode, Material.Serializable, unitId, Material.MinimumSaleAmount, Material.MaximumSaleAmount, Material.FreeReferencesAmount, Material.SelectedOrganization.Id, parentId, AppConstants.ARABIC);
             _eventAggregator.GetEvent<AfterDetailSavedEvent>().Publish(
             new AfterDetailSavedEventArgs
             {
@@ -158,6 +195,7 @@ namespace Warehouses.UI.ViewModels
                 ViewModelName = nameof(MaterialDetailViewModel)
             });
         }
+
         private void ExecuteCloseOrganizationCommand(Window window)
         {
             window.Close();
@@ -165,10 +203,17 @@ namespace Warehouses.UI.ViewModels
         // commented because the data access layer doesn't support mutli names yet .... please dont delete this
         //public IAddMaterialNameDetailsViewModel AddMaterialNameViewModel { get; set; }
 
-        public IAddMaterialUnitDetailsViewModel AddRelatedMaterialUnitViewModel { get; set; }
-        public IAddMaterialUnitDetailsViewModel AddUnRelatedMaterialUnitViewModel { get; set; }
+        // commented because unrelated materials has been bended and not GetRelatedUnitsByUnitId exist in data access layer
+        //public IAddMaterialUnitDetailsViewModel AddRelatedMaterialUnitViewModel { get; set; }
+
+        // commented because unrelated materials has been bended and not GetRelatedUnitsByUnitId exist in data access layer
+        //public IAddMaterialUnitDetailsViewModel AddUnRelatedMaterialUnitViewModel { get; set; }
+
+        public ObservableCollection<Unit> Units { get; set; }
 
         public ObservableCollection<Material> Materials { get; set; }
+
+        public ObservableCollection<Organization> Organizations { get; set; }
 
         public Material SelectedParent
         {
@@ -178,6 +223,15 @@ namespace Warehouses.UI.ViewModels
                 _selectedParent = value;
                 OnPropertyChanged();
                 ParentCode = SelectedParent.Code;
+            }
+        }
+        public Unit SelectedUnit
+        {
+            get { return _selectedUnit; }
+            set
+            {
+                _selectedUnit = value;
+                OnPropertyChanged();
             }
         }
 
@@ -213,19 +267,6 @@ namespace Warehouses.UI.ViewModels
                 OnPropertyChanged();
             }
         }
-        public bool Serializable
-        {
-            get
-            {
-                return _serializable;
-            }
-            set
-            {
-                _serializable = value;
-                OnPropertyChanged();
-            }
-        }
-        public ObservableCollection<Organization> Organizations { get; set; }
 
         public ICommand Save { get; set; }
 

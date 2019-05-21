@@ -36,31 +36,31 @@ namespace Warehouses.Model
         public bool Serializable { get; set; }
         [Required]
         //[RegularExpression(@"^\d+\.\d{0,2}$")]
-        [RegularExpression(@"^[1-9]\d*(\.\d+)?$")]
+        [RegularExpression(@"^[0-9]\d*(\.\d+)?$")]
         [Range(0, 99999999.99)]
         public decimal? MaximumSaleAmount { get; set; }
         [Required]
         //[RegularExpression(@"^\d+\.\d{0,2}$")]
-        [RegularExpression(@"^[1-9]\d*(\.\d+)?$")]
+        [RegularExpression(@"^[0-9]\d*(\.\d+)?$")]
         [Range(0, 99999999.99)]
         public decimal? MinimumSaleAmount { get; set; }
         [Required]
         //[RegularExpression(@"^\d+\.\d{0,2}$")]
-        [RegularExpression(@"^[1-9]\d*(\.\d+)?$")]
+        [RegularExpression(@"^[0-9]\d*(\.\d+)?$")]
         [Range(0, 99999999.99)]
         public decimal? DazonElementsCount { get; set; }
         [Required]
         //[RegularExpression(@"^\d+\.\d{0,2}$")]
-        [RegularExpression(@"^[1-9]\d*(\.\d+)?$")]  
+        [RegularExpression(@"^[0-9]\d*(\.\d+)?$")]  
         [Range(0, 99999999.99)]
         public decimal? FreeReferencesAmount { get; set; }
 
-        public List<Unit> units;
+        public List<Unit> units { get; set; }
         public long? ParentId { get; set; }
         public long OrganizationId { get; set; }
         public string VoidReason { get; set; }
         public bool IsVoid { get; set; }
-
+        public Unit SelectedUnit { get; set; }
         public Organization SelectedOrganization { get; set; }
     }
 }

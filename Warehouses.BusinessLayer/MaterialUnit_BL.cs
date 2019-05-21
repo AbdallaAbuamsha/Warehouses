@@ -9,6 +9,23 @@ namespace Warehouses.BusinessLayer
 {
     public class MaterialUnit_BL : BusinessBase
     {
+        public static ResultObject GetBasicUnitByMaterialId(long materialId, string language)
+        {
+            BusinessException exception = null;
+            MethodBase methodInfo = MethodBase.GetCurrentMethod();
+            string functionFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
+            try
+            {
+                WAR_UNIT resultDal = WarehousesManagementEF.MaterialUnit.GetBasicUnitByMaterialId(materialId, out exception, language);
+
+                Model.Unit data = ConvertUnit(resultDal);
+                return ReturnResultObject(data, exception.code, exception.Message);
+            }
+            catch
+            {
+                return ReturnResultObject(null, exception.code, exception.Message);
+            }
+        }
         public static ResultObject GetAllRelatedMaterialUnits(long materialId, string language)
         {
             BusinessException exception = null;

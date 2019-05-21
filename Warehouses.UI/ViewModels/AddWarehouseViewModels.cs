@@ -133,6 +133,13 @@ namespace Warehouses.UI.ViewModels
                     Id = SelectedBranch.Id,
                     ViewModelName = (nameof(BranchDetailViewModel))
                 });
+            if (SelectedWarehouse != null)
+                _eventAggregator.GetEvent<ExpandTreeItemEvent>().Publish(
+                new ExpandTreeItemEventArgs
+                {
+                    Id = SelectedWarehouse.Id,
+                    ViewModelName = (nameof(WarehouseDetailViewModel))
+                });
             _eventAggregator.GetEvent<AfterDetailSavedEvent>().Publish(
                 new AfterDetailSavedEventArgs
                 {
@@ -153,7 +160,21 @@ namespace Warehouses.UI.ViewModels
                 _selectedOrganization = value;
                 OnPropertyChanged();
                 getSelectedOrganizationBranches();
+                getSelectedOrganizationWarehouses();
             }
+        }
+
+        private void getSelectedOrganizationWarehouses()
+        {
+            ResultObject branchResult = BusinessLayer.Warehouse_BL.GetAllByOrganizationId(SelectedOrganization.Id, AppConstants.ARABIC);
+            if (branchResult.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(branchResult.Message);
+                return;
+            }
+            ResultList<Warehouse> warehouseListResult = (ResultList<Warehouse>)branchResult.Data;
+            List<Warehouse> warehouses = warehouseListResult.List;
+            FillLists(Warehouses, warehouses);
         }
 
         private void getSelectedOrganizationBranches()

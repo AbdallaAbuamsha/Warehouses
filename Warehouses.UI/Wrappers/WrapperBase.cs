@@ -22,7 +22,7 @@ namespace FriendsOrganizer.UI.Wrappers
         protected virtual void SetValue<TValue>(TValue value, [CallerMemberName]string propertyName = null)
         {
             typeof(T).GetProperty(propertyName).SetValue(Model, value);
-
+            OnPropertyChanged(propertyName);
             ValidatePropertyInternal(propertyName, value);
         }
 

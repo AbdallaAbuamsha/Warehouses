@@ -31,26 +31,30 @@ namespace Warehouses.UI.ViewModels
             : base(eventAggregator, messageDialogService)
         {
             _materialService = materialService;
-            this.AddRelatedMaterialUnitViewModel = addRelatedMaterialUnitViewModel;
-            this.AddUnRelatedMaterialUnitViewModel = addUnRelatedMaterialUnitViewModel;
+            // commented because unrelated materials has been bended and not GetRelatedUnitsByUnitId exist in data access layer
+            //this.AddRelatedMaterialUnitViewModel = addRelatedMaterialUnitViewModel;
+            //this.AddUnRelatedMaterialUnitViewModel = addUnRelatedMaterialUnitViewModel;
             EventAggregator.GetEvent<GetVoidReasonEvent>().Subscribe(OnGetVoidReason);
             //Names = new ObservableCollection<string>();
             //AvailableUnits = new ObservableCollection<Unit>();
             //AddedUnits = new ObservableCollection<Unit>();
             Materials = new ObservableCollection<Model.Material>();
             Organizations = new ObservableCollection<Organization>();
-
+            Units = new ObservableCollection<Unit>();
         }
         public ObservableCollection<Material> Materials { get; set; }
         public ObservableCollection<Organization> Organizations { get; set; }
-        public IAddMaterialUnitDetailsViewModel AddRelatedMaterialUnitViewModel { get; set; }
-        public IAddMaterialUnitDetailsViewModel AddUnRelatedMaterialUnitViewModel { get; set; }
+
+        // commented because unrelated materials has been bended and not GetRelatedUnitsByUnitId exist in data access layer
+        //public IAddMaterialUnitDetailsViewModel AddRelatedMaterialUnitViewModel { get; set; }
+        //public IAddMaterialUnitDetailsViewModel AddUnRelatedMaterialUnitViewModel { get; set; }
 
         //public ObservableCollection<String> Names { get; set; }
 
         //public ObservableCollection<Unit> AvailableUnits { get; set; }
 
         //public ObservableCollection<Unit> AddedUnits { get; set; }
+        public ObservableCollection<Unit> Units { get; set; }
 
         public MaterialWrapper Material
         {
@@ -68,23 +72,10 @@ namespace Warehouses.UI.ViewModels
 
         public override void Load(long id)
         {
-            ResultObject resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
-            {
-                MessageDialogService.ShowInfoDialog(resultObject.Message);
-                return;
-            }
-            ResultList<Organization> organizationResultList = (ResultList<Organization>)resultObject.Data;
-            if (organizationResultList.TotalCount == 0)
-            {
-                MessageDialogService.ShowInfoDialog(Application.Current.FindResource("no_organizations_available").ToString());
-                return;
-            }
-            var organizations = organizationResultList.List;
-            //var organizations = _organizationDataService.GetAll();
-            FillLists(Organizations, organizations);
+            LoadOrganizations();
+            LoadUnits();
             //Material material = _materialService.GetById(id);
-            resultObject = BusinessLayer.Material_BL.GetAll(AppConstants.ARABIC);
+            ResultObject resultObject = BusinessLayer.Material_BL.GetAll(AppConstants.ARABIC);
             if (resultObject.Code == AppConstants.ERROR_CODE)
             {
                 MessageDialogService.ShowInfoDialog(resultObject.Message);
@@ -111,6 +102,9 @@ namespace Warehouses.UI.ViewModels
             }
             else
                 material = new Material();
+
+            InitializeMaterial(material);
+
             foreach (var item in materials.ToList())
             {
                 if (material.Id == item.Id)
@@ -118,14 +112,82 @@ namespace Warehouses.UI.ViewModels
                 if (material.ParentId == item.Id)
                     SelectedParent = item;
             }
-
             FillLists(Materials, materials);
-            InitializeMaterial(material);
+
             Material.SelectedOrganization = Organizations.FirstOrDefault(f => f.Id == material.OrganizationId);
-            AddRelatedMaterialUnitViewModel.Load(true);
-            AddUnRelatedMaterialUnitViewModel.Load(false);
+
+            resultObject = MaterialUnit_BL.GetBasicUnitByMaterialId(id, AppConstants.ARABIC);            
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                MessageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            Unit basicUnit = (Unit)resultObject.Data;
+            //Material.SelectedUnit = Units.FirstOrDefault(f => f.ParentUnitId == basicUnit.Id);
+            foreach (var unit in Units)
+            {
+                if (unit.Id == basicUnit.Id)
+                    Material.SelectedUnit = unit;
+            }
+            // commented because unrelated materials has been bended and not GetRelatedUnitsByUnitId exist in data access layer
+            //AddRelatedMaterialUnitViewModel.Load(true);
+            //AddUnRelatedMaterialUnitViewModel.Load(false);
+        }
+        private void LoadUnits()
+        {
+            ResultObject resultObject = BusinessLayer.Unit_BL.GetAll(AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                MessageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Unit> unitResultList = (ResultList<Unit>)resultObject.Data;
+            if (unitResultList.TotalCount == 0)
+            {
+                MessageDialogService.ShowInfoDialog(Application.Current.FindResource("no_units_available").ToString());
+                return;
+            }
+            var units = unitResultList.List;
+            FillLists(Units, units);
         }
 
+        private void LoadOrganizations()
+        {
+            ResultObject resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                MessageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Organization> organizationResultList = (ResultList<Organization>)resultObject.Data;
+            if (organizationResultList.TotalCount == 0)
+            {
+                MessageDialogService.ShowInfoDialog(Application.Current.FindResource("no_organizations_available").ToString());
+                return;
+            }
+            var organizations = organizationResultList.List;
+            //var organizations = _organizationDataService.GetAll();
+            FillLists(Organizations, organizations);
+        }
+
+        private void LoadMaterials()
+        {
+            ResultObject resultObject = BusinessLayer.Material_BL.GetAll(AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                MessageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Material> materialResultList = (ResultList<Material>)resultObject.Data;
+            if (materialResultList.TotalCount == 0)
+            {
+                MessageDialogService.ShowInfoDialog(Application.Current.FindResource("no_materials_available").ToString());
+                return;
+            }
+
+            var materials = materialResultList.List;
+            FillLists(Materials, materials);
+        }
         public Material SelectedParent
         {
             get { return _selectedParent; }

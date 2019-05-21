@@ -9,6 +9,7 @@ using Warehouses.UI.Events;
 using Warehouses.UI.Helper;
 using Warehouses.UI.Startup;
 using Warehouses.UI.Views.Services;
+using System;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -35,9 +36,35 @@ namespace Warehouses.UI.ViewModels
             _messageDialogService = messageDialogService;
             _eventAggregator.GetEvent<ExpandTreeItemEvent>().Subscribe(OnExpandTreeItem);
             _eventAggregator.GetEvent<AfterDetailDeletedEvent>().Subscribe(AfterDetailDeleted);
+            _eventAggregator.GetEvent<AfterDetailSavedEvent>().Subscribe(AfterSavedDeleted);
             TreeItems = new ObservableCollection<TreeViewItemViewModel>();
             TreeItems.Add(null);
         }
+
+        private void AfterSavedDeleted(AfterDetailSavedEventArgs args)
+        {
+            if (TreeItems.Count == 1 && TreeItems[0] == null)
+                return;
+            switch (args.ViewModelName)
+            {
+                case nameof(BranchDetailViewModel):
+                    AfterBranchDetailSaved(TreeItems, args);
+                    break;
+                case nameof(WarehouseDetailViewModel):
+                    /////////////AfterWarehouseDetailSaved(TreeItems, args);
+                    break;
+            }
+        }
+
+        private void AfterBranchDetailSaved(ObservableCollection<TreeViewItemViewModel> treeItems, AfterDetailSavedEventArgs args)
+        {
+            var item = treeItems.SingleOrDefault(f => f.Id == args.Id && f is BranchTreeViewItemViewModel);
+            if (item != null)
+            {
+                item.DisplayMember = args.DisplayMember;
+            }
+        }
+
         protected void AfterDetailDeleted(AfterDetailDeletedEventArgs args)
         {
             if (TreeItems.Count == 1 && TreeItems[0] == null)

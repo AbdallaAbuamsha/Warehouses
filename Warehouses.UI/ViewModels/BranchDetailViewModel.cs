@@ -153,8 +153,14 @@ namespace Warehouses.UI.ViewModels
 
         protected override void OnSaveExecute()
         {
-            bool res = _branchService.Save(_branchWrapper.Model);
-            if (res == true)
+            ResultObject resultObject = BusinessLayer.Branch_BL.Edit(Branch.Id, Branch.Name, Branch.Location, UserSingleton.GetUserId(), AppConstants.ARABIC);
+            if (resultObject.Code <= AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            bool editStatus = (bool)resultObject.Data;
+            if (editStatus == true)
             {
                 MessageDialogService.ShowInfoDialog("Saved Seccessfully");
                 RaiseDetailSavedEvent(Branch.Id, $"{Branch.Name}");
@@ -163,6 +169,19 @@ namespace Warehouses.UI.ViewModels
             {
                 MessageDialogService.ShowInfoDialog("Saved Failed");
             }
+            EventAggregator.GetEvent<ExpandTreeItemEvent>().Publish(
+            new ExpandTreeItemEventArgs
+            {
+                Id = SelectedOrganization.Id,
+                ViewModelName = (nameof(OrganizationDetailViewModel))
+            });
+                    EventAggregator.GetEvent<AfterDetailSavedEvent>().Publish(
+                        new AfterDetailSavedEventArgs
+                        {
+                            Id = Branch.Id,
+                            DisplayMember = Branch.Name,
+                            ViewModelName = nameof(BranchDetailViewModel)
+                        });
         }
 
         private Branch CreateNewBranch()

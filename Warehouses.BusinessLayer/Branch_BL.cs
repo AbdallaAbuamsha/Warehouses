@@ -109,5 +109,21 @@ namespace Warehouses.BusinessLayer
                 return ReturnResultObject(null, exception.code, exception.Message);
             }
         }
+        public static ResultObject Edit(long branchId, string name, string address, long userId, string language)
+        {
+            BusinessException exception = null;
+            ResultObject resultObject = new ResultObject();
+            MethodBase methodInfo = MethodBase.GetCurrentMethod();
+            string functionFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
+            try
+            {
+                bool editStatus = WarehousesManagementEF.Branch.Edit(branchId, name, address, out exception, language);
+                return ReturnResultObject(editStatus, exception.code, exception.Message);
+            }
+            catch
+            {
+                return ReturnResultObject(null, exception.code, exception.Message);
+            }
+        }
     }
 }

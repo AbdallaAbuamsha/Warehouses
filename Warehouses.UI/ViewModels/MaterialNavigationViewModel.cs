@@ -7,6 +7,7 @@ using Warehouses.Model;
 using Warehouses.UI.Helper;
 using Warehouses.UI.Views.Services;
 using System.Windows;
+using System.Linq;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -69,17 +70,40 @@ namespace Warehouses.UI.ViewModels
 
         protected override void AfterDetailDeleted(ObservableCollection<TreeViewItemViewModel> items, AfterDetailDeletedEventArgs args)
         {
-            throw new NotImplementedException();
+            var item = items.SingleOrDefault(f => f.Id == args.Id);
+            if (item != null)
+            {
+                items.Remove(item);
+            }
         }
 
         protected override void AfterDetailSaved(AfterDetailSavedEventArgs args)
         {
-            //throw new NotImplementedException();
+            switch (args.ViewModelName)
+            {
+                case nameof(MaterialDetailViewModel):
+                    var lookupItem = Materials.SingleOrDefault(l => l.Id == args.Id);
+                    if (lookupItem == null)
+                    {
+                        var newItem = new NavigationItemViewModel(
+                            args.Id,
+                            args.DisplayMember,
+                            nameof(MaterialDetailViewModel),
+                            eventAggregator);
+                        Materials.Add(newItem);
+                    }
+                    else
+                    {
+                        lookupItem.Name = args.DisplayMember;
+                    }
+
+                    break;
+            }
         }
 
         protected override void AfterDetailSaved(ObservableCollection<TreeViewItemViewModel> items, AfterDetailSavedEventArgs args)
         {
-            throw new NotImplementedException();
+
         }
     }
 }

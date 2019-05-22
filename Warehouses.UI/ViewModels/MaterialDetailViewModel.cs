@@ -12,6 +12,7 @@ using Warehouses.UI.Events;
 using Warehouses.UI.Views.Popups;
 using System.Windows;
 using System.Linq;
+using System.Text;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -21,6 +22,7 @@ namespace Warehouses.UI.ViewModels
         private MaterialWrapper _material;
         private Material _selectedParent;
         private string _parentCode;
+        private bool _serializable;
 
         public MaterialDetailViewModel(
             IMaterialDataService materialService,
@@ -116,7 +118,7 @@ namespace Warehouses.UI.ViewModels
 
             Material.SelectedOrganization = Organizations.FirstOrDefault(f => f.Id == material.OrganizationId);
 
-            resultObject = MaterialUnit_BL.GetBasicUnitByMaterialId(id, AppConstants.ARABIC);            
+            resultObject = MaterialUnit_BL.GetBasicUnitByMaterialId(id, AppConstants.ARABIC);
             if (resultObject.Code == AppConstants.ERROR_CODE)
             {
                 MessageDialogService.ShowInfoDialog(resultObject.Message);
@@ -188,6 +190,7 @@ namespace Warehouses.UI.ViewModels
             var materials = materialResultList.List;
             FillLists(Materials, materials);
         }
+
         public Material SelectedParent
         {
             get { return _selectedParent; }
@@ -198,6 +201,7 @@ namespace Warehouses.UI.ViewModels
                 ParentCode = SelectedParent.Code;
             }
         }
+
         public string ParentCode
         {
             get { return _parentCode; }
@@ -217,9 +221,19 @@ namespace Warehouses.UI.ViewModels
                 }
             }
         }
+        
+        public bool Serializable
+        {
+            get { return _serializable; }
+            set { _serializable = value;
+                OnPropertyChanged();
+            }
+        }
+
         private void InitializeMaterial(Material material)
         {
             Material = new MaterialWrapper(material);
+            Serializable = material.Serializable;
             Material.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(Material.HasErrors))
@@ -251,12 +265,35 @@ namespace Warehouses.UI.ViewModels
 
         protected override void OnSaveExecute()
         {
+            long? parentId = null;
+            if (SelectedParent != null) parentId = SelectedParent.Id;
+            ResultObject resultObject = Material_BL.Edit(
+                Material.Id,
+                Material.Name,
+                Material.LatinName,
+                Material.Code,
+                Material.Barcode,
+                Serializable,
+                Material.MinimumSaleAmount,
+                Material.MaximumSaleAmount,
+                Material.FreeReferencesAmount,
+                parentId,
+                AppConstants.ARABIC);
+            EventAggregator.GetEvent<AfterDetailSavedEvent>().Publish(
+            new AfterDetailSavedEventArgs
+            {
+                Id = Material.Id,
+                DisplayMember = Material.Name,
+                ViewModelName = nameof(MaterialDetailViewModel)
+            });
         }
+
         private Material CreateNewOrganization()
         {
             var material = new Material();
             return material;
         }
+
         private void OnGetVoidReason(string voidReason)
         {
             ResultObject resultObject = Material_BL.Delete(Material.Id, voidReason, AppConstants.ARABIC);

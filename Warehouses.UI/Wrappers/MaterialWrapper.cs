@@ -76,11 +76,6 @@ namespace Warehouses.UI.Wrappers
             set { SetValue(value); }
         }
 
-        public bool Serializable
-        {
-            get { return GetValue<bool>(); }
-            set { SetValue(value); }
-        }
         public Unit SelectedUnit
         {
             get { return GetValue<Unit>(); }

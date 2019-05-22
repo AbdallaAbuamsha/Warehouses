@@ -147,7 +147,7 @@
             <CheckBox
                     Margin="0 10"
                     Content="Serializable"
-                    IsChecked="{Binding Material.Serializable}"/>
+                    IsChecked="{Binding Serializable}"/>
 
             <!--<GroupBox Header="{DynamicResource material__related_units_information}" >
                 <views:AddUnitToMaterial DataContext="{Binding AddRelatedMaterialUnitViewModel}"/>

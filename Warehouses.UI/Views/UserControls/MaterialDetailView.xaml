@@ -122,11 +122,13 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 SelectedItem="{Binding Material.SelectedUnit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                 DisplayMemberPath="Name"
                 Margin="0 10 0 20"
-                Style="{DynamicResource MaterialDesignFloatingHintComboBox}" />
+                Style="{DynamicResource MaterialDesignFloatingHintComboBox}" 
+                 Focusable="false" IsHitTestVisible="false"
+                />
             <CheckBox
                     Margin="0 10"
                     Content="Serializable"
-                    IsChecked="{Binding Material.Serializable}"/>
+                    IsChecked="{Binding Serializable}"/>
 
             <!--<GroupBox Header="{DynamicResource material__related_units_information}" >
                 <views:AddUnitToMaterial DataContext="{Binding AddRelatedMaterialUnitViewModel}"/>
@@ -137,16 +139,32 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             </GroupBox>-->
         </StackPanel>
         <!--Login-->
-        <Button
-            Grid.Row="1"
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Bottom"
-            Command="{Binding Save}"
-            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
-                AncestorType={x:Type Window}}}"
-            Margin="10 25 10 20"
-            Padding="0"
-            Content="{DynamicResource material_save}"/>
+        <Grid Grid.Row="5"
+              Grid.ColumnSpan="2"
+                    HorizontalAlignment="Stretch"
+              VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button             
+                Command="{Binding SaveCommand}"
+                Margin="10"
+                Padding="0"
+                Content="Save"
+                MaxWidth="350"
+                MinWidth="150"
+            HorizontalAlignment="Right"/>
+            <Button     
+                Grid.Column="1"
+                Command="{Binding DeleteCommand}"
+                Margin="10"
+                Padding="0"
+                Background="#c0392b"
+                Content="Delete"
+                MaxWidth="350"
+                MinWidth="150"
+            HorizontalAlignment="Left"/>
+        </Grid>
     </Grid>
 </UserControl>

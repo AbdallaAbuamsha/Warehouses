@@ -88,5 +88,21 @@ namespace Warehouses.BusinessLayer
                 return ReturnResultObject(null, exception.code, exception.Message);
             }
         }
+        public static ResultObject Edit(long materialId, string name, string latinName, string code, string barcode, bool serializable, decimal? minQuantity, decimal? maxQuantity, decimal? freeQuantity, long? parentMaterialId, string language)
+        {
+            BusinessException exception = null;
+            ResultObject resultObject = new ResultObject();
+            MethodBase methodInfo = MethodBase.GetCurrentMethod();
+            string functionFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
+            try
+            {
+                bool editStatus = WarehousesManagementEF.Material.Edit(materialId, name, latinName, code, barcode, serializable,  minQuantity, maxQuantity, freeQuantity,  parentMaterialId, out exception, language);
+                return ReturnResultObject(editStatus, exception.code, exception.Message);
+            }
+            catch
+            {
+                return ReturnResultObject(null, exception.code, exception.Message);
+            }
+        }
     }
 }

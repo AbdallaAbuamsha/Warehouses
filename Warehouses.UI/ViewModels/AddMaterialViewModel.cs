@@ -186,7 +186,7 @@ namespace Warehouses.UI.ViewModels
             //}
             unitId = SelectedUnit.Id;
             if (SelectedParent != null) parentId = SelectedParent.Id;
-            ResultObject resultObject = Material_BL.Create(Material.Name, Material.LatinName, Material.Code, Material.Barcode, Material.Serializable, unitId, Material.MinimumSaleAmount, Material.MaximumSaleAmount, Material.FreeReferencesAmount, Material.SelectedOrganization.Id, parentId, AppConstants.ARABIC);
+            ResultObject resultObject = Material_BL.Create(Material.Name, Material.LatinName, Material.Code, Material.Barcode, Serializable, unitId, Material.MinimumSaleAmount, Material.MaximumSaleAmount, Material.FreeReferencesAmount, Material.SelectedOrganization.Id, parentId, AppConstants.ARABIC);
             _eventAggregator.GetEvent<AfterDetailSavedEvent>().Publish(
             new AfterDetailSavedEventArgs
             {
@@ -231,6 +231,15 @@ namespace Warehouses.UI.ViewModels
             set
             {
                 _selectedUnit = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool Serializable
+        {
+            get { return _serializable; }
+            set
+            {
+                _serializable = value;
                 OnPropertyChanged();
             }
         }

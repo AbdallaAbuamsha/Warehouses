@@ -14,7 +14,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
-        Title="AddOrganization" Height="510" Width="550"
+        Title="AddOrganization" Height="540" Width="550"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         WindowStyle="None">
@@ -86,6 +86,13 @@
                 x:Name="Username"
                 materialDesign:HintAssist.Hint="{DynamicResource add_warehouse_name}"
                 Text="{Binding Warehouse.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+
+            <TextBox
+                Grid.Row="2"
+                materialDesign:HintAssist.Hint="Warehouse Latin Name"
+                Text="{Binding Warehouse.LatinName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 

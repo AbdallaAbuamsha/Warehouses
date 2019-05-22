@@ -19,6 +19,7 @@ namespace Warehouses.BusinessLayer
             Model.Warehouse temp = new Model.Warehouse();
             temp.Id = warehouse.ID;
             temp.Name = warehouse.NAME;
+            temp.LatinName = warehouse.LATIN_NAME;
             temp.Location = warehouse.ADDRESS;
             temp.OrganizationID = warehouse.ORGANIZATION_ID;
             temp.BranchId = warehouse.BRANCH_ID;

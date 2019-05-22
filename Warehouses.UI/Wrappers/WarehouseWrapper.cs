@@ -18,6 +18,11 @@ namespace Warehouses.UI.Wrappers
             get { return GetValue<string>(); }
             set { SetValue(value); }
         }
+        public string LatinName
+        {
+            get { return GetValue<string>(); }
+            set { SetValue(value); }
+        }
 
         public string Code
         {

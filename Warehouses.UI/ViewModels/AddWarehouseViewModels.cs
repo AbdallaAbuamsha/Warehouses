@@ -113,7 +113,7 @@ namespace Warehouses.UI.ViewModels
                 parentWarehouseId = SelectedWarehouse.Id;
                 parentType = AppConstants.WAREHOUSE_PARENT_TYPE;
             }
-            ResultObject resultObject = BusinessLayer.Warehouse_BL.Create(Warehouse.Name, "", Warehouse.Location, Warehouse.Code, parentType, SelectedOrganization.Id, branchId, parentWarehouseId, AppConstants.ARABIC);
+            ResultObject resultObject = BusinessLayer.Warehouse_BL.Create(Warehouse.Name, Warehouse.LatinName, Warehouse.Location, Warehouse.Code, parentType, SelectedOrganization.Id, branchId, parentWarehouseId, AppConstants.ARABIC);
             if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);

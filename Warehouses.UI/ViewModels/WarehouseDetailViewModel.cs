@@ -11,6 +11,7 @@ using Warehouses.UI.Helper;
 using Warehouses.UI.Views.Popups;
 using Warehouses.UI.Views.Services;
 using Warehouses.UI.Wrappers;
+using System;
 
 namespace Warehouses.UI.ViewModels
 {
@@ -21,6 +22,7 @@ namespace Warehouses.UI.ViewModels
         private IMessageDialogService _messageDialogService;
         private Organization _selectedOrganization;
         private Branch _selectedBranch;
+        private Warehouse _selectedWarehouse;
 
         public WarehouseDetailViewModel(
             IEventAggregator eventAggregator,
@@ -33,6 +35,8 @@ namespace Warehouses.UI.ViewModels
 
             Organizations = new ObservableCollection<Organization>();
             Branches = new ObservableCollection<Branch>();
+            Warehouses = new ObservableCollection<Model.Warehouse>();
+
         }
 
         public WarehouseWrapper Warehouse
@@ -44,8 +48,13 @@ namespace Warehouses.UI.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public ObservableCollection<Organization> Organizations { get; set; }
+
         public ObservableCollection<Branch> Branches { get; set; }
+
+        public ObservableCollection<Warehouse> Warehouses { get; set; }
+
 
         public Organization SelectedOrganization
         {
@@ -57,6 +66,7 @@ namespace Warehouses.UI.ViewModels
                 Warehouse.Model.OrganizationID = SelectedOrganization.Id;
             }
         }
+
         public Branch SelectedBranch
         {
             get { return _selectedBranch; }
@@ -68,6 +78,18 @@ namespace Warehouses.UI.ViewModels
                     Warehouse.Model.BranchId = SelectedBranch.Id;
             }
         }
+        public Warehouse SelectedWarehouse
+        {
+            get { return _selectedWarehouse; }
+            set
+            {
+                _selectedWarehouse = value;
+                OnPropertyChanged();
+                if (Warehouse.Model.ParentWarehouseId.HasValue)
+                    Warehouse.Model.ParentWarehouseId = SelectedWarehouse.Id;
+            }
+        }
+
         public override void Load(long id)
         {
             //var warehouse = id > 0
@@ -90,7 +112,54 @@ namespace Warehouses.UI.ViewModels
                 warehouse = new Model.Warehouse();
             InitializeWarehouse(warehouse);
 
-            resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
+            GetOrganizations();
+            SelectedOrganization =  Organizations.FirstOrDefault(o => o.Id == warehouse.OrganizationID);
+
+            GetBranches();
+            GetWarehouses();
+            SelectedBranch = (warehouse.BranchId.HasValue) ? Branches.FirstOrDefault(o => o.Id == warehouse.BranchId) : null;
+            SelectedWarehouse = (warehouse.ParentWarehouseId.HasValue) ? Warehouses.FirstOrDefault(w => w.Id == warehouse.ParentWarehouseId) : null;
+
+
+        }
+
+        private void GetWarehouses()
+        {
+            ResultObject resultObject;
+            if (SelectedBranch != null)
+                resultObject = BusinessLayer.Warehouse_BL.GetAllByBranchId(SelectedBranch.Id, AppConstants.ARABIC);            
+            else
+                resultObject = BusinessLayer.Warehouse_BL.GetAllByOrganizationId(SelectedOrganization.Id, AppConstants.ARABIC);
+                
+            //ResultObject resultObject = BusinessLayer.Warehouse_BL.GetAllByOrganizationId(pareintId, AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Warehouse> warehouseResultList = (ResultList<Warehouse>)resultObject.Data;
+            var warehouses = warehouseResultList.List;
+            Warehouses.Clear();
+            FillLists(Warehouses, warehouses);
+        }
+
+        private void GetBranches()
+        {
+            ResultObject resultObject = BusinessLayer.Branch_BL.GetAllByOrganizationId(Warehouse.Model.OrganizationID, AppConstants.ARABIC);
+            if (resultObject.Code == AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            ResultList<Branch> branchResultList = (ResultList<Branch>)resultObject.Data;
+            var branches = branchResultList.List;
+            Branches.Clear();
+            FillLists(Branches, branches);
+        }
+
+        private void GetOrganizations()
+        {
+            ResultObject resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
             if (resultObject.Code == AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
@@ -105,20 +174,6 @@ namespace Warehouses.UI.ViewModels
             var organizations = organizationResultList.List;
             Organizations.Clear();
             FillLists(Organizations, organizations);
-            SelectedOrganization =  Organizations.FirstOrDefault(o => o.Id == warehouse.OrganizationID);
-           
-            resultObject = BusinessLayer.Branch_BL.GetAllByOrganizationId(warehouse.OrganizationID,AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
-            {
-                _messageDialogService.ShowInfoDialog(resultObject.Message);
-                return;
-            }
-            ResultList<Branch> branchResultList = (ResultList<Branch>)resultObject.Data;
-            var branches = branchResultList.List;
-            Branches.Clear();
-            FillLists(Branches, branches);
-            SelectedBranch = (warehouse.BranchId.HasValue) ? Branches.FirstOrDefault(o => o.Id == warehouse.BranchId) : null;
- 
         }
 
         private void InitializeWarehouse(Warehouse warehouse)
@@ -170,8 +225,14 @@ namespace Warehouses.UI.ViewModels
 
         protected override void OnSaveExecute()
         {
-            bool res = _warehouseService.Save(_warehouseWrapper.Model);
-            if (res == true)
+            ResultObject resultObject = BusinessLayer.Warehouse_BL.Edit(Warehouse.Id, Warehouse.Name, Warehouse.LatinName, Warehouse.Location, Warehouse.Code, AppConstants.ARABIC);
+            if (resultObject.Code <= AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            bool editStatus = (bool)resultObject.Data;
+            if (editStatus == true)
             {
                 MessageDialogService.ShowInfoDialog("Saved Seccessfully");
                 RaiseDetailSavedEvent(Warehouse.Id, $"{Warehouse.Name}");
@@ -180,6 +241,27 @@ namespace Warehouses.UI.ViewModels
             {
                 MessageDialogService.ShowInfoDialog("Saved Failed");
             }
+            if (SelectedBranch != null)
+                EventAggregator.GetEvent<ExpandTreeItemEvent>().Publish(
+                new ExpandTreeItemEventArgs
+                {
+                    Id = SelectedBranch.Id,
+                    ViewModelName = (nameof(BranchDetailViewModel))
+                });
+            if (SelectedWarehouse != null)
+                EventAggregator.GetEvent<ExpandTreeItemEvent>().Publish(
+                new ExpandTreeItemEventArgs
+                {
+                    Id = SelectedWarehouse.Id,
+                    ViewModelName = (nameof(WarehouseDetailViewModel))
+                });
+            EventAggregator.GetEvent<AfterDetailSavedEvent>().Publish(
+                new AfterDetailSavedEventArgs
+                {
+                    Id = Warehouse.Id,
+                    DisplayMember = Warehouse.Name,
+                    ViewModelName = nameof(WarehouseDetailViewModel)
+                });
         }
 
         private Warehouse CreateNewWarehouse()

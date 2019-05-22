@@ -17,6 +17,10 @@ namespace Warehouses.Model
         [MaxLength(50)]
         [MinLength(3)]
         [Required]
+        public string LatinName { get; set; }
+        [MaxLength(50)]
+        [MinLength(3)]
+        [Required]
         public string Code { get; set; }
         [MaxLength(50)]
         [MinLength(3)]

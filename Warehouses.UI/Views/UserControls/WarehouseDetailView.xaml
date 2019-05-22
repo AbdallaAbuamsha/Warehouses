@@ -36,8 +36,9 @@
                     DisplayMemberPath="Name"
                     materialDesign:HintAssist.Hint="Organization"
                     Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
-                    Margin="10 10 10 0">
-            </ComboBox>
+                    Margin="10 10 10 0"
+                    Focusable="false" IsHitTestVisible="false"
+                    />
             <ComboBox
                     Grid.Row="1"
                     ItemsSource="{Binding Branches}"
@@ -45,6 +46,16 @@
                     DisplayMemberPath="Name"
                     materialDesign:HintAssist.Hint="Branch"
                     Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                    Margin="10 10 10 0"
+                    Focusable="false" IsHitTestVisible="false"
+                />
+            <ComboBox
+                    Grid.Row="1"
+                    ItemsSource="{Binding Warehouses}"
+                    SelectedItem="{Binding SelectedWarehouse}"
+                    DisplayMemberPath="Name"
+                    materialDesign:HintAssist.Hint="{DynamicResource add_warehouse_parent_warehouse}"
+                    Style="{DynamicResource MaterialDesignFloatingHintComboBox}"                
                     Margin="10 10 10 0"/>
             <!--First Name-->
             <TextBox
@@ -52,6 +63,14 @@
                 x:Name="Username"
                 materialDesign:HintAssist.Hint="Warehouse Name"
                 Text="{Binding Warehouse.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Margin="10"
+                Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
+
+            <!--First Name-->
+            <TextBox
+                Grid.Row="2"
+                materialDesign:HintAssist.Hint="Warehouse Latin Name"
+                Text="{Binding Warehouse.LatinName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" />
 

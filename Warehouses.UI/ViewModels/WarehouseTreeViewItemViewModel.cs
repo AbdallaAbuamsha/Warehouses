@@ -86,7 +86,7 @@ namespace Warehouses.UI.ViewModels
                     {
                         //var warehouses = _warehouseDataService.GetByParentId(Id);
                         ResultObject warehouseResult = BusinessLayer.Warehouse_BL.GetAllByWarehouseId(Id, AppConstants.ARABIC);
-                        if (warehouseResult.Code == AppConstants.ERROR_CODE)
+                        if (warehouseResult.Code < AppConstants.ERROR_CODE)
                         {
                             _messageDialogService.ShowInfoDialog(warehouseResult.Message);
                             return;

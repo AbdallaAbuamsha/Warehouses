@@ -26,7 +26,6 @@ namespace Warehouses.UI.ViewModels
         private MaterialWrapper _material;
         private Material _selectedParent;
         private string _parentCode;
-        private Unit _selectedUnit;
 
         public AddMaterialViewModel(
             IEventAggregator eventAggregator,
@@ -88,7 +87,7 @@ namespace Warehouses.UI.ViewModels
         private void LoadUnits()
         {
             ResultObject resultObject = BusinessLayer.Unit_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
@@ -106,7 +105,7 @@ namespace Warehouses.UI.ViewModels
         private void LoadOrganizations()
         {
             ResultObject resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
@@ -124,7 +123,7 @@ namespace Warehouses.UI.ViewModels
         private void LoadMaterials()
         {
             ResultObject resultObject = BusinessLayer.Material_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
@@ -184,16 +183,23 @@ namespace Warehouses.UI.ViewModels
             //{
             //    unRelatedUnitNames.Append(item.Unit.Name + "\n");
             //}
-            unitId = SelectedUnit.Id;
+            unitId = Material.SelectedUnit.Id;
             if (SelectedParent != null) parentId = SelectedParent.Id;
             ResultObject resultObject = Material_BL.Create(Material.Name, Material.LatinName, Material.Code, Material.Barcode, Serializable, unitId, Material.MinimumSaleAmount, Material.MaximumSaleAmount, Material.FreeReferencesAmount, Material.SelectedOrganization.Id, parentId, AppConstants.ARABIC);
+            if(resultObject.Code < AppConstants.ERROR_CODE)
+            {
+                _messageDialogService.ShowInfoDialog(resultObject.Message);
+                return;
+            }
+            long materialId = (long)resultObject.Data;
             _eventAggregator.GetEvent<AfterDetailSavedEvent>().Publish(
             new AfterDetailSavedEventArgs
             {
-                Id = Material.Id,
+                Id = materialId, 
                 DisplayMember = Material.Name,
                 ViewModelName = nameof(MaterialDetailViewModel)
             });
+            window.Close();
         }
 
         private void ExecuteCloseOrganizationCommand(Window window)
@@ -225,15 +231,15 @@ namespace Warehouses.UI.ViewModels
                 ParentCode = SelectedParent.Code;
             }
         }
-        public Unit SelectedUnit
-        {
-            get { return _selectedUnit; }
-            set
-            {
-                _selectedUnit = value;
-                OnPropertyChanged();
-            }
-        }
+        //public Unit SelectedUnit
+        //{
+        //    get { return _selectedUnit; }
+        //    set
+        //    {
+        //        _selectedUnit = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
         public bool Serializable
         {
             get { return _serializable; }

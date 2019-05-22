@@ -78,7 +78,7 @@ namespace Warehouses.UI.ViewModels
             LoadUnits();
             //Material material = _materialService.GetById(id);
             ResultObject resultObject = BusinessLayer.Material_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 MessageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
@@ -95,7 +95,7 @@ namespace Warehouses.UI.ViewModels
             if (id > 0)
             {
                 resultObject = Material_BL.GetById(id, AppConstants.ARABIC);
-                if (resultObject.Code == AppConstants.ERROR_CODE)
+                if (resultObject.Code < AppConstants.ERROR_CODE)
                 {
                     MessageDialogService.ShowInfoDialog(resultObject.Message);
                     return;
@@ -119,7 +119,7 @@ namespace Warehouses.UI.ViewModels
             Material.SelectedOrganization = Organizations.FirstOrDefault(f => f.Id == material.OrganizationId);
 
             resultObject = MaterialUnit_BL.GetBasicUnitByMaterialId(id, AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 MessageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
@@ -138,7 +138,7 @@ namespace Warehouses.UI.ViewModels
         private void LoadUnits()
         {
             ResultObject resultObject = BusinessLayer.Unit_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 MessageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
@@ -156,7 +156,7 @@ namespace Warehouses.UI.ViewModels
         private void LoadOrganizations()
         {
             ResultObject resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 MessageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
@@ -175,7 +175,7 @@ namespace Warehouses.UI.ViewModels
         private void LoadMaterials()
         {
             ResultObject resultObject = BusinessLayer.Material_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 MessageDialogService.ShowInfoDialog(resultObject.Message);
                 return;

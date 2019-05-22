@@ -155,7 +155,7 @@ namespace Warehouses.UI.ViewModels
                     {
                         //var branches = _brancheDataService.GetByParentId(Id);
                         ResultObject branchResult = BusinessLayer.Branch_BL.GetAllByOrganizationId(Id, AppConstants.ARABIC);
-                        if (branchResult.Code == AppConstants.ERROR_CODE)
+                        if (branchResult.Code < AppConstants.ERROR_CODE)
                         {
                             _messageDialogService.ShowInfoDialog(branchResult.Message);
                             return;
@@ -164,7 +164,7 @@ namespace Warehouses.UI.ViewModels
                         List<Branch> branches = branchListResult.List;
 
                         ResultObject warehouseResult = BusinessLayer.Warehouse_BL.GetAllByOrganizationId(Id, AppConstants.ARABIC);
-                        if (warehouseResult.Code == AppConstants.ERROR_CODE)
+                        if (warehouseResult.Code < AppConstants.ERROR_CODE)
                         {
                             _messageDialogService.ShowInfoDialog(warehouseResult.Message);
                             return;

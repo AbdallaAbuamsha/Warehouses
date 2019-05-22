@@ -67,7 +67,7 @@ namespace Warehouses.UI.ViewModels
             //FillLists(Organizations, organizations);
             //FillLists(Branches, branches);;
             ResultObject resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
@@ -167,7 +167,7 @@ namespace Warehouses.UI.ViewModels
         private void getSelectedOrganizationWarehouses()
         {
             ResultObject branchResult = BusinessLayer.Warehouse_BL.GetAllByOrganizationId(SelectedOrganization.Id, AppConstants.ARABIC);
-            if (branchResult.Code == AppConstants.ERROR_CODE)
+            if (branchResult.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(branchResult.Message);
                 return;
@@ -180,7 +180,7 @@ namespace Warehouses.UI.ViewModels
         private void getSelectedOrganizationBranches()
         {
             ResultObject branchResult = BusinessLayer.Branch_BL.GetAllByOrganizationId(SelectedOrganization.Id, AppConstants.ARABIC);
-            if (branchResult.Code == AppConstants.ERROR_CODE)
+            if (branchResult.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(branchResult.Message);
                 return;
@@ -206,7 +206,7 @@ namespace Warehouses.UI.ViewModels
         private void getSelectedBranchWarehouses()
         {
             ResultObject warehouseResult = BusinessLayer.Warehouse_BL.GetAllByBranchId(SelectedBranch.Id, AppConstants.ARABIC);
-            if (warehouseResult.Code == AppConstants.ERROR_CODE)
+            if (warehouseResult.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(warehouseResult.Message);
                 return;

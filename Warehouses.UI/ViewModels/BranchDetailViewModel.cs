@@ -69,7 +69,7 @@ namespace Warehouses.UI.ViewModels
             if (id > 0)
             {
                 resultObject = Branch_BL.GetById(id, AppConstants.ARABIC);
-                if (resultObject.Code == AppConstants.ERROR_CODE)
+                if (resultObject.Code < AppConstants.ERROR_CODE)
                 {
                     _messageDialogService.ShowInfoDialog(resultObject.Message);
                     return;
@@ -82,7 +82,7 @@ namespace Warehouses.UI.ViewModels
 
             //var organizations = _branchService.GetAllOrganizations();
             resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;

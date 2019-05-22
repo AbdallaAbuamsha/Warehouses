@@ -34,7 +34,7 @@ namespace Warehouses.UI.ViewModels
         {
             //var units = _unitService.GetAll();
             ResultObject resultObject = BusinessLayer.Unit_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;

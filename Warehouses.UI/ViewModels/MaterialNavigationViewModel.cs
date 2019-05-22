@@ -29,7 +29,7 @@ namespace Warehouses.UI.ViewModels
         {
             //var materials = _materialService.GetAll();
             ResultObject resultObject = BusinessLayer.Material_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;

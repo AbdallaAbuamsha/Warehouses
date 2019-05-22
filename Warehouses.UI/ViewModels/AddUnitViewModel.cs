@@ -57,7 +57,7 @@ namespace Warehouses.UI.ViewModels
         {
             //MyAddUnitRelationViewModel.Load();
             ResultObject resultObject = BusinessLayer.Unit_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;

@@ -45,7 +45,7 @@ namespace Warehouses.UI.ViewModels
         public override void Load()
         {
             ResultObject resultObject = BusinessLayer.Organization_BL.GetAll(AppConstants.ARABIC);
-            if(resultObject.Code == AppConstants.ERROR_CODE)
+            if(resultObject.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;

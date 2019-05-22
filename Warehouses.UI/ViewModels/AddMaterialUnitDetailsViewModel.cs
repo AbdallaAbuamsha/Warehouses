@@ -57,7 +57,7 @@ namespace Warehouses.UI.ViewModels
             //Todo: Change the hint data
             //var units = _unitDataService.GetAll();
             ResultObject resultObject = BusinessLayer.Unit_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;

@@ -91,7 +91,7 @@ namespace Warehouses.UI.ViewModels
         public override void Load(long id)
         {
             ResultObject resultObject = BusinessLayer.Unit_BL.GetAll(AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;
@@ -110,7 +110,7 @@ namespace Warehouses.UI.ViewModels
             var units = unitResultList.List;
             //var organizations = _organizationDataService.GetAll();
             resultObject = Unit_BL.GetById(id, AppConstants.ARABIC);
-            if (resultObject.Code == AppConstants.ERROR_CODE)
+            if (resultObject.Code < AppConstants.ERROR_CODE)
             {
                 _messageDialogService.ShowInfoDialog(resultObject.Message);
                 return;

@@ -251,10 +251,10 @@ namespace Warehouses.UI.ViewModels
 
         protected override void OnDeleteExecute()
         {
-            var result = MessageDialogService.ShowOkCancelDialog($"Do you really want to delete the Material {Material.Name}?", "Question");
+            //var result = MessageDialogService.ShowOkCancelDialog($"Do you really want to delete the Material {Material.Name}?", "Question");
 
-            if (result == MessageDialogResult.Cancel)
-                return;
+            //if (result == MessageDialogResult.Cancel)
+            //    return;
             new GetReasonWindow(EventAggregator).ShowDialog();
         }
 
@@ -288,7 +288,7 @@ namespace Warehouses.UI.ViewModels
             });
         }
 
-        private Material CreateNewOrganization()
+        private Material CreateNewMaterial()
         {
             var material = new Material();
             return material;
@@ -305,7 +305,7 @@ namespace Warehouses.UI.ViewModels
             bool res = (bool)resultObject.Data;
             if (res == true)
             {
-                MessageDialogService.ShowInfoDialog("Deleted Seccessfully");
+                //MessageDialogService.ShowInfoDialog("Deleted Seccessfully");
                 RaiseDetailDeletedEvent(Material.Id);
             }
             else

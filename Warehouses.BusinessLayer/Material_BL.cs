@@ -80,7 +80,7 @@ namespace Warehouses.BusinessLayer
             string functionFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
             try
             {
-                bool deleteStatus = WarehousesManagementEF.Organization.Delete(materialId, voidReason, out exception, language);
+                bool deleteStatus = WarehousesManagementEF.Material.Delete(materialId, voidReason, out exception, language);
                 return ReturnResultObject(deleteStatus, exception.code, exception.Message);
             }
             catch

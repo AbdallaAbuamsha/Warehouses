@@ -61,20 +61,21 @@ namespace Warehouses.UI.ViewModels
         }
         protected override void AfterDetailDeleted(AfterDetailDeletedEventArgs args)
         {
-            eventAggregator.GetEvent<OpenDetailViewEvent>().Publish(
-            new OpenDetailViewEventArgs
+            switch (args.ViewModelName)
             {
-                ViewModelName = nameof(MaterialDetailViewModel)
-            });
+                case nameof(MaterialDetailViewModel):
+                    var material = Materials.SingleOrDefault(f => f.Id == args.Id);
+                    if (material != null)
+                    {
+                        Materials.Remove(material);
+                    }
+                    break;
+            }
         }
 
         protected override void AfterDetailDeleted(ObservableCollection<TreeViewItemViewModel> items, AfterDetailDeletedEventArgs args)
         {
-            var item = items.SingleOrDefault(f => f.Id == args.Id);
-            if (item != null)
-            {
-                items.Remove(item);
-            }
+
         }
 
         protected override void AfterDetailSaved(AfterDetailSavedEventArgs args)

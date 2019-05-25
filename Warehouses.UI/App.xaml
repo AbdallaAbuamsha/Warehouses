@@ -33,7 +33,7 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            <Style TargetType="ComboBox">
+            <!--<Style TargetType="ComboBox">
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="True">
                         <Setter Property="Validation.ErrorTemplate">
@@ -52,7 +52,7 @@
                         Path=(Validation.Errors)[0].ErrorContent}"></Setter>
                     </Trigger>
                 </Style.Triggers>
-            </Style>
+            </Style>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

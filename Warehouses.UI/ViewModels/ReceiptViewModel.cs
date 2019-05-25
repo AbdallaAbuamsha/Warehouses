@@ -16,6 +16,10 @@ namespace Warehouses.UI.ViewModels
         private Warehouse _selectedFromWarehouse;
         private IEventAggregator _eventAggregator;
         private bool _isFromWarehouse;
+        private bool _isFromSupplier;
+        private bool _isToWarehouse;
+        private bool _isToCostumer;
+
 
         public ReceiptViewModel(ReceiptTableViewModel receiptTable, IWarehouseDataService warehouseService, IEventAggregator eventAggregator)
         {
@@ -27,6 +31,8 @@ namespace Warehouses.UI.ViewModels
             Close = new DelegateCommand<Window>(ExecuteCloesCommand);
             Save = new DelegateCommand<Window>(ExecuteSaveCommand);
             Date = DateTime.Now;
+            IsToWarehouse = IsFromWarehouse = true;
+            IsFromSupplier = IsToWarehouse = false;
         }
 
         public void Load()
@@ -61,9 +67,39 @@ namespace Warehouses.UI.ViewModels
                 _isFromWarehouse = value;
                 OnPropertyChanged();
             } }
-        public bool IsFromSupplier { get; set; }
-        public bool IsToWarehouse { get; set; }
-        public bool IsToCostumer { get; set; }
+        public bool IsFromSupplier
+        {
+            get
+            {
+                return _isFromSupplier;
+            }
+            set
+            {
+                _isFromSupplier = value;
+            }
+        }
+        public bool IsToWarehouse
+        {
+            get
+            {
+                return _isToWarehouse;
+            }
+            set
+            {
+                _isToWarehouse = value;
+            }
+        }
+        public bool IsToCostumer
+        {
+            get
+            {
+                return _isToCostumer;
+            }
+            set
+            {
+                _isToCostumer = value;
+            }
+        }
 
         public ICommand AddRow { get; set; }
 

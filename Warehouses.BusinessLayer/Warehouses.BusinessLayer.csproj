@@ -57,6 +57,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Receipt_BL.cs" />
     <Compile Include="Unit_BL.cs" />
     <Compile Include="User_BL.cs" />
     <Compile Include="Warehouse_BL.cs" />
